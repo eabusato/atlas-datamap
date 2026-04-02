@@ -1,0 +1,33 @@
+include README.md
+include CHANGELOG.md
+recursive-include docs *.md
+recursive-include atlas py.typed
+recursive-include atlas/_c *.c *.h Makefile CMakeLists.txt
+include examples/render_fictional_bank_sigilo.py
+include examples/fictional_bank.system.svg
+
+prune .atlas_cache
+prune .claude
+prune .github
+prune .idea
+prune .mypy_cache
+prune .pytest_cache
+prune .ruff_cache
+prune .venv312
+prune atlas_onboarding
+prune build
+prune dist
+prune examples/full_showcase/generated
+prune examples/sigilo_compare
+prune md_out
+prune tests
+prune tests/tmp
+recursive-exclude tests *
+
+global-exclude .DS_Store
+global-exclude *.py[cod]
+global-exclude *.pyo
+global-exclude *.pyd
+global-exclude *.so
+global-exclude *.dylib
+global-exclude *.dll

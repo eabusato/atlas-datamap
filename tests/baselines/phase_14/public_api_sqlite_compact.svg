@@ -1,0 +1,312 @@
+<ns0:svg xmlns:ns0="http://www.w3.org/2000/svg" aria-label="Atlas database sigilo" height="800" role="img" viewBox="0 0 800 800" width="800"><ns0:desc>Atlas Datamap - navigable database sigilo.</ns0:desc><ns0:defs><ns0:style>.bg { fill: #f7f1e5; }
+      .macro-ring { fill: none; stroke: #1f2937; stroke-width: 2.0; opacity: 0.00; stroke-dasharray: none; }
+      .schema-label { fill: #0f172a; font: 9.20px monospace; opacity: 0.75; }
+      .hash { fill: #111827; font: 8.05px monospace; letter-spacing: 0.5px; }
+      .foundation-ring { fill: none; stroke: #1f2937; stroke-width: 1.3; opacity: 0.18; }
+      .db-core-shell { fill: rgba(255,252,246,0.86); stroke: #5a4b3f; stroke-width: 1.0; }
+      .db-core { fill: #d1fae5; stroke: #0f766e; stroke-width: 1.8; }
+      .db-core-mark { fill: none; stroke: #0f766e; stroke-width: 0.9; opacity: 0.75; }
+      .db-core-label { fill: #0f172a; font: bold 12.65px monospace; }
+      .db-core-sub { fill: #475569; font: 9.20px monospace; opacity: 0.82; }
+      .schema-core-shell { fill: rgba(255,252,246,0.82); stroke: #5a4b3f; stroke-width: 0.92; }
+      .schema-core { fill: #f7efe3; stroke: #57483b; stroke-width: 1.0; }
+      .schema-core-mark { fill: none; stroke: #8b7763; stroke-width: 0.8; opacity: 0.72; }
+      .schema-core-label { fill: #0f172a; font: 9.20px monospace; opacity: 0.88; }
+      .schema-core-sub { fill: #475569; font: 8.05px monospace; opacity: 0.72; }
+      .base { stroke: #1f1a17; stroke-width: 1.6; fill: none; opacity: 0.7; }
+      .primary { stroke: #111827; stroke-width: 2.4; fill: none; stroke-linecap: round; }
+      .call { stroke: #4b5563; stroke-width: 1.5; fill: none; stroke-linecap: round; opacity: 0.82; }
+      .branch { stroke: #6b7280; stroke-width: 1.2; fill: none; stroke-dasharray: 5 4; opacity: 0.8; }
+      .node-main { fill: #f8fafc; stroke: #1f2937; stroke-width: 1.65; }
+      .node-aux  { fill: #f1f5f9; stroke: #475569; stroke-width: 1.15; stroke-dasharray: 4 3; }
+      .node-loop { fill: #ecfeff; stroke: #0f766e; stroke-width: 1.2; }
+      .node-fk   { fill: #fef9c3; stroke: #92400e; stroke-width: 1.1; stroke-dasharray: 6 3; }
+      .node-loop-inner { fill: none; stroke: #0f766e; stroke-width: 0.9; opacity: 0.8; }
+      .node-shell { fill: none; stroke: #5a4b3f; stroke-width: 1.0; opacity: 0.78; }
+      .node-foundation { fill: none; stroke: #b7a690; stroke-width: 0.8; opacity: 0.62; }
+      .col-orbit { fill: none; stroke: #c5b59f; stroke-width: 0.8; opacity: 0.60; }
+      .col-chord { fill: none; stroke: #7b6a59; stroke-width: 0.72; opacity: 0.52; }
+      .node-core { fill: #f7efe3; stroke: #57483b; stroke-width: 0.82; }
+      .col-spoke { stroke: #8d7a68; stroke-width: 0.82; opacity: 0.58; }
+      .col-pk { fill: #111827; }
+      .col-fk { fill: #0f766e; }
+      .col-reg { fill: #64748b; }
+      .col-nullable { opacity: 0.55; }
+      .label { fill: #0f172a; font: 9.20px monospace; opacity: 0.68; }
+      .col-label { fill: #0f172a; font: 6.90px monospace; opacity: 0.78; }
+      .node-metric { fill: #334155; font: 8.05px monospace; opacity: 0.78; }
+      .system-node-wrap, .system-edge-wrap, .system-schema-wrap, .system-column-wrap, .system-column-link-wrap { cursor: help; }
+      .system-node-wrap:hover &gt; circle { opacity: 0.94; }
+      .system-edge-wrap:hover &gt; line, .system-edge-wrap:hover &gt; path { opacity: 1.0; stroke-width: 2.2; }</ns0:style></ns0:defs><ns0:rect class="bg" height="800" width="800" /><ns0:g id="database_foundation"><ns0:circle class="foundation-ring" cx="400.0" cy="400.0" r="82.7" /><ns0:circle class="foundation-ring" cx="400.0" cy="400.0" r="157.9" /><ns0:circle class="foundation-ring" cx="400.0" cy="400.0" r="255.7" /><ns0:circle class="foundation-ring" cx="400.0" cy="400.0" r="376.0" /><ns0:circle class="db-core-shell" cx="400.0" cy="400.0" r="52.0" /><ns0:circle class="db-core" cx="400.0" cy="400.0" r="44.0" /><ns0:circle class="db-core-mark" cx="400.0" cy="400.0" r="36.0" /><ns0:text class="db-core-label" text-anchor="middle" x="400.0" y="398.0">DATABASE_PATH.db</ns0:text><ns0:text class="db-core-sub" text-anchor="middle" x="400.0" y="412.0">sqlite @</ns0:text></ns0:g><ns0:g id="fk_edges"><ns0:g class="system-edge-wrap" data-fk-columns="customer_id-&gt;id" data-fk-from="main.accounts" data-fk-to="main.customers" data-fk-type="declared" data-on-delete="NO ACTION" data-relationship-kind="direct"><ns0:line class="call" x1="400.00" x2="482.49" y1="313.26" y2="373.20" /></ns0:g><ns0:g class="system-edge-wrap" data-fk-columns="order_id-&gt;id" data-fk-from="main.invoices" data-fk-to="main.orders" data-fk-type="declared" data-on-delete="NO ACTION" data-relationship-kind="direct"><ns0:line class="call" x1="450.98" x2="317.51" y1="470.17" y2="373.20" /></ns0:g><ns0:g class="system-edge-wrap" data-fk-columns="order_id-&gt;id" data-fk-from="main.order_items" data-fk-to="main.orders" data-fk-type="declared" data-on-delete="NO ACTION" data-relationship-kind="direct"><ns0:line class="call" x1="349.02" x2="317.51" y1="470.17" y2="373.20" /></ns0:g><ns0:g class="system-edge-wrap" data-fk-columns="account_id-&gt;id" data-fk-from="main.orders" data-fk-to="main.accounts" data-fk-type="declared" data-on-delete="NO ACTION" data-relationship-kind="direct"><ns0:line class="call" x1="317.51" x2="400.00" y1="373.20" y2="313.26" /></ns0:g><ns0:g class="system-edge-wrap" data-fk-columns="customer_id-&gt;id" data-fk-from="main.orders" data-fk-to="main.customers" data-fk-type="declared" data-on-delete="NO ACTION" data-relationship-kind="direct"><ns0:line class="call" x1="317.51" x2="482.49" y1="373.20" y2="373.20" /></ns0:g></ns0:g><ns0:g id="table_nodes"><ns0:g class="system-node-wrap" data-column-count="5" data-columns-detail="id::INTEGER::PK|NULL||customer_id::INTEGER::FK|NOT NULL||account_number::TEXT::NOT NULL||status::TEXT::NOT NULL||opened_at::TEXT::NOT NULL" data-fk-count="1" data-index-count="2" data-row-estimate="2" data-schema="main" data-size-bytes="-1" data-table="accounts" data-table-type="table"><ns0:circle class="node-main" cx="400.00" cy="313.26" r="36.40" /></ns0:g><ns0:circle class="node-shell" cx="400.00" cy="313.26" r="30.40" /><ns0:ellipse class="node-foundation" cx="400.00" cy="313.26" rx="27.66" ry="20.47" /><ns0:circle class="node-core" cx="400.00" cy="313.26" r="6.00" /><ns0:circle class="col-orbit" cx="400.00" cy="313.26" r="16.00" /><ns0:g class="system-column-link-wrap" data-column-left="id" data-column-right="customer_id" data-schema="main" data-table="accounts"><ns0:path class="col-chord" d="M 400.00 297.26 Q 407.61 310.79 415.22 308.32" /></ns0:g><ns0:g class="system-column-link-wrap" data-column-left="customer_id" data-column-right="account_number" data-schema="main" data-table="accounts"><ns0:path class="col-chord" d="M 415.22 308.32 Q 404.70 319.73 409.40 326.20" /></ns0:g><ns0:g class="system-column-link-wrap" data-column-left="account_number" data-column-right="status" data-schema="main" data-table="accounts"><ns0:path class="col-chord" d="M 409.40 326.20 Q 395.30 319.73 390.60 326.20" /></ns0:g><ns0:g class="system-column-link-wrap" data-column-left="status" data-column-right="opened_at" data-schema="main" data-table="accounts"><ns0:path class="col-chord" d="M 390.60 326.20 Q 392.39 310.79 384.78 308.32" /></ns0:g><ns0:g class="system-column-link-wrap" data-column-left="opened_at" data-column-right="id" data-schema="main" data-table="accounts"><ns0:path class="col-chord" d="M 384.78 308.32 Q 400.00 305.26 400.00 297.26" /></ns0:g><ns0:g class="system-column-wrap" data-column-flags="PK | NULL" data-column-name="id" data-column-role="primary_key" data-column-type="INTEGER" data-schema="main" data-table="accounts"><ns0:line class="col-spoke" x1="400.00" x2="400.00" y1="313.26" y2="297.26" /><ns0:circle class="col-pk" cx="400.00" cy="297.26" r="3.0" /><ns0:text class="col-label" text-anchor="middle" x="400.00" y="308.71">id</ns0:text></ns0:g><ns0:g class="system-column-wrap" data-column-flags="FK | NOT NULL" data-column-name="customer_id" data-column-role="foreign_key" data-column-type="INTEGER" data-schema="main" data-table="accounts"><ns0:line class="col-spoke" x1="400.00" x2="415.22" y1="313.26" y2="308.32" /><ns0:circle class="col-fk" cx="415.22" cy="308.32" r="3.0" /><ns0:text class="col-label" text-anchor="middle" x="406.23" y="313.24">customer_id</ns0:text></ns0:g><ns0:g class="system-column-wrap" data-column-flags="NOT NULL" data-column-name="account_number" data-column-role="column" data-column-type="TEXT" data-schema="main" data-table="accounts"><ns0:line class="col-spoke" x1="400.00" x2="409.40" y1="313.26" y2="326.20" /><ns0:circle class="col-reg" cx="409.40" cy="326.20" r="3.0" /></ns0:g><ns0:g class="system-column-wrap" data-column-flags="NOT NULL" data-column-name="status" data-column-role="column" data-column-type="TEXT" data-schema="main" data-table="accounts"><ns0:line class="col-spoke" x1="400.00" x2="390.60" y1="313.26" y2="326.20" /><ns0:circle class="col-reg" cx="390.60" cy="326.20" r="3.0" /></ns0:g><ns0:g class="system-column-wrap" data-column-flags="NOT NULL" data-column-name="opened_at" data-column-role="column" data-column-type="TEXT" data-schema="main" data-table="accounts"><ns0:line class="col-spoke" x1="400.00" x2="384.78" y1="313.26" y2="308.32" /><ns0:circle class="col-reg" cx="384.78" cy="308.32" r="3.0" /></ns0:g><ns0:text class="hash" text-anchor="middle" x="400.0" y="363.7">accounts</ns0:text><ns0:g class="system-node-wrap" data-column-count="6" data-columns-detail="id::INTEGER::PK|NULL||external_ref::TEXT::NOT NULL||full_name::TEXT::NOT NULL||email::TEXT::NOT NULL||segment::TEXT::NOT NULL||created_at::TEXT::NOT NULL" data-fk-count="0" data-index-count="1" data-row-estimate="2" data-schema="main" data-size-bytes="-1" data-table="customers" data-table-type="table"><ns0:circle class="node-main" cx="482.49" cy="373.20" r="36.40" /></ns0:g><ns0:circle class="node-shell" cx="482.49" cy="373.20" r="30.40" /><ns0:ellipse class="node-foundation" cx="482.49" cy="373.20" rx="27.66" ry="20.47" /><ns0:circle class="node-core" cx="482.49" cy="373.20" r="6.00" /><ns0:circle class="col-orbit" cx="482.49" cy="373.20" r="16.00" /><ns0:g class="system-column-link-wrap" data-column-left="id" data-column-right="external_ref" data-schema="main" data-table="customers"><ns0:path class="col-chord" d="M 482.49 357.20 Q 489.42 369.20 496.35 365.20" /></ns0:g><ns0:g class="system-column-link-wrap" data-column-left="external_ref" data-column-right="full_name" data-schema="main" data-table="customers"><ns0:path class="col-chord" d="M 496.35 365.20 Q 489.42 377.20 496.35 381.20" /></ns0:g><ns0:g class="system-column-link-wrap" data-column-left="full_name" data-column-right="email" data-schema="main" data-table="customers"><ns0:path class="col-chord" d="M 496.35 381.20 Q 482.49 381.20 482.49 389.20" /></ns0:g><ns0:g class="system-column-link-wrap" data-column-left="email" data-column-right="segment" data-schema="main" data-table="customers"><ns0:path class="col-chord" d="M 482.49 389.20 Q 475.57 377.20 468.64 381.20" /></ns0:g><ns0:g class="system-column-link-wrap" data-column-left="segment" data-column-right="created_at" data-schema="main" data-table="customers"><ns0:path class="col-chord" d="M 468.64 381.20 Q 475.57 369.20 468.64 365.20" /></ns0:g><ns0:g class="system-column-link-wrap" data-column-left="created_at" data-column-right="id" data-schema="main" data-table="customers"><ns0:path class="col-chord" d="M 468.64 365.20 Q 482.49 365.20 482.49 357.20" /></ns0:g><ns0:g class="system-column-wrap" data-column-flags="PK | NULL" data-column-name="id" data-column-role="primary_key" data-column-type="INTEGER" data-schema="main" data-table="customers"><ns0:line class="col-spoke" x1="482.49" x2="482.49" y1="373.20" y2="357.20" /><ns0:circle class="col-pk" cx="482.49" cy="357.20" r="3.0" /><ns0:text class="col-label" text-anchor="middle" x="482.49" y="368.64">id</ns0:text></ns0:g><ns0:g class="system-column-wrap" data-column-flags="NOT NULL" data-column-name="external_ref" data-column-role="column" data-column-type="TEXT" data-schema="main" data-table="customers"><ns0:line class="col-spoke" x1="482.49" x2="496.35" y1="373.20" y2="365.20" /><ns0:circle class="col-reg" cx="496.35" cy="365.20" r="3.0" /></ns0:g><ns0:g class="system-column-wrap" data-column-flags="NOT NULL" data-column-name="full_name" data-column-role="column" data-column-type="TEXT" data-schema="main" data-table="customers"><ns0:line class="col-spoke" x1="482.49" x2="496.35" y1="373.20" y2="381.20" /><ns0:circle class="col-reg" cx="496.35" cy="381.20" r="3.0" /></ns0:g><ns0:g class="system-column-wrap" data-column-flags="NOT NULL" data-column-name="email" data-column-role="column" data-column-type="TEXT" data-schema="main" data-table="customers"><ns0:line class="col-spoke" x1="482.49" x2="482.49" y1="373.20" y2="389.20" /><ns0:circle class="col-reg" cx="482.49" cy="389.20" r="3.0" /></ns0:g><ns0:g class="system-column-wrap" data-column-flags="NOT NULL" data-column-name="segment" data-column-role="column" data-column-type="TEXT" data-schema="main" data-table="customers"><ns0:line class="col-spoke" x1="482.49" x2="468.64" y1="373.20" y2="381.20" /><ns0:circle class="col-reg" cx="468.64" cy="381.20" r="3.0" /></ns0:g><ns0:g class="system-column-wrap" data-column-flags="NOT NULL" data-column-name="created_at" data-column-role="column" data-column-type="TEXT" data-schema="main" data-table="customers"><ns0:line class="col-spoke" x1="482.49" x2="468.64" y1="373.20" y2="365.20" /><ns0:circle class="col-reg" cx="468.64" cy="365.20" r="3.0" /></ns0:g><ns0:text class="hash" text-anchor="middle" x="482.5" y="423.6">customers</ns0:text><ns0:g class="system-node-wrap" data-column-count="5" data-columns-detail="id::INTEGER::PK|NULL||order_id::INTEGER::FK|NOT NULL||invoice_number::TEXT::NOT NULL||issued_at::TEXT::NOT NULL||paid_at::TEXT::NULL" data-fk-count="1" data-index-count="2" data-row-estimate="2" data-schema="main" data-size-bytes="-1" data-table="invoices" data-table-type="table"><ns0:circle class="node-main" cx="450.98" cy="470.17" r="36.40" /></ns0:g><ns0:circle class="node-shell" cx="450.98" cy="470.17" r="30.40" /><ns0:ellipse class="node-foundation" cx="450.98" cy="470.17" rx="27.66" ry="20.47" /><ns0:circle class="node-core" cx="450.98" cy="470.17" r="6.00" /><ns0:circle class="col-orbit" cx="450.98" cy="470.17" r="16.00" /><ns0:g class="system-column-link-wrap" data-column-left="id" data-column-right="order_id" data-schema="main" data-table="invoices"><ns0:path class="col-chord" d="M 450.98 454.17 Q 458.59 467.70 466.20 465.23" /></ns0:g><ns0:g class="system-column-link-wrap" data-column-left="order_id" data-column-right="invoice_number" data-schema="main" data-table="invoices"><ns0:path class="col-chord" d="M 466.20 465.23 Q 455.69 476.65 460.39 483.12" /></ns0:g><ns0:g class="system-column-link-wrap" data-column-left="invoice_number" data-column-right="issued_at" data-schema="main" data-table="invoices"><ns0:path class="col-chord" d="M 460.39 483.12 Q 446.28 476.65 441.58 483.12" /></ns0:g><ns0:g class="system-column-link-wrap" data-column-left="issued_at" data-column-right="paid_at" data-schema="main" data-table="invoices"><ns0:path class="col-chord" d="M 441.58 483.12 Q 443.38 467.70 435.77 465.23" /></ns0:g><ns0:g class="system-column-link-wrap" data-column-left="paid_at" data-column-right="id" data-schema="main" data-table="invoices"><ns0:path class="col-chord" d="M 435.77 465.23 Q 450.98 462.17 450.98 454.17" /></ns0:g><ns0:g class="system-column-wrap" data-column-flags="PK | NULL" data-column-name="id" data-column-role="primary_key" data-column-type="INTEGER" data-schema="main" data-table="invoices"><ns0:line class="col-spoke" x1="450.98" x2="450.98" y1="470.17" y2="454.17" /><ns0:circle class="col-pk" cx="450.98" cy="454.17" r="3.0" /><ns0:text class="col-label" text-anchor="middle" x="450.98" y="465.62">id</ns0:text></ns0:g><ns0:g class="system-column-wrap" data-column-flags="FK | NOT NULL" data-column-name="order_id" data-column-role="foreign_key" data-column-type="INTEGER" data-schema="main" data-table="invoices"><ns0:line class="col-spoke" x1="450.98" x2="466.20" y1="470.17" y2="465.23" /><ns0:circle class="col-fk" cx="466.20" cy="465.23" r="3.0" /><ns0:text class="col-label" text-anchor="middle" x="457.22" y="470.15">order_id</ns0:text></ns0:g><ns0:g class="system-column-wrap" data-column-flags="NOT NULL" data-column-name="invoice_number" data-column-role="column" data-column-type="TEXT" data-schema="main" data-table="invoices"><ns0:line class="col-spoke" x1="450.98" x2="460.39" y1="470.17" y2="483.12" /><ns0:circle class="col-reg" cx="460.39" cy="483.12" r="3.0" /></ns0:g><ns0:g class="system-column-wrap" data-column-flags="NOT NULL" data-column-name="issued_at" data-column-role="column" data-column-type="TEXT" data-schema="main" data-table="invoices"><ns0:line class="col-spoke" x1="450.98" x2="441.58" y1="470.17" y2="483.12" /><ns0:circle class="col-reg" cx="441.58" cy="483.12" r="3.0" /></ns0:g><ns0:g class="system-column-wrap" data-column-flags="NULL" data-column-name="paid_at" data-column-role="column" data-column-type="TEXT" data-schema="main" data-table="invoices"><ns0:line class="col-spoke" x1="450.98" x2="435.77" y1="470.17" y2="465.23" /><ns0:circle class="col-reg col-nullable" cx="435.77" cy="465.23" r="3.0" /></ns0:g><ns0:text class="hash" text-anchor="middle" x="451.0" y="520.6">invoices</ns0:text><ns0:g class="system-node-wrap" data-column-count="5" data-columns-detail="id::INTEGER::PK|NULL||order_id::INTEGER::FK|NOT NULL||sku::TEXT::NOT NULL||quantity::INTEGER::NOT NULL||unit_price::NUMERIC::NOT NULL" data-fk-count="1" data-index-count="1" data-row-estimate="3" data-schema="main" data-size-bytes="-1" data-table="order_items" data-table-type="table"><ns0:circle class="node-main" cx="349.02" cy="470.17" r="36.40" /></ns0:g><ns0:circle class="node-shell" cx="349.02" cy="470.17" r="30.40" /><ns0:ellipse class="node-foundation" cx="349.02" cy="470.17" rx="27.66" ry="20.47" /><ns0:circle class="node-core" cx="349.02" cy="470.17" r="6.00" /><ns0:circle class="col-orbit" cx="349.02" cy="470.17" r="16.00" /><ns0:g class="system-column-link-wrap" data-column-left="id" data-column-right="order_id" data-schema="main" data-table="order_items"><ns0:path class="col-chord" d="M 349.02 454.17 Q 356.62 467.70 364.23 465.23" /></ns0:g><ns0:g class="system-column-link-wrap" data-column-left="order_id" data-column-right="sku" data-schema="main" data-table="order_items"><ns0:path class="col-chord" d="M 364.23 465.23 Q 353.72 476.65 358.42 483.12" /></ns0:g><ns0:g class="system-column-link-wrap" data-column-left="sku" data-column-right="quantity" data-schema="main" data-table="order_items"><ns0:path class="col-chord" d="M 358.42 483.12 Q 344.31 476.65 339.61 483.12" /></ns0:g><ns0:g class="system-column-link-wrap" data-column-left="quantity" data-column-right="unit_price" data-schema="main" data-table="order_items"><ns0:path class="col-chord" d="M 339.61 483.12 Q 341.41 467.70 333.80 465.23" /></ns0:g><ns0:g class="system-column-link-wrap" data-column-left="unit_price" data-column-right="id" data-schema="main" data-table="order_items"><ns0:path class="col-chord" d="M 333.80 465.23 Q 349.02 462.17 349.02 454.17" /></ns0:g><ns0:g class="system-column-wrap" data-column-flags="PK | NULL" data-column-name="id" data-column-role="primary_key" data-column-type="INTEGER" data-schema="main" data-table="order_items"><ns0:line class="col-spoke" x1="349.02" x2="349.02" y1="470.17" y2="454.17" /><ns0:circle class="col-pk" cx="349.02" cy="454.17" r="3.0" /><ns0:text class="col-label" text-anchor="middle" x="349.02" y="465.62">id</ns0:text></ns0:g><ns0:g class="system-column-wrap" data-column-flags="FK | NOT NULL" data-column-name="order_id" data-column-role="foreign_key" data-column-type="INTEGER" data-schema="main" data-table="order_items"><ns0:line class="col-spoke" x1="349.02" x2="364.23" y1="470.17" y2="465.23" /><ns0:circle class="col-fk" cx="364.23" cy="465.23" r="3.0" /><ns0:text class="col-label" text-anchor="middle" x="355.25" y="470.15">order_id</ns0:text></ns0:g><ns0:g class="system-column-wrap" data-column-flags="NOT NULL" data-column-name="sku" data-column-role="column" data-column-type="TEXT" data-schema="main" data-table="order_items"><ns0:line class="col-spoke" x1="349.02" x2="358.42" y1="470.17" y2="483.12" /><ns0:circle class="col-reg" cx="358.42" cy="483.12" r="3.0" /></ns0:g><ns0:g class="system-column-wrap" data-column-flags="NOT NULL" data-column-name="quantity" data-column-role="column" data-column-type="INTEGER" data-schema="main" data-table="order_items"><ns0:line class="col-spoke" x1="349.02" x2="339.61" y1="470.17" y2="483.12" /><ns0:circle class="col-reg" cx="339.61" cy="483.12" r="3.0" /></ns0:g><ns0:g class="system-column-wrap" data-column-flags="NOT NULL" data-column-name="unit_price" data-column-role="column" data-column-type="NUMERIC" data-schema="main" data-table="order_items"><ns0:line class="col-spoke" x1="349.02" x2="333.80" y1="470.17" y2="465.23" /><ns0:circle class="col-reg" cx="333.80" cy="465.23" r="3.0" /></ns0:g><ns0:text class="hash" text-anchor="middle" x="349.0" y="520.6">order_items</ns0:text><ns0:g class="system-node-wrap" data-column-count="6" data-columns-detail="id::INTEGER::PK|NULL||customer_id::INTEGER::FK|NOT NULL||account_id::INTEGER::FK|NULL||status::TEXT::NOT NULL||total_amount::NUMERIC::NOT NULL||created_at::TEXT::NOT NULL" data-fk-count="2" data-index-count="1" data-row-estimate="3" data-schema="main" data-size-bytes="-1" data-table="orders" data-table-type="table"><ns0:circle class="node-main" cx="317.51" cy="373.20" r="36.40" /></ns0:g><ns0:circle class="node-shell" cx="317.51" cy="373.20" r="30.40" /><ns0:ellipse class="node-foundation" cx="317.51" cy="373.20" rx="27.66" ry="20.47" /><ns0:circle class="node-core" cx="317.51" cy="373.20" r="6.00" /><ns0:circle class="col-orbit" cx="317.51" cy="373.20" r="16.00" /><ns0:g class="system-column-link-wrap" data-column-left="id" data-column-right="customer_id" data-schema="main" data-table="orders"><ns0:path class="col-chord" d="M 317.51 357.20 Q 324.43 369.20 331.36 365.20" /></ns0:g><ns0:g class="system-column-link-wrap" data-column-left="customer_id" data-column-right="account_id" data-schema="main" data-table="orders"><ns0:path class="col-chord" d="M 331.36 365.20 Q 324.43 377.20 331.36 381.20" /></ns0:g><ns0:g class="system-column-link-wrap" data-column-left="account_id" data-column-right="status" data-schema="main" data-table="orders"><ns0:path class="col-chord" d="M 331.36 381.20 Q 317.51 381.20 317.51 389.20" /></ns0:g><ns0:g class="system-column-link-wrap" data-column-left="status" data-column-right="total_amount" data-schema="main" data-table="orders"><ns0:path class="col-chord" d="M 317.51 389.20 Q 310.58 377.20 303.65 381.20" /></ns0:g><ns0:g class="system-column-link-wrap" data-column-left="total_amount" data-column-right="created_at" data-schema="main" data-table="orders"><ns0:path class="col-chord" d="M 303.65 381.20 Q 310.58 369.20 303.65 365.20" /></ns0:g><ns0:g class="system-column-link-wrap" data-column-left="created_at" data-column-right="id" data-schema="main" data-table="orders"><ns0:path class="col-chord" d="M 303.65 365.20 Q 317.51 365.20 317.51 357.20" /></ns0:g><ns0:g class="system-column-wrap" data-column-flags="PK | NULL" data-column-name="id" data-column-role="primary_key" data-column-type="INTEGER" data-schema="main" data-table="orders"><ns0:line class="col-spoke" x1="317.51" x2="317.51" y1="373.20" y2="357.20" /><ns0:circle class="col-pk" cx="317.51" cy="357.20" r="3.0" /><ns0:text class="col-label" text-anchor="middle" x="317.51" y="368.64">id</ns0:text></ns0:g><ns0:g class="system-column-wrap" data-column-flags="FK | NOT NULL" data-column-name="customer_id" data-column-role="foreign_key" data-column-type="INTEGER" data-schema="main" data-table="orders"><ns0:line class="col-spoke" x1="317.51" x2="331.36" y1="373.20" y2="365.20" /><ns0:circle class="col-fk" cx="331.36" cy="365.20" r="3.0" /><ns0:text class="col-label" text-anchor="middle" x="323.18" y="371.92">customer_id</ns0:text></ns0:g><ns0:g class="system-column-wrap" data-column-flags="FK | NULL" data-column-name="account_id" data-column-role="foreign_key" data-column-type="INTEGER" data-schema="main" data-table="orders"><ns0:line class="col-spoke" x1="317.51" x2="331.36" y1="373.20" y2="381.20" /><ns0:circle class="col-fk col-nullable" cx="331.36" cy="381.20" r="3.0" /><ns0:text class="col-label" text-anchor="middle" x="323.18" y="378.47">account_id</ns0:text></ns0:g><ns0:g class="system-column-wrap" data-column-flags="NOT NULL" data-column-name="status" data-column-role="column" data-column-type="TEXT" data-schema="main" data-table="orders"><ns0:line class="col-spoke" x1="317.51" x2="317.51" y1="373.20" y2="389.20" /><ns0:circle class="col-reg" cx="317.51" cy="389.20" r="3.0" /></ns0:g><ns0:g class="system-column-wrap" data-column-flags="NOT NULL" data-column-name="total_amount" data-column-role="column" data-column-type="NUMERIC" data-schema="main" data-table="orders"><ns0:line class="col-spoke" x1="317.51" x2="303.65" y1="373.20" y2="381.20" /><ns0:circle class="col-reg" cx="303.65" cy="381.20" r="3.0" /></ns0:g><ns0:g class="system-column-wrap" data-column-flags="NOT NULL" data-column-name="created_at" data-column-role="column" data-column-type="TEXT" data-schema="main" data-table="orders"><ns0:line class="col-spoke" x1="317.51" x2="303.65" y1="373.20" y2="365.20" /><ns0:circle class="col-reg" cx="303.65" cy="365.20" r="3.0" /></ns0:g><ns0:text class="hash" text-anchor="middle" x="317.5" y="423.6">orders</ns0:text></ns0:g><ns0:script type="text/javascript">(function() {
+  'use strict';
+
+  var svg = document.querySelector('svg');
+  if (!svg) return;
+
+  var vb = svg.viewBox.baseVal;
+  var VB_W = vb.width || 1200;
+  var VB_H = vb.height || 1200;
+
+  var TIP_PAD_X = 10;
+  var TIP_PAD_Y = 8;
+  var TIP_LINE_H = 15;
+  var TIP_MIN_W = 220;
+  var TIP_BG = '#f7f1e5';
+  var TIP_BORDER = '#1f2937';
+  var TIP_TEXT = '#0f172a';
+  var TIP_DIM = '#64748b';
+  var FONT_TITLE = 'bold 12.65px monospace';
+  var FONT_BODY = '11.5px monospace';
+
+  var tip = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+  tip.setAttribute('id', 'atlas-tooltip');
+  tip.style.pointerEvents = 'none';
+  tip.style.display = 'none';
+  svg.appendChild(tip);
+
+  var tipRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+  tipRect.setAttribute('rx', '3');
+  tipRect.setAttribute('fill', TIP_BG);
+  tipRect.setAttribute('stroke', TIP_BORDER);
+  tipRect.setAttribute('stroke-width', '1');
+  tip.appendChild(tipRect);
+
+  var tipLines = [];
+
+  function _fmtRows(n) {
+    if (n === null || n === undefined || isNaN(n) || n &lt; 0) return '—';
+    var s = Math.round(n).toString();
+    var out = '';
+    for (var i = 0; i &lt; s.length; i++) {
+      if (i &gt; 0 &amp;&amp; (s.length - i) % 3 === 0) out += '\u202F';
+      out += s[i];
+    }
+    return '~' + out;
+  }
+
+  function _fmtBytes(n) {
+    if (!n || isNaN(n) || n &lt;= 0) return '—';
+    var units = ['B', 'KB', 'MB', 'GB', 'TB'];
+    var value = n;
+    var unit = 0;
+    while (value &gt;= 1024 &amp;&amp; unit &lt; units.length - 1) {
+      value /= 1024;
+      unit += 1;
+    }
+    return (unit === 0 ? value.toFixed(0) : value.toFixed(1)) + ' ' + units[unit];
+  }
+
+  function _fmtType(t) {
+    var map = {
+      'table': 'table',
+      'view': 'view',
+      'materialized_view': 'mat. view',
+      'foreign_table': 'foreign'
+    };
+    return map[t] || t || '';
+  }
+
+  function _parseColumns(raw) {
+    if (!raw) return [];
+    return raw.split('||').filter(Boolean).map(function(entry) {
+      var parts = entry.split('::');
+      return {
+        name: parts[0] || '?',
+        type: parts[1] || '',
+        flags: parts[2] || ''
+      };
+    });
+  }
+
+  function _fmtConfidence(value) {
+    if (value === null || value === undefined || value === '') return '';
+    var parsed = parseFloat(value);
+    if (isNaN(parsed)) return '';
+    return Math.round(parsed * 100) + '%';
+  }
+
+  function _clearTip() {
+    while (tipLines.length) {
+      var el = tipLines.pop();
+      if (el &amp;&amp; el.parentNode) el.parentNode.removeChild(el);
+    }
+  }
+
+  function _addLine(text, opts) {
+    var el = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    el.textContent = text;
+    el.setAttribute('fill', opts &amp;&amp; opts.dim ? TIP_DIM : TIP_TEXT);
+    el.setAttribute('font', opts &amp;&amp; opts.title ? FONT_TITLE : FONT_BODY);
+    if (opts &amp;&amp; opts.title) el.setAttribute('font-weight', 'bold');
+    tip.appendChild(el);
+    tipLines.push(el);
+    return el;
+  }
+
+  function _addSep() {
+    var el = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    el.setAttribute('stroke', TIP_BORDER);
+    el.setAttribute('stroke-width', '0.5');
+    el.setAttribute('opacity', '0.4');
+    tip.appendChild(el);
+    tipLines.push(el);
+    return el;
+  }
+
+  function _buildNodeTip(ds) {
+    _clearTip();
+    _addLine((ds.table || '?') + '  (' + _fmtType(ds.tableType || ds.table_type) + ')', {title: true});
+    _addSep();
+    if (ds.schema) _addLine('schema:   ' + ds.schema);
+    _addLine('rows:     ' + _fmtRows(parseInt(ds.rowEstimate || ds.row_estimate, 10)));
+    _addLine('size:     ' + _fmtBytes(parseInt(ds.sizeBytes || ds.size_bytes, 10)));
+    var parts = [];
+    if (ds.columnCount || ds.column_count) parts.push('columns: ' + (ds.columnCount || ds.column_count));
+    if (ds.fkCount || ds.fk_count) parts.push('FKs: ' + (ds.fkCount || ds.fk_count));
+    if (ds.indexCount || ds.index_count) parts.push('indexes: ' + (ds.indexCount || ds.index_count));
+    if (parts.length) _addLine(parts.join(' | '));
+    if (ds.comment) _addLine(ds.comment, {dim: true});
+    if (ds.semanticShort || ds.semanticDetailed || ds.semanticRole || ds.semanticDomain) {
+      _addSep();
+      _addLine('semantic', {title: true});
+      if (ds.semanticShort) _addLine(ds.semanticShort);
+      if (ds.semanticDetailed) _addLine(ds.semanticDetailed, {dim: true});
+      var semanticBits = [];
+      if (ds.semanticDomain) semanticBits.push('domain: ' + ds.semanticDomain);
+      if (ds.semanticRole) semanticBits.push('role: ' + ds.semanticRole);
+      if (semanticBits.length) _addLine(semanticBits.join(' | '));
+      var confidence = _fmtConfidence(ds.semanticConfidence);
+      if (confidence) _addLine('confidence: ' + confidence, {dim: true});
+    }
+    var columns = _parseColumns(ds.columnsDetail || ds.columns_detail);
+    if (columns.length) {
+      _addSep();
+      _addLine('columns', {title: true});
+      var visible = Math.min(10, columns.length);
+      for (var i = 0; i &lt; visible; i++) {
+        var suffix = columns[i].flags ? ' [' + columns[i].flags + ']' : '';
+        _addLine('\u2022 ' + columns[i].name + ' : ' + columns[i].type + suffix, {dim: i &gt;= 5});
+      }
+      if (columns.length &gt; visible) _addLine('+' + (columns.length - visible) + ' more columns', {dim: true});
+    }
+  }
+
+  function _buildEdgeTip(ds) {
+    _clearTip();
+    _addLine((ds.fkType || ds.fk_type) === 'inferred' ? 'Indirect relationship' : 'Direct relationship', {title: true});
+    _addSep();
+    var cols = ds.fkColumns || ds.fk_columns || '';
+    if (cols) {
+      _addLine(cols.replace(/&amp;gt;/g, '&gt;'));
+    } else {
+      _addLine((ds.fkFrom || ds.fk_from || '?') + ' -&gt; ' + (ds.fkTo || ds.fk_to || '?'));
+    }
+    if (ds.onDelete || ds.on_delete) _addLine('ON DELETE: ' + (ds.onDelete || ds.on_delete), {dim: true});
+  }
+
+  function _buildSchemaTip(ds) {
+    _clearTip();
+    _addLine((ds.schema || '?') + '  (schema)', {title: true});
+    _addSep();
+    if (ds.tableCount) _addLine('tables:   ' + ds.tableCount);
+    if (ds.directFkCount) _addLine('direct FKs: ' + ds.directFkCount);
+    if (ds.totalRows) _addLine('rows:     ' + _fmtRows(parseInt(ds.totalRows, 10)));
+  }
+
+  function _buildColumnTip(ds) {
+    _clearTip();
+    _addLine((ds.columnName || '?') + '  (' + (ds.columnRole || ds.semanticRole || 'column') + ')', {title: true});
+    _addSep();
+    if (ds.schema &amp;&amp; ds.table) _addLine(ds.schema + '.' + ds.table, {dim: true});
+    if (ds.columnType) _addLine('type:     ' + ds.columnType);
+    if (ds.columnFlags) _addLine(ds.columnFlags);
+    if (ds.semanticShort || ds.semanticDetailed || ds.semanticRole) {
+      _addSep();
+      _addLine('semantic', {title: true});
+      if (ds.semanticShort) _addLine(ds.semanticShort);
+      if (ds.semanticDetailed) _addLine(ds.semanticDetailed, {dim: true});
+      if (ds.semanticRole) _addLine('role:     ' + ds.semanticRole);
+      var confidence = _fmtConfidence(ds.semanticConfidence);
+      if (confidence) _addLine('confidence: ' + confidence, {dim: true});
+    }
+  }
+
+  function _buildColumnLinkTip(ds) {
+    _clearTip();
+    _addLine('Internal linkage', {title: true});
+    _addSep();
+    if (ds.schema &amp;&amp; ds.table) _addLine(ds.schema + '.' + ds.table, {dim: true});
+    _addLine((ds.columnLeft || '?') + ' ↔ ' + (ds.columnRight || '?'));
+  }
+
+  function _measureWidth() {
+    var width = TIP_MIN_W;
+    for (var i = 0; i &lt; tipLines.length; i++) {
+      var el = tipLines[i];
+      if (el.tagName === 'text') width = Math.max(width, el.getComputedTextLength() + TIP_PAD_X * 2);
+    }
+    return width;
+  }
+
+  function _layoutTip(x, y) {
+    var width = _measureWidth();
+    var textY = TIP_PAD_Y + 12;
+    var sepCount = 0;
+    for (var i = 0; i &lt; tipLines.length; i++) {
+      var el = tipLines[i];
+      if (el.tagName === 'line') {
+        el.setAttribute('x1', TIP_PAD_X);
+        el.setAttribute('x2', width - TIP_PAD_X);
+        el.setAttribute('y1', textY - 8);
+        el.setAttribute('y2', textY - 8);
+        sepCount += 1;
+      } else {
+        el.setAttribute('x', TIP_PAD_X);
+        el.setAttribute('y', textY);
+        textY += TIP_LINE_H;
+      }
+    }
+    var height = Math.max(36, TIP_PAD_Y * 2 + (tipLines.length - sepCount) * TIP_LINE_H + 2);
+    tipRect.setAttribute('width', width);
+    tipRect.setAttribute('height', height);
+
+    var tx = x + 14;
+    var ty = y - 8;
+    if (tx + width &gt; VB_W) tx = x - width - 14;
+    if (tx &lt; 4) tx = 4;
+    if (ty + height &gt; VB_H) ty = VB_H - height - 4;
+    if (ty &lt; 4) ty = 4;
+    tip.setAttribute('transform', 'translate(' + tx + ',' + ty + ')');
+  }
+
+  function _show(evt, builder) {
+    builder(evt.currentTarget.dataset);
+    tip.style.display = 'inline';
+    _layoutTip(evt.offsetX || 0, evt.offsetY || 0);
+  }
+
+  function _hide() {
+    tip.style.display = 'none';
+    _clearTip();
+  }
+
+  function _move(evt) {
+    if (tip.style.display === 'none') return;
+    _layoutTip(evt.offsetX || 0, evt.offsetY || 0);
+  }
+
+  function _bind(selector, builder) {
+    var nodes = svg.querySelectorAll(selector);
+    nodes.forEach(function(node) {
+      node.addEventListener('mouseenter', function(evt) { _show(evt, builder); });
+      node.addEventListener('mouseleave', _hide);
+      node.addEventListener('mousemove', _move);
+    });
+  }
+
+  _bind('.system-node-wrap', _buildNodeTip);
+  _bind('.system-edge-wrap', _buildEdgeTip);
+  _bind('.system-schema-wrap', _buildSchemaTip);
+  _bind('.system-column-wrap', _buildColumnTip);
+  _bind('.system-column-link-wrap', _buildColumnLinkTip);
+})();</ns0:script></ns0:svg>

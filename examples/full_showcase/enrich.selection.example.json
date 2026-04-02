@@ -1,0 +1,11 @@
+{
+  "schemas": ["main"],
+  "tables": {
+    "main": ["payments", "payment_events", "disputes"]
+  },
+  "columns": {
+    "main.payments": ["id", "customer_id", "payment_status", "total_amount"],
+    "main.payment_events": [],
+    "main.disputes": ["id", "payment_id", "dispute_status", "opened_at"]
+  }
+}

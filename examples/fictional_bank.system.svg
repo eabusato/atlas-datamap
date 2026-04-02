@@ -1,0 +1,1280 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2960" height="2960" viewBox="0 0 2960 2960" role="img" aria-label="Atlas database sigilo">
+  <desc>Atlas Datamap - navigable database sigilo.</desc>
+  <defs>
+    <style><![CDATA[
+      .bg { fill: #f7f1e5; }
+      .macro-ring { fill: none; stroke: #1f2937; stroke-width: 2.0; opacity: 0.32; stroke-dasharray: none; }
+      .schema-label { fill: #0f172a; font: 12.65px monospace; opacity: 0.75; }
+      .hash { fill: #111827; font: 10.35px monospace; letter-spacing: 0.5px; }
+      .foundation-ring { fill: none; stroke: #1f2937; stroke-width: 1.3; opacity: 0.18; }
+      .db-core-shell { fill: rgba(255,252,246,0.86); stroke: #5a4b3f; stroke-width: 1.0; }
+      .db-core { fill: #d1fae5; stroke: #0f766e; stroke-width: 1.8; }
+      .db-core-mark { fill: none; stroke: #0f766e; stroke-width: 0.9; opacity: 0.75; }
+      .db-core-label { fill: #0f172a; font: bold 12.65px monospace; }
+      .db-core-sub { fill: #475569; font: 9.20px monospace; opacity: 0.82; }
+      .schema-core-shell { fill: rgba(255,252,246,0.82); stroke: #5a4b3f; stroke-width: 0.92; }
+      .schema-core { fill: #f7efe3; stroke: #57483b; stroke-width: 1.0; }
+      .schema-core-mark { fill: none; stroke: #8b7763; stroke-width: 0.8; opacity: 0.72; }
+      .schema-core-label { fill: #0f172a; font: 9.20px monospace; opacity: 0.88; }
+      .schema-core-sub { fill: #475569; font: 8.05px monospace; opacity: 0.72; }
+      .base { stroke: #1f1a17; stroke-width: 1.6; fill: none; opacity: 0.7; }
+      .primary { stroke: #111827; stroke-width: 2.4; fill: none; stroke-linecap: round; }
+      .call { stroke: #4b5563; stroke-width: 1.5; fill: none; stroke-linecap: round; opacity: 0.82; }
+      .branch { stroke: #6b7280; stroke-width: 1.2; fill: none; stroke-dasharray: 5 4; opacity: 0.8; }
+      .node-main { fill: #f8fafc; stroke: #1f2937; stroke-width: 1.65; }
+      .node-aux  { fill: #f1f5f9; stroke: #475569; stroke-width: 1.15; stroke-dasharray: 4 3; }
+      .node-loop { fill: #ecfeff; stroke: #0f766e; stroke-width: 1.2; }
+      .node-fk   { fill: #fef9c3; stroke: #92400e; stroke-width: 1.1; stroke-dasharray: 6 3; }
+      .node-loop-inner { fill: none; stroke: #0f766e; stroke-width: 0.9; opacity: 0.8; }
+      .node-shell { fill: none; stroke: #5a4b3f; stroke-width: 1.0; opacity: 0.78; }
+      .node-foundation { fill: none; stroke: #b7a690; stroke-width: 0.8; opacity: 0.62; }
+      .col-orbit { fill: none; stroke: #c5b59f; stroke-width: 0.8; opacity: 0.60; }
+      .col-chord { fill: none; stroke: #7b6a59; stroke-width: 0.72; opacity: 0.52; }
+      .node-core { fill: #f7efe3; stroke: #57483b; stroke-width: 0.82; }
+      .col-spoke { stroke: #8d7a68; stroke-width: 0.82; opacity: 0.58; }
+      .col-pk { fill: #111827; }
+      .col-fk { fill: #0f766e; }
+      .col-reg { fill: #64748b; }
+      .col-nullable { opacity: 0.55; }
+      .label { fill: #0f172a; font: 9.20px monospace; opacity: 0.68; }
+      .col-label { fill: #0f172a; font: 6.90px monospace; opacity: 0.78; }
+      .node-metric { fill: #334155; font: 8.05px monospace; opacity: 0.78; }
+      .system-node-wrap, .system-edge-wrap, .system-schema-wrap, .system-column-wrap, .system-column-link-wrap { cursor: help; }
+      .system-node-wrap:hover > circle { opacity: 0.94; }
+      .system-edge-wrap:hover > line, .system-edge-wrap:hover > path { opacity: 1.0; stroke-width: 2.2; }
+    ]]></style>
+  </defs>
+  <rect class="bg" width="2960" height="2960"/>
+  <g id="database_foundation">
+    <circle class="foundation-ring" cx="1480.0" cy="1480.0" r="306.1"/>
+    <circle class="foundation-ring" cx="1480.0" cy="1480.0" r="584.3"/>
+    <circle class="foundation-ring" cx="1480.0" cy="1480.0" r="946.0"/>
+    <circle class="foundation-ring" cx="1480.0" cy="1480.0" r="1391.2"/>
+    <circle class="db-core-shell" cx="1480.0" cy="1480.0" r="170.8"/>
+    <circle class="db-core" cx="1480.0" cy="1480.0" r="162.8"/>
+    <circle class="db-core-mark" cx="1480.0" cy="1480.0" r="154.8"/>
+    <text class="db-core-label" x="1480.0" y="1478.0" text-anchor="middle">aurora_bank</text>
+    <text class="db-core-sub" x="1480.0" y="1492.0" text-anchor="middle">postgresql @ cluster-prd-01</text>
+  </g>
+  <g id="schema_rings">
+    <g class="system-schema-wrap" data-schema="core" data-table-count="4" data-direct-fk-count="4" data-total-rows="860320">
+      <circle class="macro-ring" cx="1480.0" cy="714.1" r="445.9"/>
+      <circle class="schema-core-shell" cx="1480.0" cy="714.1" r="29.0"/>
+      <circle class="schema-core" cx="1480.0" cy="714.1" r="22.0"/>
+      <circle class="schema-core-mark" cx="1480.0" cy="714.1" r="16.0"/>
+      <text class="schema-core-label" x="1480.0" y="717.1" text-anchor="middle">core</text>
+      <text class="schema-label" x="1480.0" y="1178.0" text-anchor="middle">core</text>
+      <text class="schema-core-sub" x="1480.0" y="1190.0" text-anchor="middle">4 tables</text>
+    </g>
+    <g class="system-schema-wrap" data-schema="ledger" data-table-count="3" data-direct-fk-count="7" data-total-rows="43485000">
+      <circle class="macro-ring" cx="2245.9" cy="1480.0" r="422.8"/>
+      <circle class="schema-core-shell" cx="2245.9" cy="1480.0" r="29.0"/>
+      <circle class="schema-core" cx="2245.9" cy="1480.0" r="22.0"/>
+      <circle class="schema-core-mark" cx="2245.9" cy="1480.0" r="16.0"/>
+      <text class="schema-core-label" x="2245.9" y="1483.0" text-anchor="middle">ledger</text>
+      <text class="schema-label" x="2245.9" y="1920.8" text-anchor="middle">ledger</text>
+      <text class="schema-core-sub" x="2245.9" y="1932.8" text-anchor="middle">3 tables</text>
+    </g>
+    <g class="system-schema-wrap" data-schema="risk" data-table-count="2" data-direct-fk-count="3" data-total-rows="4650000">
+      <circle class="macro-ring" cx="1480.0" cy="2245.9" r="420.0"/>
+      <circle class="schema-core-shell" cx="1480.0" cy="2245.9" r="29.0"/>
+      <circle class="schema-core" cx="1480.0" cy="2245.9" r="22.0"/>
+      <circle class="schema-core-mark" cx="1480.0" cy="2245.9" r="16.0"/>
+      <text class="schema-core-label" x="1480.0" y="2248.9" text-anchor="middle">risk</text>
+      <text class="schema-label" x="1480.0" y="2683.9" text-anchor="middle">risk</text>
+      <text class="schema-core-sub" x="1480.0" y="2695.9" text-anchor="middle">2 tables</text>
+    </g>
+    <g class="system-schema-wrap" data-schema="reporting" data-table-count="2" data-direct-fk-count="2" data-total-rows="183650">
+      <circle class="macro-ring" cx="714.1" cy="1480.0" r="386.7"/>
+      <circle class="schema-core-shell" cx="714.1" cy="1480.0" r="29.0"/>
+      <circle class="schema-core" cx="714.1" cy="1480.0" r="22.0"/>
+      <circle class="schema-core-mark" cx="714.1" cy="1480.0" r="16.0"/>
+      <text class="schema-core-label" x="714.1" y="1483.0" text-anchor="middle">reporting</text>
+      <text class="schema-label" x="714.1" y="1884.7" text-anchor="middle">reporting</text>
+      <text class="schema-core-sub" x="714.1" y="1896.7" text-anchor="middle">2 tables</text>
+    </g>
+  </g>
+  <g id="fk_edges">
+    <g class="system-edge-wrap" data-fk-from="core.accounts" data-fk-to="core.customers" data-fk-columns="customer_id->id" data-fk-type="declared" data-relationship-kind="direct" data-on-delete="RESTRICT">
+      <line class="call" x1="1480.00" y1="940.41" x2="1480.00" y2="487.88"/>
+    </g>
+    <g class="system-edge-wrap" data-fk-from="core.accounts" data-fk-to="core.branches" data-fk-columns="branch_id->id" data-fk-type="declared" data-relationship-kind="direct">
+      <line class="call" x1="1480.00" y1="940.41" x2="1706.27" y2="714.15"/>
+    </g>
+    <g class="system-edge-wrap" data-fk-from="core.cards" data-fk-to="core.accounts" data-fk-columns="account_id->id" data-fk-type="declared" data-relationship-kind="direct" data-on-delete="CASCADE">
+      <line class="call" x1="1253.73" y1="714.15" x2="1480.00" y2="940.41"/>
+    </g>
+    <g class="system-edge-wrap" data-fk-from="core.cards" data-fk-to="core.customers" data-fk-columns="customer_id->id" data-fk-type="declared" data-relationship-kind="direct" data-on-delete="CASCADE">
+      <line class="call" x1="1253.73" y1="714.15" x2="1480.00" y2="487.88"/>
+    </g>
+    <g class="system-edge-wrap" data-fk-from="ledger.transactions" data-fk-to="core.accounts" data-fk-columns="account_id->id" data-fk-type="declared" data-relationship-kind="direct" data-on-delete="CASCADE">
+      <line class="call" x1="2299.70" y1="1292.75" x2="1480.00" y2="940.41"/>
+    </g>
+    <g class="system-edge-wrap" data-fk-from="ledger.transactions" data-fk-to="core.cards" data-fk-columns="card_id->id" data-fk-type="declared" data-relationship-kind="direct">
+      <line class="call" x1="2299.70" y1="1292.75" x2="1253.73" y2="714.15"/>
+    </g>
+    <g class="system-edge-wrap" data-fk-from="ledger.transaction_splits" data-fk-to="ledger.transactions" data-fk-columns="transaction_id->id" data-fk-type="declared" data-relationship-kind="direct" data-on-delete="CASCADE">
+      <line class="call" x1="2381.09" y1="1620.26" x2="2299.70" y2="1292.75"/>
+    </g>
+    <g class="system-edge-wrap" data-fk-from="ledger.transaction_splits" data-fk-to="core.accounts" data-fk-columns="debit_account_id->id" data-fk-type="declared" data-relationship-kind="direct">
+      <line class="call" x1="2381.09" y1="1620.26" x2="1480.00" y2="940.41"/>
+    </g>
+    <g class="system-edge-wrap" data-fk-from="ledger.transaction_splits" data-fk-to="core.accounts" data-fk-columns="credit_account_id->id" data-fk-type="declared" data-relationship-kind="direct">
+      <line class="call" x1="2381.09" y1="1620.26" x2="1480.00" y2="940.41"/>
+    </g>
+    <g class="system-edge-wrap" data-fk-from="ledger.loans" data-fk-to="core.customers" data-fk-columns="customer_id->id" data-fk-type="declared" data-relationship-kind="direct">
+      <line class="call" x1="2056.76" y1="1527.00" x2="1480.00" y2="487.88"/>
+    </g>
+    <g class="system-edge-wrap" data-fk-from="ledger.loans" data-fk-to="core.accounts" data-fk-columns="servicing_account_id->id" data-fk-type="declared" data-relationship-kind="direct">
+      <line class="call" x1="2056.76" y1="1527.00" x2="1480.00" y2="940.41"/>
+    </g>
+    <g class="system-edge-wrap" data-fk-from="risk.fraud_alerts" data-fk-to="ledger.transactions" data-fk-columns="transaction_id->id" data-fk-type="declared" data-relationship-kind="direct">
+      <line class="call" x1="1581.99" y1="2083.18" x2="2299.70" y2="1292.75"/>
+    </g>
+    <g class="system-edge-wrap" data-fk-from="risk.fraud_alerts" data-fk-to="core.accounts" data-fk-columns="account_id->id" data-fk-type="declared" data-relationship-kind="direct">
+      <line class="call" x1="1581.99" y1="2083.18" x2="1480.00" y2="940.41"/>
+    </g>
+    <g class="system-edge-wrap" data-fk-from="risk.device_sessions" data-fk-to="core.customers" data-fk-columns="customer_id->id" data-fk-type="declared" data-relationship-kind="direct">
+      <line class="call" x1="1378.01" y1="2408.52" x2="1480.00" y2="487.88"/>
+    </g>
+    <g class="system-edge-wrap" data-fk-from="reporting.daily_liquidity" data-fk-to="core.branches" data-fk-columns="branch_id->id" data-fk-type="inferred" data-relationship-kind="indirect">
+      <line class="branch" x1="844.74" y1="1362.95" x2="1706.27" y2="714.15"/>
+    </g>
+    <g class="system-edge-wrap" data-fk-from="reporting.customer_360" data-fk-to="core.customers" data-fk-columns="customer_id->id" data-fk-type="inferred" data-relationship-kind="indirect">
+      <line class="branch" x1="583.56" y1="1597.05" x2="1480.00" y2="487.88"/>
+    </g>
+  </g>
+  <g id="table_nodes">
+    <g class="system-node-wrap" data-table="customers" data-schema="core" data-row-estimate="180000" data-size-bytes="52428800" data-column-count="9" data-fk-count="0" data-index-count="2" data-table-type="table" data-columns-detail="id::uuid::PK|NOT NULL||segment::varchar(32)::NOT NULL||full_name::varchar(160)::NOT NULL||email::varchar(255)::NOT NULL||phone_number::varchar(32)::NULL||tax_document::varchar(24)::NOT NULL||risk_rating::smallint::NOT NULL||status::varchar(16)::NOT NULL||created_at::timestamp::NOT NULL" data-comment="Retail and business customer registry.">
+      <circle class="node-main" cx="1480.00" cy="487.88" r="147.37"/>
+    </g>
+      <circle class="node-shell" cx="1480.00" cy="487.88" r="141.37"/>
+      <ellipse class="node-foundation" cx="1480.00" cy="487.88" rx="112.00" ry="82.88"/>
+      <circle class="node-core" cx="1480.00" cy="487.88" r="23.58"/>
+      <circle class="col-orbit" cx="1480.00" cy="487.88" r="53.05"/>
+    <g class="system-column-link-wrap" data-table="customers" data-schema="core" data-column-left="id" data-column-right="segment">
+      <path class="col-chord" d="M 1480.00 434.83 Q 1497.05 467.56 1514.10 447.24"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="customers" data-schema="core" data-column-left="segment" data-column-right="full_name">
+      <path class="col-chord" d="M 1514.10 447.24 Q 1506.12 483.28 1532.25 478.67"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="customers" data-schema="core" data-column-left="full_name" data-column-right="email">
+      <path class="col-chord" d="M 1532.25 478.67 Q 1502.97 501.15 1525.94 514.41"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="customers" data-schema="core" data-column-left="email" data-column-right="phone_number">
+      <path class="col-chord" d="M 1525.94 514.41 Q 1489.07 512.81 1498.14 537.74"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="customers" data-schema="core" data-column-left="phone_number" data-column-right="tax_document">
+      <path class="col-chord" d="M 1498.14 537.74 Q 1470.93 512.81 1461.86 537.74"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="customers" data-schema="core" data-column-left="tax_document" data-column-right="risk_rating">
+      <path class="col-chord" d="M 1461.86 537.74 Q 1457.03 501.15 1434.06 514.41"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="customers" data-schema="core" data-column-left="risk_rating" data-column-right="status">
+      <path class="col-chord" d="M 1434.06 514.41 Q 1453.88 483.28 1427.75 478.67"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="customers" data-schema="core" data-column-left="status" data-column-right="created_at">
+      <path class="col-chord" d="M 1427.75 478.67 Q 1462.95 467.56 1445.90 447.24"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="customers" data-schema="core" data-column-left="created_at" data-column-right="id">
+      <path class="col-chord" d="M 1445.90 447.24 Q 1480.00 461.36 1480.00 434.83"/>
+    </g>
+    <g class="system-column-wrap" data-table="customers" data-schema="core" data-column-name="id" data-column-type="uuid" data-column-flags="PK | NOT NULL" data-column-role="primary_key">
+      <line class="col-spoke" x1="1480.00" y1="487.88" x2="1480.00" y2="434.83"/>
+      <circle class="col-pk" cx="1480.00" cy="434.83" r="3.0"/>
+      <text class="col-label" x="1480.00" y="448.83" text-anchor="middle">id</text>
+    </g>
+    <g class="system-column-wrap" data-table="customers" data-schema="core" data-column-name="segment" data-column-type="varchar(32)" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="1480.00" y1="487.88" x2="1514.10" y2="447.24"/>
+      <circle class="col-reg" cx="1514.10" cy="447.24" r="3.0"/>
+    </g>
+    <g class="system-column-wrap" data-table="customers" data-schema="core" data-column-name="full_name" data-column-type="varchar(160)" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="1480.00" y1="487.88" x2="1532.25" y2="478.67"/>
+      <circle class="col-reg" cx="1532.25" cy="478.67" r="3.0"/>
+    </g>
+    <g class="system-column-wrap" data-table="customers" data-schema="core" data-column-name="email" data-column-type="varchar(255)" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="1480.00" y1="487.88" x2="1525.94" y2="514.41"/>
+      <circle class="col-reg" cx="1525.94" cy="514.41" r="3.0"/>
+    </g>
+    <g class="system-column-wrap" data-table="customers" data-schema="core" data-column-name="phone_number" data-column-type="varchar(32)" data-column-flags="NULL" data-column-role="column">
+      <line class="col-spoke" x1="1480.00" y1="487.88" x2="1498.14" y2="537.74"/>
+      <circle class="col-reg col-nullable" cx="1498.14" cy="537.74" r="3.0"/>
+    </g>
+    <g class="system-column-wrap" data-table="customers" data-schema="core" data-column-name="tax_document" data-column-type="varchar(24)" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="1480.00" y1="487.88" x2="1461.86" y2="537.74"/>
+      <circle class="col-reg" cx="1461.86" cy="537.74" r="3.0"/>
+    </g>
+    <g class="system-column-wrap" data-table="customers" data-schema="core" data-column-name="risk_rating" data-column-type="smallint" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="1480.00" y1="487.88" x2="1434.06" y2="514.41"/>
+      <circle class="col-reg" cx="1434.06" cy="514.41" r="3.0"/>
+    </g>
+    <g class="system-column-wrap" data-table="customers" data-schema="core" data-column-name="status" data-column-type="varchar(16)" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="1480.00" y1="487.88" x2="1427.75" y2="478.67"/>
+      <circle class="col-reg" cx="1427.75" cy="478.67" r="3.0"/>
+    </g>
+    <g class="system-column-wrap" data-table="customers" data-schema="core" data-column-name="created_at" data-column-type="timestamp" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="1480.00" y1="487.88" x2="1445.90" y2="447.24"/>
+      <circle class="col-reg" cx="1445.90" cy="447.24" r="3.0"/>
+    </g>
+    <text class="hash" x="1480.0" y="649.3" text-anchor="middle">customers</text>
+    <g class="system-node-wrap" data-table="branches" data-schema="core" data-row-estimate="320" data-size-bytes="327680" data-column-count="6" data-fk-count="0" data-index-count="1" data-table-type="table" data-columns-detail="id::uuid::PK|NOT NULL||region_code::varchar(12)::NOT NULL||display_name::varchar(120)::NOT NULL||manager_name::varchar(120)::NULL||opened_at::date::NULL||is_digital::boolean::NOT NULL" data-comment="Physical branch and service hub catalog.">
+      <circle class="node-main" cx="1706.27" cy="714.15" r="85.98"/>
+    </g>
+      <circle class="node-shell" cx="1706.27" cy="714.15" r="79.98"/>
+      <ellipse class="node-foundation" cx="1706.27" cy="714.15" rx="65.34" ry="48.35"/>
+      <circle class="node-core" cx="1706.27" cy="714.15" r="13.76"/>
+      <circle class="col-orbit" cx="1706.27" cy="714.15" r="30.95"/>
+    <g class="system-column-link-wrap" data-table="branches" data-schema="core" data-column-left="id" data-column-right="region_code">
+      <path class="col-chord" d="M 1706.27 683.20 Q 1719.67 706.41 1733.07 698.67"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="branches" data-schema="core" data-column-left="region_code" data-column-right="display_name">
+      <path class="col-chord" d="M 1733.07 698.67 Q 1719.67 721.89 1733.07 729.62"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="branches" data-schema="core" data-column-left="display_name" data-column-right="manager_name">
+      <path class="col-chord" d="M 1733.07 729.62 Q 1706.27 729.62 1706.27 745.10"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="branches" data-schema="core" data-column-left="manager_name" data-column-right="opened_at">
+      <path class="col-chord" d="M 1706.27 745.10 Q 1692.86 721.89 1679.46 729.62"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="branches" data-schema="core" data-column-left="opened_at" data-column-right="is_digital">
+      <path class="col-chord" d="M 1679.46 729.62 Q 1692.86 706.41 1679.46 698.67"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="branches" data-schema="core" data-column-left="is_digital" data-column-right="id">
+      <path class="col-chord" d="M 1679.46 698.67 Q 1706.27 698.67 1706.27 683.20"/>
+    </g>
+    <g class="system-column-wrap" data-table="branches" data-schema="core" data-column-name="id" data-column-type="uuid" data-column-flags="PK | NOT NULL" data-column-role="primary_key">
+      <line class="col-spoke" x1="1706.27" y1="714.15" x2="1706.27" y2="683.20"/>
+      <circle class="col-pk" cx="1706.27" cy="683.20" r="3.0"/>
+      <text class="col-label" x="1706.27" y="697.20" text-anchor="middle">id</text>
+    </g>
+    <g class="system-column-wrap" data-table="branches" data-schema="core" data-column-name="region_code" data-column-type="varchar(12)" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="1706.27" y1="714.15" x2="1733.07" y2="698.67"/>
+      <circle class="col-reg" cx="1733.07" cy="698.67" r="3.0"/>
+    </g>
+    <g class="system-column-wrap" data-table="branches" data-schema="core" data-column-name="display_name" data-column-type="varchar(120)" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="1706.27" y1="714.15" x2="1733.07" y2="729.62"/>
+      <circle class="col-reg" cx="1733.07" cy="729.62" r="3.0"/>
+    </g>
+    <g class="system-column-wrap" data-table="branches" data-schema="core" data-column-name="manager_name" data-column-type="varchar(120)" data-column-flags="NULL" data-column-role="column">
+      <line class="col-spoke" x1="1706.27" y1="714.15" x2="1706.27" y2="745.10"/>
+      <circle class="col-reg col-nullable" cx="1706.27" cy="745.10" r="3.0"/>
+    </g>
+    <g class="system-column-wrap" data-table="branches" data-schema="core" data-column-name="opened_at" data-column-type="date" data-column-flags="NULL" data-column-role="column">
+      <line class="col-spoke" x1="1706.27" y1="714.15" x2="1679.46" y2="729.62"/>
+      <circle class="col-reg col-nullable" cx="1679.46" cy="729.62" r="3.0"/>
+    </g>
+    <g class="system-column-wrap" data-table="branches" data-schema="core" data-column-name="is_digital" data-column-type="boolean" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="1706.27" y1="714.15" x2="1679.46" y2="698.67"/>
+      <circle class="col-reg" cx="1679.46" cy="698.67" r="3.0"/>
+    </g>
+    <text class="hash" x="1706.3" y="814.1" text-anchor="middle">branches</text>
+    <g class="system-node-wrap" data-table="accounts" data-schema="core" data-row-estimate="420000" data-size-bytes="124780544" data-column-count="11" data-fk-count="2" data-index-count="3" data-table-type="table" data-columns-detail="id::uuid::PK|NOT NULL||customer_id::uuid::FK|NOT NULL||branch_id::uuid::FK|NOT NULL||account_number::varchar(24)::NOT NULL||account_type::varchar(20)::NOT NULL||currency_code::char(3)::NOT NULL||available_balance::numeric(18,2)::NOT NULL||ledger_balance::numeric(18,2)::NOT NULL||status::varchar(16)::NOT NULL||opened_at::timestamp::NOT NULL||closed_at::timestamp::NULL" data-comment="Current, savings and settlement accounts.">
+      <circle class="node-main" cx="1480.00" cy="940.41" r="155.59"/>
+    </g>
+      <circle class="node-shell" cx="1480.00" cy="940.41" r="149.59"/>
+      <ellipse class="node-foundation" cx="1480.00" cy="940.41" rx="118.25" ry="87.50"/>
+      <circle class="node-core" cx="1480.00" cy="940.41" r="24.89"/>
+      <circle class="col-orbit" cx="1480.00" cy="940.41" r="56.01"/>
+      <circle class="col-orbit" cx="1480.00" cy="940.41" r="76.24"/>
+    <g class="system-column-link-wrap" data-table="accounts" data-schema="core" data-column-left="id" data-column-right="customer_id">
+      <path class="col-chord" d="M 1480.00 884.40 Q 1496.46 917.76 1512.92 895.10"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="accounts" data-schema="core" data-column-left="customer_id" data-column-right="branch_id">
+      <path class="col-chord" d="M 1512.92 895.10 Q 1506.63 931.76 1533.27 923.11"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="accounts" data-schema="core" data-column-left="branch_id" data-column-right="account_number">
+      <path class="col-chord" d="M 1533.27 923.11 Q 1506.63 949.07 1533.27 957.72"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="accounts" data-schema="core" data-column-left="account_number" data-column-right="account_type">
+      <path class="col-chord" d="M 1533.27 957.72 Q 1496.46 963.07 1512.92 985.73"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="accounts" data-schema="core" data-column-left="account_type" data-column-right="currency_code">
+      <path class="col-chord" d="M 1512.92 985.73 Q 1480.00 968.42 1480.00 996.43"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="accounts" data-schema="core" data-column-left="currency_code" data-column-right="available_balance">
+      <path class="col-chord" d="M 1480.00 996.43 Q 1463.54 963.07 1447.08 985.73"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="accounts" data-schema="core" data-column-left="available_balance" data-column-right="ledger_balance">
+      <path class="col-chord" d="M 1447.08 985.73 Q 1453.37 949.07 1426.73 957.72"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="accounts" data-schema="core" data-column-left="ledger_balance" data-column-right="status">
+      <path class="col-chord" d="M 1426.73 957.72 Q 1453.37 931.76 1426.73 923.11"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="accounts" data-schema="core" data-column-left="status" data-column-right="opened_at">
+      <path class="col-chord" d="M 1426.73 923.11 Q 1463.54 917.76 1447.08 895.10"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="accounts" data-schema="core" data-column-left="opened_at" data-column-right="id">
+      <path class="col-chord" d="M 1447.08 895.10 Q 1480.00 912.41 1480.00 884.40"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="accounts" data-schema="core" data-column-left="closed_at" data-column-right="closed_at">
+      <path class="col-chord" d="M 1480.00 864.18 Q 1480.00 902.30 1480.00 864.18"/>
+    </g>
+    <g class="system-column-wrap" data-table="accounts" data-schema="core" data-column-name="id" data-column-type="uuid" data-column-flags="PK | NOT NULL" data-column-role="primary_key">
+      <line class="col-spoke" x1="1480.00" y1="940.41" x2="1480.00" y2="884.40"/>
+      <circle class="col-pk" cx="1480.00" cy="884.40" r="3.0"/>
+      <text class="col-label" x="1480.00" y="898.40" text-anchor="middle">id</text>
+    </g>
+    <g class="system-column-wrap" data-table="accounts" data-schema="core" data-column-name="customer_id" data-column-type="uuid" data-column-flags="FK | NOT NULL" data-column-role="foreign_key">
+      <line class="col-spoke" x1="1480.00" y1="940.41" x2="1512.92" y2="895.10"/>
+      <circle class="col-fk" cx="1512.92" cy="895.10" r="3.0"/>
+      <text class="col-label" x="1505.87" y="906.81" text-anchor="middle">customer_id</text>
+    </g>
+    <g class="system-column-wrap" data-table="accounts" data-schema="core" data-column-name="branch_id" data-column-type="uuid" data-column-flags="FK | NOT NULL" data-column-role="foreign_key">
+      <line class="col-spoke" x1="1480.00" y1="940.41" x2="1533.27" y2="923.11"/>
+      <circle class="col-fk" cx="1533.27" cy="923.11" r="3.0"/>
+      <text class="col-label" x="1521.86" y="928.81" text-anchor="middle">branch_id</text>
+    </g>
+    <g class="system-column-wrap" data-table="accounts" data-schema="core" data-column-name="account_number" data-column-type="varchar(24)" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="1480.00" y1="940.41" x2="1533.27" y2="957.72"/>
+      <circle class="col-reg" cx="1533.27" cy="957.72" r="3.0"/>
+    </g>
+    <g class="system-column-wrap" data-table="accounts" data-schema="core" data-column-name="account_type" data-column-type="varchar(20)" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="1480.00" y1="940.41" x2="1512.92" y2="985.73"/>
+      <circle class="col-reg" cx="1512.92" cy="985.73" r="3.0"/>
+    </g>
+    <g class="system-column-wrap" data-table="accounts" data-schema="core" data-column-name="currency_code" data-column-type="char(3)" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="1480.00" y1="940.41" x2="1480.00" y2="996.43"/>
+      <circle class="col-reg" cx="1480.00" cy="996.43" r="3.0"/>
+    </g>
+    <g class="system-column-wrap" data-table="accounts" data-schema="core" data-column-name="available_balance" data-column-type="numeric(18,2)" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="1480.00" y1="940.41" x2="1447.08" y2="985.73"/>
+      <circle class="col-reg" cx="1447.08" cy="985.73" r="3.0"/>
+    </g>
+    <g class="system-column-wrap" data-table="accounts" data-schema="core" data-column-name="ledger_balance" data-column-type="numeric(18,2)" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="1480.00" y1="940.41" x2="1426.73" y2="957.72"/>
+      <circle class="col-reg" cx="1426.73" cy="957.72" r="3.0"/>
+    </g>
+    <g class="system-column-wrap" data-table="accounts" data-schema="core" data-column-name="status" data-column-type="varchar(16)" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="1480.00" y1="940.41" x2="1426.73" y2="923.11"/>
+      <circle class="col-reg" cx="1426.73" cy="923.11" r="3.0"/>
+    </g>
+    <g class="system-column-wrap" data-table="accounts" data-schema="core" data-column-name="opened_at" data-column-type="timestamp" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="1480.00" y1="940.41" x2="1447.08" y2="895.10"/>
+      <circle class="col-reg" cx="1447.08" cy="895.10" r="3.0"/>
+    </g>
+    <g class="system-column-wrap" data-table="accounts" data-schema="core" data-column-name="closed_at" data-column-type="timestamp" data-column-flags="NULL" data-column-role="column">
+      <line class="col-spoke" x1="1480.00" y1="940.41" x2="1480.00" y2="864.18"/>
+      <circle class="col-reg col-nullable" cx="1480.00" cy="864.18" r="3.0"/>
+    </g>
+    <text class="hash" x="1480.0" y="1110.0" text-anchor="middle">accounts</text>
+    <g class="system-node-wrap" data-table="cards" data-schema="core" data-row-estimate="260000" data-size-bytes="83886080" data-column-count="9" data-fk-count="2" data-index-count="2" data-table-type="table" data-columns-detail="id::uuid::PK|NOT NULL||account_id::uuid::FK|NOT NULL||customer_id::uuid::FK|NOT NULL||masked_pan::varchar(32)::NOT NULL||brand::varchar(24)::NOT NULL||card_type::varchar(16)::NOT NULL||issued_at::timestamp::NOT NULL||expires_at::date::NOT NULL||status::varchar(16)::NOT NULL" data-comment="Debit and credit cards linked to accounts.">
+      <circle class="node-main" cx="1253.73" cy="714.15" r="150.93"/>
+    </g>
+      <circle class="node-shell" cx="1253.73" cy="714.15" r="144.93"/>
+      <ellipse class="node-foundation" cx="1253.73" cy="714.15" rx="114.71" ry="84.89"/>
+      <circle class="node-core" cx="1253.73" cy="714.15" r="24.15"/>
+      <circle class="col-orbit" cx="1253.73" cy="714.15" r="54.34"/>
+    <g class="system-column-link-wrap" data-table="cards" data-schema="core" data-column-left="id" data-column-right="account_id">
+      <path class="col-chord" d="M 1253.73 659.81 Q 1271.20 693.34 1288.66 672.52"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="cards" data-schema="core" data-column-left="account_id" data-column-right="customer_id">
+      <path class="col-chord" d="M 1288.66 672.52 Q 1280.49 709.43 1307.25 704.71"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="cards" data-schema="core" data-column-left="customer_id" data-column-right="masked_pan">
+      <path class="col-chord" d="M 1307.25 704.71 Q 1277.26 727.73 1300.79 741.32"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="cards" data-schema="core" data-column-left="masked_pan" data-column-right="brand">
+      <path class="col-chord" d="M 1300.79 741.32 Q 1263.03 739.68 1272.32 765.21"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="cards" data-schema="core" data-column-left="brand" data-column-right="card_type">
+      <path class="col-chord" d="M 1272.32 765.21 Q 1244.44 739.68 1235.15 765.21"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="cards" data-schema="core" data-column-left="card_type" data-column-right="issued_at">
+      <path class="col-chord" d="M 1235.15 765.21 Q 1230.21 727.73 1206.68 741.32"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="cards" data-schema="core" data-column-left="issued_at" data-column-right="expires_at">
+      <path class="col-chord" d="M 1206.68 741.32 Q 1226.98 709.43 1200.22 704.71"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="cards" data-schema="core" data-column-left="expires_at" data-column-right="status">
+      <path class="col-chord" d="M 1200.22 704.71 Q 1236.27 693.34 1218.81 672.52"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="cards" data-schema="core" data-column-left="status" data-column-right="id">
+      <path class="col-chord" d="M 1218.81 672.52 Q 1253.73 686.98 1253.73 659.81"/>
+    </g>
+    <g class="system-column-wrap" data-table="cards" data-schema="core" data-column-name="id" data-column-type="uuid" data-column-flags="PK | NOT NULL" data-column-role="primary_key">
+      <line class="col-spoke" x1="1253.73" y1="714.15" x2="1253.73" y2="659.81"/>
+      <circle class="col-pk" cx="1253.73" cy="659.81" r="3.0"/>
+      <text class="col-label" x="1253.73" y="673.81" text-anchor="middle">id</text>
+    </g>
+    <g class="system-column-wrap" data-table="cards" data-schema="core" data-column-name="account_id" data-column-type="uuid" data-column-flags="FK | NOT NULL" data-column-role="foreign_key">
+      <line class="col-spoke" x1="1253.73" y1="714.15" x2="1288.66" y2="672.52"/>
+      <circle class="col-fk" cx="1288.66" cy="672.52" r="3.0"/>
+      <text class="col-label" x="1280.95" y="683.72" text-anchor="middle">account_id</text>
+    </g>
+    <g class="system-column-wrap" data-table="cards" data-schema="core" data-column-name="customer_id" data-column-type="uuid" data-column-flags="FK | NOT NULL" data-column-role="foreign_key">
+      <line class="col-spoke" x1="1253.73" y1="714.15" x2="1307.25" y2="704.71"/>
+      <circle class="col-fk" cx="1307.25" cy="704.71" r="3.0"/>
+      <text class="col-label" x="1295.43" y="708.80" text-anchor="middle">customer_id</text>
+    </g>
+    <g class="system-column-wrap" data-table="cards" data-schema="core" data-column-name="masked_pan" data-column-type="varchar(32)" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="1253.73" y1="714.15" x2="1300.79" y2="741.32"/>
+      <circle class="col-reg" cx="1300.79" cy="741.32" r="3.0"/>
+    </g>
+    <g class="system-column-wrap" data-table="cards" data-schema="core" data-column-name="brand" data-column-type="varchar(24)" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="1253.73" y1="714.15" x2="1272.32" y2="765.21"/>
+      <circle class="col-reg" cx="1272.32" cy="765.21" r="3.0"/>
+    </g>
+    <g class="system-column-wrap" data-table="cards" data-schema="core" data-column-name="card_type" data-column-type="varchar(16)" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="1253.73" y1="714.15" x2="1235.15" y2="765.21"/>
+      <circle class="col-reg" cx="1235.15" cy="765.21" r="3.0"/>
+    </g>
+    <g class="system-column-wrap" data-table="cards" data-schema="core" data-column-name="issued_at" data-column-type="timestamp" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="1253.73" y1="714.15" x2="1206.68" y2="741.32"/>
+      <circle class="col-reg" cx="1206.68" cy="741.32" r="3.0"/>
+    </g>
+    <g class="system-column-wrap" data-table="cards" data-schema="core" data-column-name="expires_at" data-column-type="date" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="1253.73" y1="714.15" x2="1200.22" y2="704.71"/>
+      <circle class="col-reg" cx="1200.22" cy="704.71" r="3.0"/>
+    </g>
+    <g class="system-column-wrap" data-table="cards" data-schema="core" data-column-name="status" data-column-type="varchar(16)" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="1253.73" y1="714.15" x2="1218.81" y2="672.52"/>
+      <circle class="col-reg" cx="1218.81" cy="672.52" r="3.0"/>
+    </g>
+    <text class="hash" x="1253.7" y="879.1" text-anchor="middle">cards</text>
+    <g class="system-node-wrap" data-table="transactions" data-schema="ledger" data-row-estimate="14800000" data-size-bytes="1877426176" data-column-count="12" data-fk-count="2" data-index-count="3" data-table-type="table" data-columns-detail="id::uuid::PK|NOT NULL||account_id::uuid::FK|NOT NULL||card_id::uuid::FK|NULL||channel_code::varchar(24)::NOT NULL||direction::varchar(8)::NOT NULL||amount::numeric(18,2)::NOT NULL||currency_code::char(3)::NOT NULL||merchant_name::varchar(140)::NULL||reference_code::varchar(48)::NOT NULL||posted_at::timestamp::NOT NULL||settlement_day::date::NULL||status::varchar(16)::NOT NULL" data-comment="Posted transactions emitted by all banking rails.">
+      <circle class="node-main" cx="2299.70" cy="1292.75" r="164.00"/>
+    </g>
+      <circle class="node-shell" cx="2299.70" cy="1292.75" r="158.00"/>
+      <ellipse class="node-foundation" cx="2299.70" cy="1292.75" rx="124.64" ry="92.23"/>
+      <circle class="node-core" cx="2299.70" cy="1292.75" r="26.24"/>
+      <circle class="col-orbit" cx="2299.70" cy="1292.75" r="59.04"/>
+      <circle class="col-orbit" cx="2299.70" cy="1292.75" r="80.36"/>
+    <g class="system-column-link-wrap" data-table="transactions" data-schema="ledger" data-column-left="id" data-column-right="account_id">
+      <path class="col-chord" d="M 2299.70 1233.71 Q 2317.05 1268.86 2334.40 1244.98"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="transactions" data-schema="ledger" data-column-left="account_id" data-column-right="card_id">
+      <path class="col-chord" d="M 2334.40 1244.98 Q 2327.77 1283.62 2355.85 1274.50"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="transactions" data-schema="ledger" data-column-left="card_id" data-column-right="channel_code">
+      <path class="col-chord" d="M 2355.85 1274.50 Q 2327.77 1301.87 2355.85 1310.99"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="transactions" data-schema="ledger" data-column-left="channel_code" data-column-right="direction">
+      <path class="col-chord" d="M 2355.85 1310.99 Q 2317.05 1316.63 2334.40 1340.51"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="transactions" data-schema="ledger" data-column-left="direction" data-column-right="amount">
+      <path class="col-chord" d="M 2334.40 1340.51 Q 2299.70 1322.27 2299.70 1351.79"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="transactions" data-schema="ledger" data-column-left="amount" data-column-right="currency_code">
+      <path class="col-chord" d="M 2299.70 1351.79 Q 2282.35 1316.63 2264.99 1340.51"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="transactions" data-schema="ledger" data-column-left="currency_code" data-column-right="merchant_name">
+      <path class="col-chord" d="M 2264.99 1340.51 Q 2271.62 1301.87 2243.55 1310.99"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="transactions" data-schema="ledger" data-column-left="merchant_name" data-column-right="reference_code">
+      <path class="col-chord" d="M 2243.55 1310.99 Q 2271.62 1283.62 2243.55 1274.50"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="transactions" data-schema="ledger" data-column-left="reference_code" data-column-right="posted_at">
+      <path class="col-chord" d="M 2243.55 1274.50 Q 2282.35 1268.86 2264.99 1244.98"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="transactions" data-schema="ledger" data-column-left="posted_at" data-column-right="id">
+      <path class="col-chord" d="M 2264.99 1244.98 Q 2299.70 1263.23 2299.70 1233.71"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="transactions" data-schema="ledger" data-column-left="settlement_day" data-column-right="status">
+      <path class="col-chord" d="M 2299.70 1212.39 Q 2299.70 1332.93 2299.70 1373.11"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="transactions" data-schema="ledger" data-column-left="status" data-column-right="settlement_day">
+      <path class="col-chord" d="M 2299.70 1373.11 Q 2299.70 1252.57 2299.70 1212.39"/>
+    </g>
+    <g class="system-column-wrap" data-table="transactions" data-schema="ledger" data-column-name="id" data-column-type="uuid" data-column-flags="PK | NOT NULL" data-column-role="primary_key">
+      <line class="col-spoke" x1="2299.70" y1="1292.75" x2="2299.70" y2="1233.71"/>
+      <circle class="col-pk" cx="2299.70" cy="1233.71" r="3.0"/>
+      <text class="col-label" x="2299.70" y="1247.71" text-anchor="middle">id</text>
+    </g>
+    <g class="system-column-wrap" data-table="transactions" data-schema="ledger" data-column-name="account_id" data-column-type="uuid" data-column-flags="FK | NOT NULL" data-column-role="foreign_key">
+      <line class="col-spoke" x1="2299.70" y1="1292.75" x2="2334.40" y2="1244.98"/>
+      <circle class="col-fk" cx="2334.40" cy="1244.98" r="3.0"/>
+      <text class="col-label" x="2327.35" y="1256.69" text-anchor="middle">account_id</text>
+    </g>
+    <g class="system-column-wrap" data-table="transactions" data-schema="ledger" data-column-name="card_id" data-column-type="uuid" data-column-flags="FK | NULL" data-column-role="foreign_key">
+      <line class="col-spoke" x1="2299.70" y1="1292.75" x2="2355.85" y2="1274.50"/>
+      <circle class="col-fk col-nullable" cx="2355.85" cy="1274.50" r="3.0"/>
+      <text class="col-label" x="2344.43" y="1280.21" text-anchor="middle">card_id</text>
+    </g>
+    <g class="system-column-wrap" data-table="transactions" data-schema="ledger" data-column-name="channel_code" data-column-type="varchar(24)" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="2299.70" y1="1292.75" x2="2355.85" y2="1310.99"/>
+      <circle class="col-reg" cx="2355.85" cy="1310.99" r="3.0"/>
+    </g>
+    <g class="system-column-wrap" data-table="transactions" data-schema="ledger" data-column-name="direction" data-column-type="varchar(8)" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="2299.70" y1="1292.75" x2="2334.40" y2="1340.51"/>
+      <circle class="col-reg" cx="2334.40" cy="1340.51" r="3.0"/>
+    </g>
+    <g class="system-column-wrap" data-table="transactions" data-schema="ledger" data-column-name="amount" data-column-type="numeric(18,2)" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="2299.70" y1="1292.75" x2="2299.70" y2="1351.79"/>
+      <circle class="col-reg" cx="2299.70" cy="1351.79" r="3.0"/>
+    </g>
+    <g class="system-column-wrap" data-table="transactions" data-schema="ledger" data-column-name="currency_code" data-column-type="char(3)" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="2299.70" y1="1292.75" x2="2264.99" y2="1340.51"/>
+      <circle class="col-reg" cx="2264.99" cy="1340.51" r="3.0"/>
+    </g>
+    <g class="system-column-wrap" data-table="transactions" data-schema="ledger" data-column-name="merchant_name" data-column-type="varchar(140)" data-column-flags="NULL" data-column-role="column">
+      <line class="col-spoke" x1="2299.70" y1="1292.75" x2="2243.55" y2="1310.99"/>
+      <circle class="col-reg col-nullable" cx="2243.55" cy="1310.99" r="3.0"/>
+    </g>
+    <g class="system-column-wrap" data-table="transactions" data-schema="ledger" data-column-name="reference_code" data-column-type="varchar(48)" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="2299.70" y1="1292.75" x2="2243.55" y2="1274.50"/>
+      <circle class="col-reg" cx="2243.55" cy="1274.50" r="3.0"/>
+    </g>
+    <g class="system-column-wrap" data-table="transactions" data-schema="ledger" data-column-name="posted_at" data-column-type="timestamp" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="2299.70" y1="1292.75" x2="2264.99" y2="1244.98"/>
+      <circle class="col-reg" cx="2264.99" cy="1244.98" r="3.0"/>
+    </g>
+    <g class="system-column-wrap" data-table="transactions" data-schema="ledger" data-column-name="settlement_day" data-column-type="date" data-column-flags="NULL" data-column-role="column">
+      <line class="col-spoke" x1="2299.70" y1="1292.75" x2="2299.70" y2="1212.39"/>
+      <circle class="col-reg col-nullable" cx="2299.70" cy="1212.39" r="3.0"/>
+    </g>
+    <g class="system-column-wrap" data-table="transactions" data-schema="ledger" data-column-name="status" data-column-type="varchar(16)" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="2299.70" y1="1292.75" x2="2299.70" y2="1373.11"/>
+      <circle class="col-reg" cx="2299.70" cy="1373.11" r="3.0"/>
+    </g>
+    <text class="hash" x="2299.7" y="1470.7" text-anchor="middle">transactions</text>
+    <g class="system-node-wrap" data-table="transaction_splits" data-schema="ledger" data-row-estimate="28600000" data-size-bytes="2347892736" data-column-count="8" data-fk-count="3" data-index-count="2" data-table-type="table" data-columns-detail="id::uuid::PK|NOT NULL||transaction_id::uuid::FK|NOT NULL||debit_account_id::uuid::FK|NOT NULL||credit_account_id::uuid::FK|NOT NULL||split_role::varchar(16)::NOT NULL||amount::numeric(18,2)::NOT NULL||book_code::varchar(20)::NOT NULL||created_at::timestamp::NOT NULL" data-comment="Double-entry breakdown for each posted transaction.">
+      <circle class="node-main" cx="2381.09" cy="1620.26" r="164.00"/>
+    </g>
+      <circle class="node-shell" cx="2381.09" cy="1620.26" r="158.00"/>
+      <ellipse class="node-foundation" cx="2381.09" cy="1620.26" rx="124.64" ry="92.23"/>
+      <circle class="node-core" cx="2381.09" cy="1620.26" r="26.24"/>
+      <circle class="col-orbit" cx="2381.09" cy="1620.26" r="59.04"/>
+    <g class="system-column-link-wrap" data-table="transaction_splits" data-schema="ledger" data-column-left="id" data-column-right="transaction_id">
+      <path class="col-chord" d="M 2381.09 1561.22 Q 2401.97 1599.38 2422.84 1578.51"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="transaction_splits" data-schema="ledger" data-column-left="transaction_id" data-column-right="debit_account_id">
+      <path class="col-chord" d="M 2422.84 1578.51 Q 2410.61 1620.26 2440.13 1620.26"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="transaction_splits" data-schema="ledger" data-column-left="debit_account_id" data-column-right="credit_account_id">
+      <path class="col-chord" d="M 2440.13 1620.26 Q 2401.97 1641.13 2422.84 1662.01"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="transaction_splits" data-schema="ledger" data-column-left="credit_account_id" data-column-right="split_role">
+      <path class="col-chord" d="M 2422.84 1662.01 Q 2381.09 1649.78 2381.09 1679.30"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="transaction_splits" data-schema="ledger" data-column-left="split_role" data-column-right="amount">
+      <path class="col-chord" d="M 2381.09 1679.30 Q 2360.22 1641.13 2339.35 1662.01"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="transaction_splits" data-schema="ledger" data-column-left="amount" data-column-right="book_code">
+      <path class="col-chord" d="M 2339.35 1662.01 Q 2351.57 1620.26 2322.05 1620.26"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="transaction_splits" data-schema="ledger" data-column-left="book_code" data-column-right="created_at">
+      <path class="col-chord" d="M 2322.05 1620.26 Q 2360.22 1599.38 2339.35 1578.51"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="transaction_splits" data-schema="ledger" data-column-left="created_at" data-column-right="id">
+      <path class="col-chord" d="M 2339.35 1578.51 Q 2381.09 1590.74 2381.09 1561.22"/>
+    </g>
+    <g class="system-column-wrap" data-table="transaction_splits" data-schema="ledger" data-column-name="id" data-column-type="uuid" data-column-flags="PK | NOT NULL" data-column-role="primary_key">
+      <line class="col-spoke" x1="2381.09" y1="1620.26" x2="2381.09" y2="1561.22"/>
+      <circle class="col-pk" cx="2381.09" cy="1561.22" r="3.0"/>
+      <text class="col-label" x="2381.09" y="1575.22" text-anchor="middle">id</text>
+    </g>
+    <g class="system-column-wrap" data-table="transaction_splits" data-schema="ledger" data-column-name="transaction_id" data-column-type="uuid" data-column-flags="FK | NOT NULL" data-column-role="foreign_key">
+      <line class="col-spoke" x1="2381.09" y1="1620.26" x2="2422.84" y2="1578.51"/>
+      <circle class="col-fk" cx="2422.84" cy="1578.51" r="3.0"/>
+      <text class="col-label" x="2414.36" y="1589.00" text-anchor="middle">transacti...</text>
+    </g>
+    <g class="system-column-wrap" data-table="transaction_splits" data-schema="ledger" data-column-name="debit_account_id" data-column-type="uuid" data-column-flags="FK | NOT NULL" data-column-role="foreign_key">
+      <line class="col-spoke" x1="2381.09" y1="1620.26" x2="2440.13" y2="1620.26"/>
+      <circle class="col-fk" cx="2440.13" cy="1620.26" r="3.0"/>
+      <text class="col-label" x="2428.13" y="1622.26" text-anchor="middle">debit_acc...</text>
+    </g>
+    <g class="system-column-wrap" data-table="transaction_splits" data-schema="ledger" data-column-name="credit_account_id" data-column-type="uuid" data-column-flags="FK | NOT NULL" data-column-role="foreign_key">
+      <line class="col-spoke" x1="2381.09" y1="1620.26" x2="2422.84" y2="1662.01"/>
+      <circle class="col-fk" cx="2422.84" cy="1662.01" r="3.0"/>
+      <text class="col-label" x="2414.36" y="1655.52" text-anchor="middle">credit_ac...</text>
+    </g>
+    <g class="system-column-wrap" data-table="transaction_splits" data-schema="ledger" data-column-name="split_role" data-column-type="varchar(16)" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="2381.09" y1="1620.26" x2="2381.09" y2="1679.30"/>
+      <circle class="col-reg" cx="2381.09" cy="1679.30" r="3.0"/>
+    </g>
+    <g class="system-column-wrap" data-table="transaction_splits" data-schema="ledger" data-column-name="amount" data-column-type="numeric(18,2)" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="2381.09" y1="1620.26" x2="2339.35" y2="1662.01"/>
+      <circle class="col-reg" cx="2339.35" cy="1662.01" r="3.0"/>
+    </g>
+    <g class="system-column-wrap" data-table="transaction_splits" data-schema="ledger" data-column-name="book_code" data-column-type="varchar(20)" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="2381.09" y1="1620.26" x2="2322.05" y2="1620.26"/>
+      <circle class="col-reg" cx="2322.05" cy="1620.26" r="3.0"/>
+    </g>
+    <g class="system-column-wrap" data-table="transaction_splits" data-schema="ledger" data-column-name="created_at" data-column-type="timestamp" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="2381.09" y1="1620.26" x2="2339.35" y2="1578.51"/>
+      <circle class="col-reg" cx="2339.35" cy="1578.51" r="3.0"/>
+    </g>
+    <text class="hash" x="2381.1" y="1798.3" text-anchor="middle">transaction_splits</text>
+    <g class="system-node-wrap" data-table="loans" data-schema="ledger" data-row-estimate="85000" data-size-bytes="31457280" data-column-count="9" data-fk-count="2" data-index-count="1" data-table-type="table" data-columns-detail="id::uuid::PK|NOT NULL||customer_id::uuid::FK|NOT NULL||servicing_account_id::uuid::FK|NOT NULL||principal_amount::numeric(18,2)::NOT NULL||interest_rate::numeric(6,4)::NOT NULL||installment_count::integer::NOT NULL||granted_at::timestamp::NOT NULL||maturity_day::date::NOT NULL||status::varchar(16)::NOT NULL" data-comment="Loan contracts and lifecycle state.">
+      <circle class="node-main" cx="2056.76" cy="1527.00" r="140.09"/>
+    </g>
+      <circle class="node-shell" cx="2056.76" cy="1527.00" r="134.09"/>
+      <ellipse class="node-foundation" cx="2056.76" cy="1527.00" rx="106.47" ry="78.79"/>
+      <circle class="node-core" cx="2056.76" cy="1527.00" r="22.41"/>
+      <circle class="col-orbit" cx="2056.76" cy="1527.00" r="50.43"/>
+    <g class="system-column-link-wrap" data-table="loans" data-schema="ledger" data-column-left="id" data-column-right="customer_id">
+      <path class="col-chord" d="M 2056.76 1476.56 Q 2072.97 1507.68 2089.18 1488.36"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="loans" data-schema="ledger" data-column-left="customer_id" data-column-right="servicing_account_id">
+      <path class="col-chord" d="M 2089.18 1488.36 Q 2081.60 1522.62 2106.43 1518.24"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="loans" data-schema="ledger" data-column-left="servicing_account_id" data-column-right="principal_amount">
+      <path class="col-chord" d="M 2106.43 1518.24 Q 2078.60 1539.60 2100.44 1552.21"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="loans" data-schema="ledger" data-column-left="principal_amount" data-column-right="interest_rate">
+      <path class="col-chord" d="M 2100.44 1552.21 Q 2065.39 1550.69 2074.01 1574.39"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="loans" data-schema="ledger" data-column-left="interest_rate" data-column-right="installment_count">
+      <path class="col-chord" d="M 2074.01 1574.39 Q 2048.14 1550.69 2039.51 1574.39"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="loans" data-schema="ledger" data-column-left="installment_count" data-column-right="granted_at">
+      <path class="col-chord" d="M 2039.51 1574.39 Q 2034.92 1539.60 2013.09 1552.21"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="loans" data-schema="ledger" data-column-left="granted_at" data-column-right="maturity_day">
+      <path class="col-chord" d="M 2013.09 1552.21 Q 2031.93 1522.62 2007.10 1518.24"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="loans" data-schema="ledger" data-column-left="maturity_day" data-column-right="status">
+      <path class="col-chord" d="M 2007.10 1518.24 Q 2040.55 1507.68 2024.34 1488.36"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="loans" data-schema="ledger" data-column-left="status" data-column-right="id">
+      <path class="col-chord" d="M 2024.34 1488.36 Q 2056.76 1501.78 2056.76 1476.56"/>
+    </g>
+    <g class="system-column-wrap" data-table="loans" data-schema="ledger" data-column-name="id" data-column-type="uuid" data-column-flags="PK | NOT NULL" data-column-role="primary_key">
+      <line class="col-spoke" x1="2056.76" y1="1527.00" x2="2056.76" y2="1476.56"/>
+      <circle class="col-pk" cx="2056.76" cy="1476.56" r="3.0"/>
+      <text class="col-label" x="2056.76" y="1490.56" text-anchor="middle">id</text>
+    </g>
+    <g class="system-column-wrap" data-table="loans" data-schema="ledger" data-column-name="customer_id" data-column-type="uuid" data-column-flags="FK | NOT NULL" data-column-role="foreign_key">
+      <line class="col-spoke" x1="2056.76" y1="1527.00" x2="2089.18" y2="1488.36"/>
+      <circle class="col-fk" cx="2089.18" cy="1488.36" r="3.0"/>
+      <text class="col-label" x="2081.47" y="1499.55" text-anchor="middle">customer_id</text>
+    </g>
+    <g class="system-column-wrap" data-table="loans" data-schema="ledger" data-column-name="servicing_account_id" data-column-type="uuid" data-column-flags="FK | NOT NULL" data-column-role="foreign_key">
+      <line class="col-spoke" x1="2056.76" y1="1527.00" x2="2106.43" y2="1518.24"/>
+      <circle class="col-fk" cx="2106.43" cy="1518.24" r="3.0"/>
+      <text class="col-label" x="2094.61" y="1522.32" text-anchor="middle">servicing...</text>
+    </g>
+    <g class="system-column-wrap" data-table="loans" data-schema="ledger" data-column-name="principal_amount" data-column-type="numeric(18,2)" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="2056.76" y1="1527.00" x2="2100.44" y2="1552.21"/>
+      <circle class="col-reg" cx="2100.44" cy="1552.21" r="3.0"/>
+    </g>
+    <g class="system-column-wrap" data-table="loans" data-schema="ledger" data-column-name="interest_rate" data-column-type="numeric(6,4)" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="2056.76" y1="1527.00" x2="2074.01" y2="1574.39"/>
+      <circle class="col-reg" cx="2074.01" cy="1574.39" r="3.0"/>
+    </g>
+    <g class="system-column-wrap" data-table="loans" data-schema="ledger" data-column-name="installment_count" data-column-type="integer" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="2056.76" y1="1527.00" x2="2039.51" y2="1574.39"/>
+      <circle class="col-reg" cx="2039.51" cy="1574.39" r="3.0"/>
+    </g>
+    <g class="system-column-wrap" data-table="loans" data-schema="ledger" data-column-name="granted_at" data-column-type="timestamp" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="2056.76" y1="1527.00" x2="2013.09" y2="1552.21"/>
+      <circle class="col-reg" cx="2013.09" cy="1552.21" r="3.0"/>
+    </g>
+    <g class="system-column-wrap" data-table="loans" data-schema="ledger" data-column-name="maturity_day" data-column-type="date" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="2056.76" y1="1527.00" x2="2007.10" y2="1518.24"/>
+      <circle class="col-reg" cx="2007.10" cy="1518.24" r="3.0"/>
+    </g>
+    <g class="system-column-wrap" data-table="loans" data-schema="ledger" data-column-name="status" data-column-type="varchar(16)" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="2056.76" y1="1527.00" x2="2024.34" y2="1488.36"/>
+      <circle class="col-reg" cx="2024.34" cy="1488.36" r="3.0"/>
+    </g>
+    <text class="hash" x="2056.8" y="1681.1" text-anchor="middle">loans</text>
+    <g class="system-node-wrap" data-table="fraud_alerts" data-schema="risk" data-row-estimate="1450000" data-size-bytes="188743680" data-column-count="9" data-fk-count="2" data-index-count="2" data-table-type="table" data-columns-detail="id::uuid::PK|NOT NULL||transaction_id::uuid::FK|NOT NULL||account_id::uuid::FK|NOT NULL||rule_code::varchar(40)::NOT NULL||severity::varchar(12)::NOT NULL||status::varchar(16)::NOT NULL||triggered_at::timestamp::NOT NULL||resolved_at::timestamp::NULL||assigned_team::varchar(40)::NULL" data-comment="Risk events and analyst triage records.">
+      <circle class="node-main" cx="1581.99" cy="2083.18" r="164.00"/>
+    </g>
+      <circle class="node-shell" cx="1581.99" cy="2083.18" r="158.00"/>
+      <ellipse class="node-foundation" cx="1581.99" cy="2083.18" rx="124.64" ry="92.23"/>
+      <circle class="node-core" cx="1581.99" cy="2083.18" r="26.24"/>
+      <circle class="col-orbit" cx="1581.99" cy="2083.18" r="59.04"/>
+    <g class="system-column-link-wrap" data-table="fraud_alerts" data-schema="risk" data-column-left="id" data-column-right="transaction_id">
+      <path class="col-chord" d="M 1581.99 2024.14 Q 1600.96 2060.56 1619.94 2037.95"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="fraud_alerts" data-schema="risk" data-column-left="transaction_id" data-column-right="account_id">
+      <path class="col-chord" d="M 1619.94 2037.95 Q 1611.06 2078.05 1640.13 2072.93"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="fraud_alerts" data-schema="risk" data-column-left="account_id" data-column-right="rule_code">
+      <path class="col-chord" d="M 1640.13 2072.93 Q 1607.55 2097.94 1633.12 2112.70"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="fraud_alerts" data-schema="risk" data-column-left="rule_code" data-column-right="severity">
+      <path class="col-chord" d="M 1633.12 2112.70 Q 1592.08 2110.92 1602.18 2138.66"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="fraud_alerts" data-schema="risk" data-column-left="severity" data-column-right="status">
+      <path class="col-chord" d="M 1602.18 2138.66 Q 1571.89 2110.92 1561.79 2138.66"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="fraud_alerts" data-schema="risk" data-column-left="status" data-column-right="triggered_at">
+      <path class="col-chord" d="M 1561.79 2138.66 Q 1556.42 2097.94 1530.86 2112.70"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="fraud_alerts" data-schema="risk" data-column-left="triggered_at" data-column-right="resolved_at">
+      <path class="col-chord" d="M 1530.86 2112.70 Q 1552.92 2078.05 1523.84 2072.93"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="fraud_alerts" data-schema="risk" data-column-left="resolved_at" data-column-right="assigned_team">
+      <path class="col-chord" d="M 1523.84 2072.93 Q 1563.01 2060.56 1544.04 2037.95"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="fraud_alerts" data-schema="risk" data-column-left="assigned_team" data-column-right="id">
+      <path class="col-chord" d="M 1544.04 2037.95 Q 1581.99 2053.66 1581.99 2024.14"/>
+    </g>
+    <g class="system-column-wrap" data-table="fraud_alerts" data-schema="risk" data-column-name="id" data-column-type="uuid" data-column-flags="PK | NOT NULL" data-column-role="primary_key">
+      <line class="col-spoke" x1="1581.99" y1="2083.18" x2="1581.99" y2="2024.14"/>
+      <circle class="col-pk" cx="1581.99" cy="2024.14" r="3.0"/>
+      <text class="col-label" x="1581.99" y="2038.14" text-anchor="middle">id</text>
+    </g>
+    <g class="system-column-wrap" data-table="fraud_alerts" data-schema="risk" data-column-name="transaction_id" data-column-type="uuid" data-column-flags="FK | NOT NULL" data-column-role="foreign_key">
+      <line class="col-spoke" x1="1581.99" y1="2083.18" x2="1619.94" y2="2037.95"/>
+      <circle class="col-fk" cx="1619.94" cy="2037.95" r="3.0"/>
+      <text class="col-label" x="1612.22" y="2049.14" text-anchor="middle">transacti...</text>
+    </g>
+    <g class="system-column-wrap" data-table="fraud_alerts" data-schema="risk" data-column-name="account_id" data-column-type="uuid" data-column-flags="FK | NOT NULL" data-column-role="foreign_key">
+      <line class="col-spoke" x1="1581.99" y1="2083.18" x2="1640.13" y2="2072.93"/>
+      <circle class="col-fk" cx="1640.13" cy="2072.93" r="3.0"/>
+      <text class="col-label" x="1628.31" y="2077.01" text-anchor="middle">account_id</text>
+    </g>
+    <g class="system-column-wrap" data-table="fraud_alerts" data-schema="risk" data-column-name="rule_code" data-column-type="varchar(40)" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="1581.99" y1="2083.18" x2="1633.12" y2="2112.70"/>
+      <circle class="col-reg" cx="1633.12" cy="2112.70" r="3.0"/>
+    </g>
+    <g class="system-column-wrap" data-table="fraud_alerts" data-schema="risk" data-column-name="severity" data-column-type="varchar(12)" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="1581.99" y1="2083.18" x2="1602.18" y2="2138.66"/>
+      <circle class="col-reg" cx="1602.18" cy="2138.66" r="3.0"/>
+    </g>
+    <g class="system-column-wrap" data-table="fraud_alerts" data-schema="risk" data-column-name="status" data-column-type="varchar(16)" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="1581.99" y1="2083.18" x2="1561.79" y2="2138.66"/>
+      <circle class="col-reg" cx="1561.79" cy="2138.66" r="3.0"/>
+    </g>
+    <g class="system-column-wrap" data-table="fraud_alerts" data-schema="risk" data-column-name="triggered_at" data-column-type="timestamp" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="1581.99" y1="2083.18" x2="1530.86" y2="2112.70"/>
+      <circle class="col-reg" cx="1530.86" cy="2112.70" r="3.0"/>
+    </g>
+    <g class="system-column-wrap" data-table="fraud_alerts" data-schema="risk" data-column-name="resolved_at" data-column-type="timestamp" data-column-flags="NULL" data-column-role="column">
+      <line class="col-spoke" x1="1581.99" y1="2083.18" x2="1523.84" y2="2072.93"/>
+      <circle class="col-reg col-nullable" cx="1523.84" cy="2072.93" r="3.0"/>
+    </g>
+    <g class="system-column-wrap" data-table="fraud_alerts" data-schema="risk" data-column-name="assigned_team" data-column-type="varchar(40)" data-column-flags="NULL" data-column-role="column">
+      <line class="col-spoke" x1="1581.99" y1="2083.18" x2="1544.04" y2="2037.95"/>
+      <circle class="col-reg col-nullable" cx="1544.04" cy="2037.95" r="3.0"/>
+    </g>
+    <text class="hash" x="1582.0" y="2261.2" text-anchor="middle">fraud_alerts</text>
+    <g class="system-node-wrap" data-table="device_sessions" data-schema="risk" data-row-estimate="3200000" data-size-bytes="442499072" data-column-count="8" data-fk-count="1" data-index-count="1" data-table-type="table" data-columns-detail="id::uuid::PK|NOT NULL||customer_id::uuid::FK|NOT NULL||device_fingerprint::varchar(128)::NOT NULL||ip_address::varchar(64)::NOT NULL||user_agent_hash::varchar(96)::NOT NULL||first_seen_at::timestamp::NOT NULL||last_seen_at::timestamp::NOT NULL||trust_score::numeric(5,2)::NOT NULL" data-comment="Session/device graph used for fraud correlation.">
+      <circle class="node-main" cx="1378.01" cy="2408.52" r="164.00"/>
+    </g>
+      <circle class="node-shell" cx="1378.01" cy="2408.52" r="158.00"/>
+      <ellipse class="node-foundation" cx="1378.01" cy="2408.52" rx="124.64" ry="92.23"/>
+      <circle class="node-core" cx="1378.01" cy="2408.52" r="26.24"/>
+      <circle class="col-orbit" cx="1378.01" cy="2408.52" r="59.04"/>
+    <g class="system-column-link-wrap" data-table="device_sessions" data-schema="risk" data-column-left="id" data-column-right="customer_id">
+      <path class="col-chord" d="M 1378.01 2349.48 Q 1398.89 2387.65 1419.76 2366.78"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="device_sessions" data-schema="risk" data-column-left="customer_id" data-column-right="device_fingerprint">
+      <path class="col-chord" d="M 1419.76 2366.78 Q 1407.53 2408.52 1437.05 2408.52"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="device_sessions" data-schema="risk" data-column-left="device_fingerprint" data-column-right="ip_address">
+      <path class="col-chord" d="M 1437.05 2408.52 Q 1398.89 2429.40 1419.76 2450.27"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="device_sessions" data-schema="risk" data-column-left="ip_address" data-column-right="user_agent_hash">
+      <path class="col-chord" d="M 1419.76 2450.27 Q 1378.01 2438.04 1378.01 2467.56"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="device_sessions" data-schema="risk" data-column-left="user_agent_hash" data-column-right="first_seen_at">
+      <path class="col-chord" d="M 1378.01 2467.56 Q 1357.14 2429.40 1336.26 2450.27"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="device_sessions" data-schema="risk" data-column-left="first_seen_at" data-column-right="last_seen_at">
+      <path class="col-chord" d="M 1336.26 2450.27 Q 1348.49 2408.52 1318.97 2408.52"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="device_sessions" data-schema="risk" data-column-left="last_seen_at" data-column-right="trust_score">
+      <path class="col-chord" d="M 1318.97 2408.52 Q 1357.14 2387.65 1336.26 2366.78"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="device_sessions" data-schema="risk" data-column-left="trust_score" data-column-right="id">
+      <path class="col-chord" d="M 1336.26 2366.78 Q 1378.01 2379.00 1378.01 2349.48"/>
+    </g>
+    <g class="system-column-wrap" data-table="device_sessions" data-schema="risk" data-column-name="id" data-column-type="uuid" data-column-flags="PK | NOT NULL" data-column-role="primary_key">
+      <line class="col-spoke" x1="1378.01" y1="2408.52" x2="1378.01" y2="2349.48"/>
+      <circle class="col-pk" cx="1378.01" cy="2349.48" r="3.0"/>
+      <text class="col-label" x="1378.01" y="2363.48" text-anchor="middle">id</text>
+    </g>
+    <g class="system-column-wrap" data-table="device_sessions" data-schema="risk" data-column-name="customer_id" data-column-type="uuid" data-column-flags="FK | NOT NULL" data-column-role="foreign_key">
+      <line class="col-spoke" x1="1378.01" y1="2408.52" x2="1419.76" y2="2366.78"/>
+      <circle class="col-fk" cx="1419.76" cy="2366.78" r="3.0"/>
+      <text class="col-label" x="1411.27" y="2377.26" text-anchor="middle">customer_id</text>
+    </g>
+    <g class="system-column-wrap" data-table="device_sessions" data-schema="risk" data-column-name="device_fingerprint" data-column-type="varchar(128)" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="1378.01" y1="2408.52" x2="1437.05" y2="2408.52"/>
+      <circle class="col-reg" cx="1437.05" cy="2408.52" r="3.0"/>
+    </g>
+    <g class="system-column-wrap" data-table="device_sessions" data-schema="risk" data-column-name="ip_address" data-column-type="varchar(64)" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="1378.01" y1="2408.52" x2="1419.76" y2="2450.27"/>
+      <circle class="col-reg" cx="1419.76" cy="2450.27" r="3.0"/>
+    </g>
+    <g class="system-column-wrap" data-table="device_sessions" data-schema="risk" data-column-name="user_agent_hash" data-column-type="varchar(96)" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="1378.01" y1="2408.52" x2="1378.01" y2="2467.56"/>
+      <circle class="col-reg" cx="1378.01" cy="2467.56" r="3.0"/>
+    </g>
+    <g class="system-column-wrap" data-table="device_sessions" data-schema="risk" data-column-name="first_seen_at" data-column-type="timestamp" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="1378.01" y1="2408.52" x2="1336.26" y2="2450.27"/>
+      <circle class="col-reg" cx="1336.26" cy="2450.27" r="3.0"/>
+    </g>
+    <g class="system-column-wrap" data-table="device_sessions" data-schema="risk" data-column-name="last_seen_at" data-column-type="timestamp" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="1378.01" y1="2408.52" x2="1318.97" y2="2408.52"/>
+      <circle class="col-reg" cx="1318.97" cy="2408.52" r="3.0"/>
+    </g>
+    <g class="system-column-wrap" data-table="device_sessions" data-schema="risk" data-column-name="trust_score" data-column-type="numeric(5,2)" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="1378.01" y1="2408.52" x2="1336.26" y2="2366.78"/>
+      <circle class="col-reg" cx="1336.26" cy="2366.78" r="3.0"/>
+    </g>
+    <text class="hash" x="1378.0" y="2586.5" text-anchor="middle">device_sessions</text>
+    <g class="system-node-wrap" data-table="daily_liquidity" data-schema="reporting" data-row-estimate="3650" data-size-bytes="2621440" data-column-count="5" data-fk-count="1" data-index-count="0" data-table-type="materialized_view" data-columns-detail="day_bucket::date::NOT NULL||branch_id::uuid::FK|NOT NULL||debits_total::numeric(18,2)::NOT NULL||credits_total::numeric(18,2)::NOT NULL||net_position::numeric(18,2)::NOT NULL" data-comment="Materialized daily liquidity aggregate.">
+      <circle class="node-loop" cx="844.74" cy="1362.95" r="109.56"/>
+      <circle class="node-loop-inner" cx="844.74" cy="1362.95" r="105.56"/>
+    </g>
+      <circle class="node-shell" cx="844.74" cy="1362.95" r="103.56"/>
+      <ellipse class="node-foundation" cx="844.74" cy="1362.95" rx="83.27" ry="61.62"/>
+      <circle class="node-core" cx="844.74" cy="1362.95" r="17.53"/>
+      <circle class="col-orbit" cx="844.74" cy="1362.95" r="39.44"/>
+    <g class="system-column-link-wrap" data-table="daily_liquidity" data-schema="reporting" data-column-left="day_bucket" data-column-right="branch_id">
+      <path class="col-chord" d="M 844.74 1323.51 Q 863.49 1356.85 882.25 1350.76"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="daily_liquidity" data-schema="reporting" data-column-left="branch_id" data-column-right="debits_total">
+      <path class="col-chord" d="M 882.25 1350.76 Q 856.33 1378.90 867.92 1394.86"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="daily_liquidity" data-schema="reporting" data-column-left="debits_total" data-column-right="credits_total">
+      <path class="col-chord" d="M 867.92 1394.86 Q 833.14 1378.90 821.55 1394.86"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="daily_liquidity" data-schema="reporting" data-column-left="credits_total" data-column-right="net_position">
+      <path class="col-chord" d="M 821.55 1394.86 Q 825.98 1356.85 807.22 1350.76"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="daily_liquidity" data-schema="reporting" data-column-left="net_position" data-column-right="day_bucket">
+      <path class="col-chord" d="M 807.22 1350.76 Q 844.74 1343.23 844.74 1323.51"/>
+    </g>
+    <g class="system-column-wrap" data-table="daily_liquidity" data-schema="reporting" data-column-name="day_bucket" data-column-type="date" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="844.74" y1="1362.95" x2="844.74" y2="1323.51"/>
+      <circle class="col-reg" cx="844.74" cy="1323.51" r="3.0"/>
+    </g>
+    <g class="system-column-wrap" data-table="daily_liquidity" data-schema="reporting" data-column-name="branch_id" data-column-type="uuid" data-column-flags="FK | NOT NULL" data-column-role="foreign_key">
+      <line class="col-spoke" x1="844.74" y1="1362.95" x2="882.25" y2="1350.76"/>
+      <circle class="col-fk" cx="882.25" cy="1350.76" r="3.0"/>
+      <text class="col-label" x="870.83" y="1356.47" text-anchor="middle">branch_id</text>
+    </g>
+    <g class="system-column-wrap" data-table="daily_liquidity" data-schema="reporting" data-column-name="debits_total" data-column-type="numeric(18,2)" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="844.74" y1="1362.95" x2="867.92" y2="1394.86"/>
+      <circle class="col-reg" cx="867.92" cy="1394.86" r="3.0"/>
+    </g>
+    <g class="system-column-wrap" data-table="daily_liquidity" data-schema="reporting" data-column-name="credits_total" data-column-type="numeric(18,2)" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="844.74" y1="1362.95" x2="821.55" y2="1394.86"/>
+      <circle class="col-reg" cx="821.55" cy="1394.86" r="3.0"/>
+    </g>
+    <g class="system-column-wrap" data-table="daily_liquidity" data-schema="reporting" data-column-name="net_position" data-column-type="numeric(18,2)" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="844.74" y1="1362.95" x2="807.22" y2="1350.76"/>
+      <circle class="col-reg" cx="807.22" cy="1350.76" r="3.0"/>
+    </g>
+    <text class="hash" x="844.7" y="1486.5" text-anchor="middle">daily_liquidity</text>
+    <g class="system-node-wrap" data-table="customer_360" data-schema="reporting" data-row-estimate="180000" data-size-bytes="16777216" data-column-count="6" data-fk-count="1" data-index-count="0" data-table-type="view" data-columns-detail="customer_id::uuid::FK|NOT NULL||segment::varchar(32)::NOT NULL||account_count::integer::NOT NULL||card_count::integer::NOT NULL||last_transaction_at::timestamp::NULL||open_alert_count::integer::NOT NULL" data-comment="Unified customer view for service and growth teams.">
+      <circle class="node-aux" cx="583.56" cy="1597.05" r="147.37"/>
+    </g>
+      <circle class="node-shell" cx="583.56" cy="1597.05" r="141.37"/>
+      <ellipse class="node-foundation" cx="583.56" cy="1597.05" rx="112.00" ry="82.88"/>
+      <circle class="node-core" cx="583.56" cy="1597.05" r="23.58"/>
+      <circle class="col-orbit" cx="583.56" cy="1597.05" r="53.05"/>
+    <g class="system-column-link-wrap" data-table="customer_360" data-schema="reporting" data-column-left="customer_id" data-column-right="segment">
+      <path class="col-chord" d="M 583.56 1544.00 Q 606.53 1583.79 629.51 1570.53"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="customer_360" data-schema="reporting" data-column-left="segment" data-column-right="account_count">
+      <path class="col-chord" d="M 629.51 1570.53 Q 606.53 1610.31 629.51 1623.58"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="customer_360" data-schema="reporting" data-column-left="account_count" data-column-right="card_count">
+      <path class="col-chord" d="M 629.51 1623.58 Q 583.56 1623.58 583.56 1650.10"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="customer_360" data-schema="reporting" data-column-left="card_count" data-column-right="last_transaction_at">
+      <path class="col-chord" d="M 583.56 1650.10 Q 560.59 1610.31 537.62 1623.58"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="customer_360" data-schema="reporting" data-column-left="last_transaction_at" data-column-right="open_alert_count">
+      <path class="col-chord" d="M 537.62 1623.58 Q 560.59 1583.79 537.62 1570.53"/>
+    </g>
+    <g class="system-column-link-wrap" data-table="customer_360" data-schema="reporting" data-column-left="open_alert_count" data-column-right="customer_id">
+      <path class="col-chord" d="M 537.62 1570.53 Q 583.56 1570.53 583.56 1544.00"/>
+    </g>
+    <g class="system-column-wrap" data-table="customer_360" data-schema="reporting" data-column-name="customer_id" data-column-type="uuid" data-column-flags="FK | NOT NULL" data-column-role="foreign_key">
+      <line class="col-spoke" x1="583.56" y1="1597.05" x2="583.56" y2="1544.00"/>
+      <circle class="col-fk" cx="583.56" cy="1544.00" r="3.0"/>
+      <text class="col-label" x="583.56" y="1558.00" text-anchor="middle">customer_id</text>
+    </g>
+    <g class="system-column-wrap" data-table="customer_360" data-schema="reporting" data-column-name="segment" data-column-type="varchar(32)" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="583.56" y1="1597.05" x2="629.51" y2="1570.53"/>
+      <circle class="col-reg" cx="629.51" cy="1570.53" r="3.0"/>
+    </g>
+    <g class="system-column-wrap" data-table="customer_360" data-schema="reporting" data-column-name="account_count" data-column-type="integer" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="583.56" y1="1597.05" x2="629.51" y2="1623.58"/>
+      <circle class="col-reg" cx="629.51" cy="1623.58" r="3.0"/>
+    </g>
+    <g class="system-column-wrap" data-table="customer_360" data-schema="reporting" data-column-name="card_count" data-column-type="integer" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="583.56" y1="1597.05" x2="583.56" y2="1650.10"/>
+      <circle class="col-reg" cx="583.56" cy="1650.10" r="3.0"/>
+    </g>
+    <g class="system-column-wrap" data-table="customer_360" data-schema="reporting" data-column-name="last_transaction_at" data-column-type="timestamp" data-column-flags="NULL" data-column-role="column">
+      <line class="col-spoke" x1="583.56" y1="1597.05" x2="537.62" y2="1623.58"/>
+      <circle class="col-reg col-nullable" cx="537.62" cy="1623.58" r="3.0"/>
+    </g>
+    <g class="system-column-wrap" data-table="customer_360" data-schema="reporting" data-column-name="open_alert_count" data-column-type="integer" data-column-flags="NOT NULL" data-column-role="column">
+      <line class="col-spoke" x1="583.56" y1="1597.05" x2="537.62" y2="1570.53"/>
+      <circle class="col-reg" cx="537.62" cy="1570.53" r="3.0"/>
+    </g>
+    <text class="hash" x="583.6" y="1758.4" text-anchor="middle">customer_360</text>
+  </g>
+<script type="text/javascript"><![CDATA[
+
+(function() {
+  'use strict';
+
+  var currentScript = document.currentScript;
+  var svg = currentScript && currentScript.closest ? currentScript.closest('svg') : null;
+  if (!svg && currentScript && currentScript.ownerSVGElement) {
+    svg = currentScript.ownerSVGElement;
+  }
+  if (!svg) return;
+
+  var vb = svg.viewBox.baseVal;
+  var VB_W = vb.width || 1200;
+  var VB_H = vb.height || 1200;
+
+  var TIP_PAD_X = 10;
+  var TIP_PAD_Y = 8;
+  var TIP_LINE_H = 15;
+  var TIP_MIN_W = 220;
+  var TIP_MAX_W = 420;
+  var TIP_BG = '#f7f1e5';
+  var TIP_BORDER = '#1f2937';
+  var TIP_TEXT = '#0f172a';
+  var TIP_DIM = '#64748b';
+  var FONT_TITLE = 'bold 12.65px monospace';
+  var FONT_BODY = '11.5px monospace';
+
+  var tip = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+  tip.setAttribute('id', 'atlas-tooltip');
+  tip.style.pointerEvents = 'none';
+  tip.style.display = 'none';
+  svg.appendChild(tip);
+
+  var tipInner = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+  tip.appendChild(tipInner);
+
+  var tipRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+  tipRect.setAttribute('rx', '3');
+  tipRect.setAttribute('fill', TIP_BG);
+  tipRect.setAttribute('stroke', TIP_BORDER);
+  tipRect.setAttribute('stroke-width', '1');
+  tipInner.appendChild(tipRect);
+
+  var tipLines = [];
+
+  function _fmtRows(n) {
+    if (n === null || n === undefined || isNaN(n) || n < 0) return '—';
+    var s = Math.round(n).toString();
+    var out = '';
+    for (var i = 0; i < s.length; i++) {
+      if (i > 0 && (s.length - i) % 3 === 0) out += '\u202F';
+      out += s[i];
+    }
+    return '~' + out;
+  }
+
+  function _fmtBytes(n) {
+    if (!n || isNaN(n) || n <= 0) return '—';
+    var units = ['B', 'KB', 'MB', 'GB', 'TB'];
+    var value = n;
+    var unit = 0;
+    while (value >= 1024 && unit < units.length - 1) {
+      value /= 1024;
+      unit += 1;
+    }
+    return (unit === 0 ? value.toFixed(0) : value.toFixed(1)) + ' ' + units[unit];
+  }
+
+  function _fmtType(t) {
+    var map = {
+      'table': 'table',
+      'view': 'view',
+      'materialized_view': 'mat. view',
+      'foreign_table': 'foreign'
+    };
+    return map[t] || t || '';
+  }
+
+  function _parseColumns(raw) {
+    if (!raw) return [];
+    return raw.split('||').filter(Boolean).map(function(entry) {
+      var parts = entry.split('::');
+      return {
+        name: parts[0] || '?',
+        type: parts[1] || '',
+        flags: parts[2] || ''
+      };
+    });
+  }
+
+  function _fmtConfidence(value) {
+    if (value === null || value === undefined || value === '') return '';
+    var parsed = parseFloat(value);
+    if (isNaN(parsed)) return '';
+    return Math.round(parsed * 100) + '%';
+  }
+
+  function _clearTip() {
+    while (tipLines.length) {
+      var el = tipLines.pop();
+      if (el && el.parentNode) el.parentNode.removeChild(el);
+    }
+  }
+
+  function _addLine(text, opts) {
+    var el = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    el.textContent = text;
+    el.setAttribute('fill', opts && opts.dim ? TIP_DIM : TIP_TEXT);
+    el.setAttribute('font', opts && opts.title ? FONT_TITLE : FONT_BODY);
+    if (opts && opts.title) el.setAttribute('font-weight', 'bold');
+    tipInner.appendChild(el);
+    tipLines.push(el);
+    return el;
+  }
+
+  function _measureText(text, opts) {
+    var probe = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    probe.textContent = text;
+    probe.setAttribute('fill', 'transparent');
+    probe.setAttribute('font', opts && opts.title ? FONT_TITLE : FONT_BODY);
+    if (opts && opts.title) probe.setAttribute('font-weight', 'bold');
+    probe.setAttribute('visibility', 'hidden');
+    tipInner.appendChild(probe);
+    var width = probe.getComputedTextLength();
+    tipInner.removeChild(probe);
+    return width;
+  }
+
+  function _splitLongToken(token, maxChars, maxWidth, opts) {
+    if (!token) return [''];
+    var parts = [];
+    var index = 0;
+    while (index < token.length) {
+      var nextIndex = Math.min(token.length, index + maxChars);
+      var chunk = token.slice(index, nextIndex);
+      while (chunk.length > 1 && _measureText(chunk, opts) > maxWidth) {
+        nextIndex -= 1;
+        chunk = token.slice(index, nextIndex);
+      }
+      parts.push(chunk);
+      index = nextIndex;
+    }
+    return parts;
+  }
+
+  function _wrapText(text, opts) {
+    var content = String(text || '').trim();
+    if (!content) {
+      _addLine('', opts);
+      return;
+    }
+
+    var maxChars = opts && opts.title ? 34 : 48;
+    var maxWidth = TIP_MAX_W - TIP_PAD_X * 2 - 8;
+    var words = content.split(/\s+/);
+    var line = '';
+
+    function pushLine(value) {
+      _addLine(value, opts);
+    }
+
+    for (var i = 0; i < words.length; i++) {
+      var word = words[i];
+      if (!word) continue;
+      if (_measureText(word, opts) > maxWidth) {
+        if (line) {
+          pushLine(line);
+          line = '';
+        }
+        var chunks = _splitLongToken(word, maxChars, maxWidth, opts);
+        for (var j = 0; j < chunks.length; j++) {
+          pushLine(chunks[j]);
+        }
+        continue;
+      }
+      var candidate = line ? (line + ' ' + word) : word;
+      if (
+        candidate.length > maxChars
+        || _measureText(candidate, opts) > maxWidth
+      ) {
+        pushLine(line);
+        line = word;
+      } else {
+        line = candidate;
+      }
+    }
+
+    if (line) pushLine(line);
+  }
+
+  function _addSep() {
+    var el = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    el.setAttribute('stroke', TIP_BORDER);
+    el.setAttribute('stroke-width', '0.5');
+    el.setAttribute('opacity', '0.4');
+    tipInner.appendChild(el);
+    tipLines.push(el);
+    return el;
+  }
+
+  function _currentZoomScale() {
+    var root = svg.closest ? svg.closest('[data-atlas-zoom-root]') : null;
+    if (!root) return 1;
+    var raw = parseFloat(root.getAttribute('data-atlas-zoom-scale') || '1');
+    if (!isFinite(raw) || raw <= 0) return 1;
+    return raw;
+  }
+
+  function _buildNodeTip(ds) {
+    _clearTip();
+    _wrapText((ds.table || '?') + '  (' + _fmtType(ds.tableType || ds.table_type) + ')', {title: true});
+    _addSep();
+    if (ds.schema) _wrapText('schema:   ' + ds.schema);
+    _wrapText('rows:     ' + _fmtRows(parseInt(ds.rowEstimate || ds.row_estimate, 10)));
+    _wrapText('size:     ' + _fmtBytes(parseInt(ds.sizeBytes || ds.size_bytes, 10)));
+    var parts = [];
+    if (ds.columnCount || ds.column_count) parts.push('columns: ' + (ds.columnCount || ds.column_count));
+    if (ds.fkCount || ds.fk_count) parts.push('FKs: ' + (ds.fkCount || ds.fk_count));
+    if (ds.indexCount || ds.index_count) parts.push('indexes: ' + (ds.indexCount || ds.index_count));
+    if (parts.length) _wrapText(parts.join(' | '));
+    if (ds.comment) _wrapText(ds.comment, {dim: true});
+    if (ds.semanticShort || ds.semanticDetailed || ds.semanticRole || ds.semanticDomain) {
+      _addSep();
+      _wrapText('semantic', {title: true});
+      if (ds.semanticShort) _wrapText(ds.semanticShort);
+      if (ds.semanticDetailed) _wrapText(ds.semanticDetailed, {dim: true});
+      var semanticBits = [];
+      if (ds.semanticDomain) semanticBits.push('domain: ' + ds.semanticDomain);
+      if (ds.semanticRole) semanticBits.push('role: ' + ds.semanticRole);
+      if (semanticBits.length) _wrapText(semanticBits.join(' | '));
+      var confidence = _fmtConfidence(ds.semanticConfidence);
+      if (confidence) _wrapText('confidence: ' + confidence, {dim: true});
+    }
+    var columns = _parseColumns(ds.columnsDetail || ds.columns_detail);
+    if (columns.length) {
+      _addSep();
+      _wrapText('columns', {title: true});
+      var visible = Math.min(10, columns.length);
+      for (var i = 0; i < visible; i++) {
+        var suffix = columns[i].flags ? ' [' + columns[i].flags + ']' : '';
+        _wrapText('\u2022 ' + columns[i].name + ' : ' + columns[i].type + suffix, {dim: i >= 5});
+      }
+      if (columns.length > visible) _wrapText('+' + (columns.length - visible) + ' more columns', {dim: true});
+    }
+  }
+
+  function _buildEdgeTip(ds) {
+    _clearTip();
+    _wrapText((ds.fkType || ds.fk_type) === 'inferred' ? 'Indirect relationship' : 'Direct relationship', {title: true});
+    _addSep();
+    var cols = ds.fkColumns || ds.fk_columns || '';
+    if (cols) {
+      _wrapText(cols.replace(/&gt;/g, '>'));
+    } else {
+      _wrapText((ds.fkFrom || ds.fk_from || '?') + ' -> ' + (ds.fkTo || ds.fk_to || '?'));
+    }
+    if (ds.onDelete || ds.on_delete) _wrapText('ON DELETE: ' + (ds.onDelete || ds.on_delete), {dim: true});
+  }
+
+  function _buildSchemaTip(ds) {
+    _clearTip();
+    _wrapText((ds.schema || '?') + '  (schema)', {title: true});
+    _addSep();
+    if (ds.tableCount) _wrapText('tables:   ' + ds.tableCount);
+    if (ds.directFkCount) _wrapText('direct FKs: ' + ds.directFkCount);
+    if (ds.totalRows) _wrapText('rows:     ' + _fmtRows(parseInt(ds.totalRows, 10)));
+  }
+
+  function _buildColumnTip(ds) {
+    _clearTip();
+    _wrapText((ds.columnName || '?') + '  (' + (ds.columnRole || ds.semanticRole || 'column') + ')', {title: true});
+    _addSep();
+    if (ds.schema && ds.table) _wrapText(ds.schema + '.' + ds.table, {dim: true});
+    if (ds.columnType) _wrapText('type:     ' + ds.columnType);
+    if (ds.columnFlags) _wrapText(ds.columnFlags);
+    if (ds.semanticShort || ds.semanticDetailed || ds.semanticRole) {
+      _addSep();
+      _wrapText('semantic', {title: true});
+      if (ds.semanticShort) _wrapText(ds.semanticShort);
+      if (ds.semanticDetailed) _wrapText(ds.semanticDetailed, {dim: true});
+      if (ds.semanticRole) _wrapText('role:     ' + ds.semanticRole);
+      var confidence = _fmtConfidence(ds.semanticConfidence);
+      if (confidence) _wrapText('confidence: ' + confidence, {dim: true});
+    }
+  }
+
+  function _buildColumnLinkTip(ds) {
+    _clearTip();
+    _wrapText('Internal linkage', {title: true});
+    _addSep();
+    if (ds.schema && ds.table) _wrapText(ds.schema + '.' + ds.table, {dim: true});
+    _wrapText((ds.columnLeft || '?') + ' ↔ ' + (ds.columnRight || '?'));
+  }
+
+  function _measureWidth() {
+    var width = TIP_MIN_W;
+    for (var i = 0; i < tipLines.length; i++) {
+      var el = tipLines[i];
+      if (el.tagName === 'text') width = Math.max(width, el.getComputedTextLength() + TIP_PAD_X * 2);
+    }
+    return Math.min(TIP_MAX_W, width);
+  }
+
+  function _layoutTip(x, y) {
+    var width = _measureWidth();
+    var textY = TIP_PAD_Y + 12;
+    var sepCount = 0;
+    for (var i = 0; i < tipLines.length; i++) {
+      var el = tipLines[i];
+      if (el.tagName === 'line') {
+        el.setAttribute('x1', TIP_PAD_X);
+        el.setAttribute('x2', width - TIP_PAD_X);
+        el.setAttribute('y1', textY - 8);
+        el.setAttribute('y2', textY - 8);
+        sepCount += 1;
+      } else {
+        el.setAttribute('x', TIP_PAD_X);
+        el.setAttribute('y', textY);
+        textY += TIP_LINE_H;
+      }
+    }
+    var height = Math.max(36, TIP_PAD_Y * 2 + (tipLines.length - sepCount) * TIP_LINE_H + 2);
+    tipRect.setAttribute('width', width);
+    tipRect.setAttribute('height', height);
+    var scale = _currentZoomScale();
+    var inverseScale = 1 / scale;
+    tipInner.setAttribute('transform', 'scale(' + inverseScale.toFixed(4) + ')');
+
+    var tx = x + 14;
+    var ty = y - 8;
+    if (tx + width > VB_W) tx = x - width - 14;
+    if (tx < 4) tx = 4;
+    if (ty + height > VB_H) ty = VB_H - height - 4;
+    if (ty < 4) ty = 4;
+    tip.setAttribute('transform', 'translate(' + tx + ',' + ty + ')');
+  }
+
+  function _show(evt, builder) {
+    builder(evt.currentTarget.dataset);
+    tip.style.display = 'inline';
+    _layoutTip(evt.offsetX || 0, evt.offsetY || 0);
+  }
+
+  function _hide() {
+    tip.style.display = 'none';
+    _clearTip();
+  }
+
+  function _move(evt) {
+    if (tip.style.display === 'none') return;
+    _layoutTip(evt.offsetX || 0, evt.offsetY || 0);
+  }
+
+  function _bind(selector, builder) {
+    var nodes = svg.querySelectorAll(selector);
+    nodes.forEach(function(node) {
+      node.addEventListener('mouseenter', function(evt) { _show(evt, builder); });
+      node.addEventListener('mouseleave', _hide);
+      node.addEventListener('mousemove', _move);
+    });
+  }
+
+  _bind('.system-node-wrap', _buildNodeTip);
+  _bind('.system-edge-wrap', _buildEdgeTip);
+  _bind('.system-schema-wrap', _buildSchemaTip);
+  _bind('.system-column-wrap', _buildColumnTip);
+  _bind('.system-column-link-wrap', _buildColumnLinkTip);
+})();
+
+]]></script>
+</svg>

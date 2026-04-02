@@ -1,0 +1,73 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.dylib
+*.dll
+*.o
+*.a
+*.obj
+*.log
+
+# Packaging
+dist/
+build/
+*.egg-info/
+*.egg
+.eggs/
+pip-wheel-metadata/
+
+# Test and coverage artifacts
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+tests/tmp/
+
+# Type checking and lint caches
+.mypy_cache/
+.ruff_cache/
+
+# Local environments
+.venv/
+.venv312/
+venv/
+env/
+.env
+.env.*
+
+# IDEs and editors
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Atlas-generated artifacts
+out/
+snapshots/
+*.sigil
+*.atlas
+*.embeddings
+*.semantic_cache.json
+.atlas_cache/
+atlas_onboarding/
+examples/full_showcase/generated/
+examples/sigilo_compare/*.svg
+examples/fictional_bank.row_scale_rebalanced.system.svg
+
+# Local databases
+*.db
+*.sqlite
+
+# macOS
+.DS_Store
+
+# Local planning / assistant state
+md_out/
+.claude/
+
+# Keep repository automation and workflows tracked.
+!.github/
+GEMINI.md
