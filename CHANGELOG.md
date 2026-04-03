@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.5
+
+- Made full column enrichment the default onboarding and enrich mode for richer semantic output.
+- Improved semantic column prompting and sample summarization to reduce generic descriptions and better capture long-form narrative text.
+- Updated Ollama embeddings integration to use the current `/api/embed` endpoint with the configured model.
+
 ## 1.0.4
 
 - Fixed editable-install and build-backend bootstrap issues across Linux, macOS, and Windows CI.
