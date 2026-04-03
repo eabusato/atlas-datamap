@@ -123,6 +123,28 @@ def test_classify_detects_fact_table() -> None:
     assert classification.confidence == 1.0
 
 
+def test_classify_detects_fact_table_when_time_grain_is_stored_as_text() -> None:
+    table = make_table(
+        "fact_orders",
+        row_count=8_000,
+        columns=[
+            make_column("id", "integer", primary_key=True, nullable=False),
+            make_column("customer_id", "integer", nullable=False, foreign_key=True),
+            make_column("total_amount", "numeric", nullable=False),
+            make_column("payment_status", "text", nullable=False),
+            make_column("created_at", "text", nullable=False),
+        ],
+        foreign_keys=[
+            make_fk("fact_orders", ["customer_id"], "customer_accounts"),
+        ],
+    )
+
+    classification = TableClassifier().classify(table, fk_in_degree=0)
+
+    assert classification.probable_type == "fact"
+    assert classification.confidence >= 0.5
+
+
 def test_classify_detects_domain_main_table() -> None:
     table = make_table(
         "customers",

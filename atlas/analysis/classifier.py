@@ -98,6 +98,13 @@ _TEXT_TYPES = {
 }
 _CONFIG_NAME_TOKENS = ("config", "param", "setting", "option", "lookup", "reference", "catalog")
 _STAGING_COLUMN_PATTERNS = ("load_date", "batch_id", "etl_", "_raw", "_landing")
+_TEMPORAL_NAME_PATTERNS = (
+    "created_at",
+    "updated_at",
+    "deleted_at",
+    "occurred_at",
+    "processed_at",
+)
 
 
 @dataclass(slots=True)
@@ -186,6 +193,7 @@ def _text_ratio(table: TableInfo) -> float:
         1
         for column in non_key_columns
         if (column.canonical_type or AtlasType.UNKNOWN).value in _TEXT_TYPES
+        and not _is_temporalish_column(column.name)
     )
     return matches / len(non_key_columns)
 
@@ -202,7 +210,9 @@ def _has_measure_like_numeric(table: TableInfo) -> bool:
 
 
 def _has_timestamp_column(table: TableInfo) -> bool:
-    return any(type_name in _DATETIME_TYPES for type_name in _col_canonical_types(table))
+    return any(type_name in _DATETIME_TYPES for type_name in _col_canonical_types(table)) or any(
+        _is_temporalish_column(column.name) for column in table.columns
+    )
 
 
 def _has_event_column(table: TableInfo) -> bool:
@@ -223,6 +233,13 @@ def _has_staging_columns(table: TableInfo) -> bool:
         or column_name.endswith("_landing")
         for column_name in names
     )
+
+
+def _is_temporalish_column(column_name: str) -> bool:
+    lowered = column_name.lower()
+    if lowered in _TEMPORAL_NAME_PATTERNS:
+        return True
+    return lowered.endswith(("_at", "_date", "_time", "_on"))
 
 
 def _has_config_key_value_pattern(table: TableInfo) -> bool:
@@ -252,6 +269,8 @@ def _is_surrogate_pk_plus_two_fks(table: TableInfo) -> bool:
 def _is_classic_dimension(table: TableInfo) -> bool:
     if not _has_pk(table):
         return False
+    if _has_measure_like_numeric(table):
+        return False
     non_key_columns = [column for column in table.columns if not column.is_primary_key]
     if len(non_key_columns) < 2:
         return False
@@ -259,6 +278,7 @@ def _is_classic_dimension(table: TableInfo) -> bool:
         1
         for column in non_key_columns
         if (column.canonical_type or AtlasType.UNKNOWN).value in _TEXT_TYPES
+        and not _is_temporalish_column(column.name)
     )
     return text_columns >= max(1, len(non_key_columns) // 2)
 
@@ -342,7 +362,7 @@ class TableClassifier:
             signals.append(_Signal("dimension", 0.20, "primary key present"))
         if fk_out <= 2:
             signals.append(_Signal("dimension", 0.15, "low outbound relationship count"))
-        if _text_ratio(table) >= 0.5:
+        if not _has_measure_like_numeric(table) and _text_ratio(table) >= 0.5:
             signals.append(_Signal("dimension", 0.30, "mostly descriptive text attributes"))
         if _RE_DIMENSION.search(lowered_name):
             signals.append(_Signal("dimension", 0.20, "dimension-style table name"))
