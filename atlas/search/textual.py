@@ -12,6 +12,8 @@ _SCORE_L1_EXACT_TOKEN = 10.0
 _SCORE_L2_SUBSTR = 5.0
 _SCORE_L3_TYPE = 4.0
 _SCORE_L4_COMMENT = 2.0
+_SCORE_L5_SEMANTIC = 4.0
+_SCORE_L6_COLUMN = 2.0
 
 _RE_CAMEL = re.compile(r"([a-z0-9])([A-Z])")
 _RE_NON_WORD = re.compile(r"[\W_]+", re.UNICODE)
@@ -28,36 +30,62 @@ class AtlasSearch:
     def __init__(self, result: IntrospectionResult) -> None:
         self._result = result
 
-    def _normalize_tokens(self, text: str | None) -> set[str]:
+    def _normalize_tokens(self, text: str | None, *, expand_inflections: bool = False) -> set[str]:
         """Normalize a free-form string into search tokens."""
 
         if text is None:
             return set()
         expanded = _RE_CAMEL.sub(r"\1 \2", text)
         normalized = _RE_NON_WORD.sub(" ", expanded.casefold())
-        return {token for token in normalized.split() if len(token) > 1}
+        tokens: set[str] = set()
+        for token in normalized.split():
+            if len(token) <= 1:
+                continue
+            if expand_inflections:
+                tokens.update(self._expand_token_forms(token))
+            else:
+                tokens.add(token)
+        return tokens
+
+    @staticmethod
+    def _expand_token_forms(token: str) -> set[str]:
+        forms = {token}
+        if len(token) > 3 and token.endswith("ies"):
+            forms.add(f"{token[:-3]}y")
+        elif len(token) > 3 and token.endswith("es"):
+            forms.add(token[:-2])
+        elif len(token) > 2 and token.endswith("s"):
+            forms.add(token[:-1])
+        return {item for item in forms if len(item) > 1}
 
     def _calculate_match_score(
         self,
         query_tokens: set[str],
+        raw_query_tokens: set[str],
         target_name: str,
+        exact_name: str | None,
         target_comment: str | None,
         target_type: str | None = None,
+        semantic_text: str | None = None,
+        column_text: str | None = None,
     ) -> tuple[float, str | None]:
         """Return score and ranking explanation for a single target."""
 
         if not query_tokens:
             return 0.0, None
 
+        exact_name_tokens = self._normalize_tokens(exact_name or target_name)
         name_tokens = self._normalize_tokens(target_name)
-        comment_tokens = self._normalize_tokens(target_comment)
-        type_tokens = self._normalize_tokens(target_type)
+        comment_tokens = self._normalize_tokens(target_comment, expand_inflections=True)
+        type_tokens = self._normalize_tokens(target_type, expand_inflections=True)
+        semantic_tokens = self._normalize_tokens(semantic_text, expand_inflections=True)
+        column_tokens = self._normalize_tokens(column_text, expand_inflections=True)
         lowered_name = target_name.casefold()
 
         score = 0.0
         reasons: list[str] = []
 
-        if name_tokens and query_tokens == name_tokens:
+        if exact_name_tokens and raw_query_tokens == exact_name_tokens:
             score += _SCORE_L0_EXACT_SET
             reasons.append("L0 exact name token-set")
 
@@ -77,6 +105,14 @@ class AtlasSearch:
                 score += _SCORE_L4_COMMENT
                 reasons.append(f"L4 comment token:{token}")
 
+            if token in semantic_tokens:
+                score += _SCORE_L5_SEMANTIC
+                reasons.append(f"L5 semantic token:{token}")
+
+            if token in column_tokens:
+                score += _SCORE_L6_COLUMN
+                reasons.append(f"L6 column token:{token}")
+
         if score <= 0.0:
             return 0.0, None
         return score, "; ".join(reasons)
@@ -89,7 +125,8 @@ class AtlasSearch:
     ) -> list[SearchResult]:
         """Search tables by name, comment, or heuristic type."""
 
-        query_tokens = self._normalize_tokens(query)
+        raw_query_tokens = self._normalize_tokens(query)
+        query_tokens = self._normalize_tokens(query, expand_inflections=True)
         wanted_type = type_filter.casefold() if type_filter is not None else None
         results: list[SearchResult] = []
 
@@ -99,11 +136,37 @@ class AtlasSearch:
             heuristic_type = (table.heuristic_type or "").casefold()
             if wanted_type is not None and heuristic_type != wanted_type:
                 continue
+            semantic_text = " ".join(
+                value
+                for value in (
+                    table.semantic_short,
+                    table.semantic_detailed,
+                    table.semantic_domain,
+                    table.semantic_role,
+                )
+                if value
+            )
+            column_text = " ".join(
+                value
+                for column in table.columns
+                for value in (
+                    column.name,
+                    column.comment,
+                    column.semantic_short,
+                    column.semantic_detailed,
+                    column.semantic_role,
+                )
+                if value
+            )
             score, reason = self._calculate_match_score(
                 query_tokens,
+                raw_query_tokens,
+                f"{table.schema} {table.name} {table.qualified_name}",
                 table.name,
                 table.comment,
                 table.heuristic_type,
+                semantic_text,
+                column_text,
             )
             if reason is None:
                 continue
@@ -126,7 +189,8 @@ class AtlasSearch:
     ) -> list[SearchResult]:
         """Search columns by name, comment, or canonical type."""
 
-        query_tokens = self._normalize_tokens(query)
+        raw_query_tokens = self._normalize_tokens(query)
+        query_tokens = self._normalize_tokens(query, expand_inflections=True)
         results: list[SearchResult] = []
 
         for table in self._result.all_tables():
@@ -136,6 +200,8 @@ class AtlasSearch:
                 canonical_type = (column.canonical_type or AtlasType.UNKNOWN).value
                 score, reason = self._calculate_match_score(
                     query_tokens,
+                    raw_query_tokens,
+                    column.name,
                     column.name,
                     column.comment,
                     canonical_type,
@@ -157,7 +223,7 @@ class AtlasSearch:
     def search_schema(self, query: str) -> list[SearchResult]:
         """Search schemas, tables, and columns in one merged ranked list."""
 
-        query_tokens = self._normalize_tokens(query)
+        query_tokens = self._normalize_tokens(query, expand_inflections=True)
         results = self._search_schemas_only(query_tokens)
         results.extend(self.search_tables(query))
         results.extend(self.search_columns(query))
@@ -170,6 +236,8 @@ class AtlasSearch:
         for schema in self._result.schemas:
             score, reason = self._calculate_match_score(
                 query_tokens,
+                query_tokens,
+                schema.name,
                 schema.name,
                 None,
                 None,

@@ -114,6 +114,50 @@ def test_qa_rejects_ungrounded_llm_interpretation_and_falls_back(phase_tmp_dir: 
     assert answer.suggested_query is None
 
 
+def test_qa_can_find_logs_table_from_semantic_material_when_llm_terms_are_weak(
+    phase_tmp_dir: Path,
+) -> None:
+    result = build_phase10_result(phase_tmp_dir / "qa_logs.db")
+    client = FakeClient(
+        [
+            """{
+                "search_terms": ["logs"],
+                "semantic_terms": [],
+                "reasoning": "The user is asking about logs.",
+                "suggested_query": null
+            }"""
+        ]
+    )
+
+    answer = AtlasQA(result, client).ask("onde ficam os logs?")
+
+    assert answer.candidates[0].qualified_name == "main.log_payment_history"
+    assert answer.candidates[0].semantic_score > 0.0
+
+
+def test_qa_uses_llm_to_rerank_candidate_tables(phase_tmp_dir: Path) -> None:
+    result = build_phase10_result(phase_tmp_dir / "qa_rerank.db")
+    client = FakeClient(
+        [
+            """{
+                "search_terms": ["payment", "history"],
+                "semantic_terms": ["billing", "payment", "history"],
+                "reasoning": "The user is asking about payment history.",
+                "suggested_query": null
+            }""",
+            """{
+                "preferred_tables": ["main.log_payment_history"],
+                "reasoning": "The payment history table is the clearest semantic match."
+            }""",
+        ]
+    )
+
+    answer = AtlasQA(result, client).ask("where are payment logs kept?")
+
+    assert answer.candidates[0].qualified_name == "main.log_payment_history"
+    assert len(client.prompts) >= 2
+
+
 def test_qa_limits_output_to_top_five_candidates(phase_tmp_dir: Path) -> None:
     result = build_phase10_result(phase_tmp_dir / "qa_top5.db")
     client = FakeClient(

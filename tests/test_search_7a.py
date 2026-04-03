@@ -89,6 +89,30 @@ def _result() -> IntrospectionResult:
                             ),
                         ],
                     ),
+                    TableInfo(
+                        name="accounts_useractivitylog",
+                        schema="sales_ops",
+                        table_type=TableType.TABLE,
+                        comment=None,
+                        heuristic_type="event",
+                        semantic_short="User activity logs",
+                        semantic_detailed="Append-only audit trail of user actions, paths, and timestamps.",
+                        semantic_domain="security",
+                        semantic_role="activity_log",
+                        columns=[
+                            ColumnInfo(
+                                name="id",
+                                native_type="bigint",
+                                is_primary_key=True,
+                                is_nullable=False,
+                            ),
+                            ColumnInfo(
+                                name="path",
+                                native_type="varchar(255)",
+                                comment="HTTP path visited by the user",
+                            ),
+                        ],
+                    ),
                 ],
             )
         ],
@@ -174,6 +198,12 @@ def test_normalize_tokens_splits_camel_and_snake_case() -> None:
     assert search._normalize_tokens("CustomerOrders customer_orders") == {"customer", "orders"}
 
 
+def test_normalize_tokens_adds_basic_singular_variants() -> None:
+    search = AtlasSearch(_result())
+
+    assert "log" in search._normalize_tokens("logs", expand_inflections=True)
+
+
 def test_search_tables_prefers_exact_name_token_set() -> None:
     search = AtlasSearch(_result())
 
@@ -189,6 +219,15 @@ def test_search_tables_can_filter_by_heuristic_type() -> None:
     results = search.search_tables("customer", type_filter="dimension")
 
     assert [item.qualified_name for item in results] == ["sales_ops.CustomerAccount"]
+
+
+def test_search_tables_uses_semantic_and_column_material() -> None:
+    search = AtlasSearch(_result())
+
+    results = search.search_tables("logs")
+
+    assert results[0].qualified_name == "sales_ops.accounts_useractivitylog"
+    assert "semantic token:log" in results[0].reason or "column token:log" in results[0].reason
 
 
 def test_search_columns_uses_comment_and_type_metadata() -> None:

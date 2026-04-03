@@ -60,6 +60,23 @@ Required schema:
   "suggested_query": null
 }}"""
 
+_RERANK_PROMPT = """You compare candidate database tables for one user question.
+
+Question: "{question}"
+
+Candidates:
+{candidates}
+
+Return valid JSON only. Use only the candidate names provided above.
+Prefer candidates whose semantic_short, semantic_detailed, role, domain, and column names clearly match the question.
+If nothing is convincing, return an empty preferred_tables list.
+
+Required schema:
+{{
+  "preferred_tables": ["schema.table"],
+  "reasoning": "One sentence grounded in the candidate metadata."
+}}"""
+
 
 @dataclass(frozen=True, slots=True)
 class QACandidate:
@@ -149,15 +166,16 @@ class AtlasQA:
         structural_scores = self._normalize_structural_scores(structural_hits)
         semantic_terms = self._normalize_list(interpretation.semantic_terms)
         question_terms = self._tokenize(normalized_question, for_question=True)
-        candidate_tables = self._candidate_tables(structural_scores, semantic_terms)
+        semantic_probe_terms = sorted(set(question_terms) | set(semantic_terms))
+        candidate_tables = self._candidate_tables(structural_scores, semantic_probe_terms)
 
         candidates: list[QACandidate] = []
         for table in candidate_tables:
             structural_score = structural_scores.get(table.qualified_name, 0.0)
-            semantic_score = self._semantic_score(table, semantic_terms)
+            semantic_score = self._semantic_score(table, semantic_probe_terms)
             heuristic_score = self._heuristic_score(table, question_terms, semantic_terms)
             final_score = self._clamp(
-                structural_score * 0.40 + semantic_score * 0.40 + heuristic_score * 0.20
+                structural_score * 0.25 + semantic_score * 0.55 + heuristic_score * 0.20
             )
             if final_score <= 0.0:
                 continue
@@ -190,6 +208,16 @@ class AtlasQA:
                 item.qualified_name,
             )
         )
+        rerank_boosts = self._llm_rerank_boosts(normalized_question, candidates)
+        if rerank_boosts:
+            candidates.sort(
+                key=lambda item: (
+                    -(item.final_score + rerank_boosts.get(item.qualified_name, 0.0)),
+                    -item.semantic_score,
+                    -item.structural_score,
+                    item.qualified_name,
+                )
+            )
         top_candidates = candidates[:_MAX_RESULTS]
         return QAResult(
             question=normalized_question,
@@ -249,15 +277,19 @@ class AtlasQA:
         structural_scores: dict[str, float],
         semantic_terms: list[str],
     ) -> list[TableInfo]:
-        if structural_scores:
-            return [
-                table
-                for table in self._result.all_tables()
-                if table.qualified_name in structural_scores
-            ]
-        if semantic_terms:
-            return self._result.all_tables()
-        return []
+        tables: list[TableInfo] = []
+        seen: set[str] = set()
+
+        for table in self._result.all_tables():
+            has_structural = table.qualified_name in structural_scores
+            has_semantic = bool(semantic_terms) and self._semantic_score(table, semantic_terms) > 0.0
+            if not has_structural and not has_semantic:
+                continue
+            if table.qualified_name in seen:
+                continue
+            seen.add(table.qualified_name)
+            tables.append(table)
+        return tables
 
     def _normalize_structural_scores(self, hits: list[SearchResult]) -> dict[str, float]:
         if not hits:
@@ -277,8 +309,12 @@ class AtlasQA:
         table_tokens = self._semantic_tokens(table)
         if not table_tokens:
             return 0.0
-        overlap = len(semantic_tokens & table_tokens) / len(semantic_tokens)
-        return self._clamp(overlap * self._table_semantic_confidence(table))
+        overlap_count = len(semantic_tokens & table_tokens)
+        if overlap_count <= 0:
+            return 0.0
+        coverage = overlap_count / len(semantic_tokens)
+        overlap_boost = min(0.3, 0.1 * overlap_count)
+        return self._clamp((coverage + overlap_boost) * self._table_semantic_confidence(table))
 
     def _table_semantic_confidence(self, table: TableInfo) -> float:
         if table.semantic_confidence > 0.0:
@@ -359,6 +395,64 @@ class AtlasQA:
             fragments.append(f"role={table.semantic_role}")
         return "; ".join(fragments)
 
+    def _llm_rerank_boosts(
+        self,
+        question: str,
+        candidates: list[QACandidate],
+    ) -> dict[str, float]:
+        shortlist = candidates[:8]
+        if len(shortlist) < 2:
+            return {}
+
+        candidate_lookup = {candidate.qualified_name: candidate for candidate in shortlist}
+        prompt = _RERANK_PROMPT.format(
+            question=question.replace('"', '\\"'),
+            candidates=self._format_rerank_candidates(shortlist),
+        )
+        try:
+            payload = ResponseParser.extract_json(self._client.generate(prompt))
+        except Exception:
+            return {}
+
+        preferred = payload.get("preferred_tables")
+        if not isinstance(preferred, list):
+            return {}
+
+        boosts: dict[str, float] = {}
+        rank_boosts = [0.12, 0.08, 0.05]
+        applied = 0
+        for item in preferred:
+            if not isinstance(item, str):
+                continue
+            qualified_name = item.strip()
+            if qualified_name not in candidate_lookup:
+                continue
+            if qualified_name in boosts:
+                continue
+            boost = rank_boosts[min(applied, len(rank_boosts) - 1)]
+            boosts[qualified_name] = boost
+            applied += 1
+            if applied >= len(rank_boosts):
+                break
+        return boosts
+
+    def _format_rerank_candidates(self, candidates: list[QACandidate]) -> str:
+        lines: list[str] = []
+        for candidate in candidates:
+            table = self._result.get_table(candidate.schema, candidate.table)
+            if table is None:
+                continue
+            column_names = ", ".join(column.name for column in table.columns[:12]) or "none"
+            lines.append(
+                f"- {candidate.qualified_name}: "
+                f"short={table.semantic_short or 'unknown'}; "
+                f"detailed={table.semantic_detailed or 'unknown'}; "
+                f"domain={table.semantic_domain or 'unknown'}; "
+                f"role={table.semantic_role or 'unknown'}; "
+                f"columns={column_names}"
+            )
+        return "\n".join(lines) if lines else "- none"
+
     def _result_confidence(
         self,
         candidates: list[QACandidate],
@@ -377,11 +471,17 @@ class AtlasQA:
     def _tokenize(text: str | None, *, for_question: bool = False) -> set[str]:
         if text is None:
             return set()
-        tokens = {
-            token
-            for token in _NON_WORD_RE.sub(" ", text.casefold()).split()
-            if len(token) > 1
-        }
+        tokens: set[str] = set()
+        for token in _NON_WORD_RE.sub(" ", text.casefold()).split():
+            if len(token) <= 1:
+                continue
+            tokens.add(token)
+            if len(token) > 3 and token.endswith("ies"):
+                tokens.add(f"{token[:-3]}y")
+            elif len(token) > 3 and token.endswith("es"):
+                tokens.add(token[:-2])
+            elif len(token) > 2 and token.endswith("s"):
+                tokens.add(token[:-1])
         if for_question:
             tokens = {token for token in tokens if token not in _QUESTION_STOPWORDS}
         return tokens
