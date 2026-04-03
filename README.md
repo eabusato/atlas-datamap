@@ -8,6 +8,34 @@ and natural-language QA on top of the same structural model.
 PyPI package: `atlas-datamap`  
 Python package: `atlas`
 
+## Start Here
+
+For most users, the first Atlas command should be:
+
+```bash
+atlas onboard
+```
+
+`atlas onboard` is the guided local workflow for a real database. It asks for
+connection details, privacy mode, sigilo preferences, optional local-AI
+settings, and optional local `.env` handling. It then writes a local workspace
+and runs the full Atlas round:
+
+- scan artifacts
+- panel and standalone HTML
+- health and executive reports
+- structured exports
+- local history snapshots
+- diff report when a previous snapshot exists
+- optional semantic enrichment outputs
+
+If you are evaluating Atlas from GitHub or PyPI for the first time, start with
+`atlas onboard` before learning the lower-level commands.
+
+Full wizard reference:
+
+- [Atlas Onboarding Manual](https://github.com/eabusato/atlas-datamap/blob/main/docs/manuals/onboarding_manual.md)
+
 ## Origin
 
 Atlas Datamap grew out of the same sigilo and systems-thinking work behind
@@ -173,6 +201,11 @@ atlas ask --ai-config atlas.ai.toml --sigil out/semantic/aurora_demo_v1_semantic
 Atlas sends structural metadata and privacy-aware sanitized samples to the
 local model. It does not send the rendered SVG image to the model.
 
+If you configure `atlas enrich` or `atlas ask` manually outside `atlas onboard`,
+the effective trust boundary is the AI endpoint you choose. `atlas onboard`
+restricts AI to localhost-style endpoints, while manual AI configs can point
+elsewhere if you explicitly set them that way.
+
 ## Python SDK
 
 ```python
@@ -217,6 +250,7 @@ Current commands:
 ## Documentation
 
 - Getting started: [docs/getting_started.md](https://github.com/eabusato/atlas-datamap/blob/main/docs/getting_started.md)
+- Atlas onboard manual: [docs/manuals/onboarding_manual.md](https://github.com/eabusato/atlas-datamap/blob/main/docs/manuals/onboarding_manual.md)
 - Full product showcase: [docs/full_product_showcase.md](https://github.com/eabusato/atlas-datamap/blob/main/docs/full_product_showcase.md)
 - System manual: [docs/manuals/system_manual.md](https://github.com/eabusato/atlas-datamap/blob/main/docs/manuals/system_manual.md)
 - Developer manual: [docs/manuals/developer_manual.md](https://github.com/eabusato/atlas-datamap/blob/main/docs/manuals/developer_manual.md)
@@ -228,6 +262,16 @@ The repository contains a full end-to-end showcase with a larger fictional
 financial-commerce database:
 
 ![Fictional bank sigilo](https://raw.githubusercontent.com/eabusato/atlas-datamap/main/examples/fictional_bank.system.svg)
+
+## Privacy note
+
+Atlas is local-first and does not upload credentials, snapshots, or schema
+metadata to third parties on its own. Still, `masked` is a name-based redaction
+mode, not a full DLP guarantee, and generated artifacts can persist rich schema
+metadata locally. For the safest default workflow, start with `atlas onboard`,
+prefer a local AI runtime, and use `stats_only` or `no_samples` when you do not
+want sample-derived prompt context. See the full guidance in
+[docs/privacy.md](https://github.com/eabusato/atlas-datamap/blob/main/docs/privacy.md).
 
 ```bash
 python examples/full_showcase/build_full_showcase.py

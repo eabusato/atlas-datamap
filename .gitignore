@@ -65,6 +65,9 @@ examples/fictional_bank.row_scale_rebalanced.system.svg
 .DS_Store
 
 # Local planning / assistant state
+docs/api/
+docs/release_notes/
+docs/specs/
 md_out/
 .claude/
 

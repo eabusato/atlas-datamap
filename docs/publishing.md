@@ -7,6 +7,9 @@ describe how to build and validate artifacts locally and how the repository
 workflow publishes from a semantic tag. They do not require publishing during
 normal development.
 
+The phase label here is historical. This guide applies to the current public
+GitHub and PyPI distribution process.
+
 ## Build local distributions
 
 ```bash

@@ -1,5 +1,8 @@
 """Build hook for the vendored Sigilo C library."""
 
+# Copyright (c) 2026 Erick Andrade Busato
+# SPDX-License-Identifier: MIT
+
 from __future__ import annotations
 
 import importlib.util

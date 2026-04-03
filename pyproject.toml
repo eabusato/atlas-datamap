@@ -57,7 +57,7 @@ atlas = "atlas.cli:cli"
 
 [project.urls]
 Repository = "https://github.com/eabusato/atlas-datamap"
-Documentation = "https://eabusato.github.io/atlas-datamap/"
+Documentation = "https://github.com/eabusato/atlas-datamap/tree/main/docs"
 Changelog = "https://github.com/eabusato/atlas-datamap/blob/main/CHANGELOG.md"
 
 [tool.setuptools.packages.find]

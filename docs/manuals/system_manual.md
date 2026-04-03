@@ -10,6 +10,28 @@ itself is published separately at
 [`github.com/eabusato/atlas-datamap`](https://github.com/eabusato/atlas-datamap)
 and implements that database-mapping workflow as a standalone Python system.
 
+## Recommended first command
+
+For most operators and evaluators, the correct entrypoint is:
+
+```bash
+atlas onboard
+```
+
+`atlas onboard` is the guided local-only workflow that collects the database
+connection, privacy mode, sigilo preferences, optional local-AI settings, and
+optional `.env` handling. It then builds the full Atlas workspace with scan
+artifacts, reports, exports, history, and diffing.
+
+The rest of this manual documents the lower-level contracts behind that flow.
+
+For a complete prompt-by-prompt reference, see
+[`onboarding_manual.md`](onboarding_manual.md).
+
+The phase references in this manual are historical. They explain how the
+current surface was assembled, but the supported product today is the combined
+result of all those layers plus the newer onboarding flow.
+
 Phase 0 established the package, configuration, privacy, and metadata
 contracts. Phase 1 adds a real PostgreSQL connector with catalog-driven
 introspection, statistics, and privacy-aware row sampling. Phase 2 adds real
@@ -68,6 +90,9 @@ of introducing parallel data structures.
 The root CLI is functional. The subcommands `scan`, `open`, `info`, `search`,
 `report`, `onboard`, `export`, `enrich`, `ask`, `diff`, and `history` are
 registered and documented in help output.
+
+`atlas onboard` has its own detailed operator guide in
+[`onboarding_manual.md`](onboarding_manual.md).
 
 Current CLI implementation status:
 
@@ -133,7 +158,7 @@ Current real connector coverage:
 - `postgresql`: full Phase 1 implementation
 - `mysql`: full Phase 2 implementation, including MariaDB compatibility
 - `mssql`: full Phase 2 implementation through `pyodbc`
-- `sqlite`: minimal Phase 0 implementation
+- `sqlite`: initial stdlib-backed implementation introduced in Phase 0
 - `sqlite`: hardened in Phase 13 with full PRAGMA-driven metadata and file-size accounting
 - `generic`: Phase 13 degraded SQLAlchemy fallback for non-native dialects
 
@@ -157,12 +182,26 @@ Every connector receives an explicit `PrivacyMode`. Sampling helpers refuse to
 return rows in `stats_only` or `no_samples`. In `masked`, column names that
 match the sensitive-name list are redacted to `***`.
 
+Although the first concrete implementation appeared in the PostgreSQL work, the
+privacy contract now applies to the shared connector model across Atlas.
+
 The onboarding flow adds one stronger guarantee on top of that privacy model:
 
 - secrets stay in a local `.env` file or an existing env file chosen by the user
 - the onboarding manifest stores only env-var references, not resolved secrets
 - AI endpoints are restricted to local hosts so semantic prompts stay on the
   user's machine
+
+Practical interpretation of the current privacy contract:
+
+- `masked` is helpful, but it is still based on sensitive column names rather
+  than full semantic classification
+- metadata-rich artifacts written by Atlas can still be sensitive even when
+  they do not contain raw table dumps
+- `stats_only` and `no_samples` are the preferred modes when the operator wants
+  to avoid sample-derived prompt context
+- manual AI configuration outside `atlas onboard` extends the trust boundary to
+  the endpoint explicitly chosen by the operator
 
 In Phase 1 PostgreSQL:
 

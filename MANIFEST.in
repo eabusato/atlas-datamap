@@ -1,11 +1,20 @@
 include README.md
 include CHANGELOG.md
-recursive-include docs *.md
+include docs/architecture.md
+include docs/building_c_extension.md
+include docs/full_product_showcase.md
+include docs/getting_started.md
+include docs/privacy.md
+include docs/publishing.md
+recursive-include docs/manuals *.md
 recursive-include atlas py.typed
 recursive-include atlas/_c *.c *.h Makefile CMakeLists.txt
 include examples/render_fictional_bank_sigilo.py
 include examples/fictional_bank.system.svg
 
+prune docs/api
+prune docs/release_notes
+prune docs/specs
 prune .atlas_cache
 prune .claude
 prune .github

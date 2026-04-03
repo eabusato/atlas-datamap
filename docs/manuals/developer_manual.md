@@ -11,6 +11,10 @@ The Atlas repository may vendor a constrained subset of CCT sigilo-related
 sources for native rendering, but Atlas remains a separate product with its own
 tests, packaging, CLI, SDK, and release cycle.
 
+The phase terminology in this manual mirrors the historical test layout under
+`tests/integration/phase_*`. Keep it as maintenance context, not as the only
+way to explain the current product surface.
+
 ## Environment
 
 Phase 0, Phase 1, and Phase 2 were validated with Python 3.12 in a local virtual
@@ -22,7 +26,7 @@ source .venv312/bin/activate
 python -m pip install -e ".[dev]"
 ```
 
-The repository-local `.venv` present before this phase used Python 3.10 and
+The repository-local `.venv` present before this refresh used Python 3.10 and
 does not satisfy the package requirement.
 
 Phase 1 and Phase 2 integration tests also require:
@@ -141,6 +145,10 @@ The coordinator script:
   Phase 0/1/2/3/4/5/6/7/8/9/10/11/12/13/14 regression suite
 - emits explicit status messages showing that historical suites stayed green
 
+Those suites are cumulative regression checkpoints. They are useful for
+maintenance, but they should be read as historical build labels, not as the
+primary user-facing description of Atlas.
+
 ### CLI-focused validation
 
 ```bash
@@ -170,7 +178,7 @@ available. `setup.py build_ext --inplace` reuses the same helper.
 ## Test artifact policy
 
 - All generated artifacts stay under `tests/tmp/`.
-- No test in this phase uses `/tmp`.
+- No test in this suite uses `/tmp`.
 - Integration tests are grouped under `tests/integration/phase_0/`.
 - Phase 1 PostgreSQL integration data is provisioned through
   `tests/integration/docker-compose.yml` and session fixtures in

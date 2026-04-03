@@ -1,5 +1,10 @@
 # Phase Index
 
+This file is a historical implementation index. If you want the current public
+product surface first, start with [`getting_started.md`](getting_started.md),
+[`manuals/system_manual.md`](manuals/system_manual.md), and
+[`manuals/developer_manual.md`](manuals/developer_manual.md).
+
 ## Phase 0
 
 - 0A: package layout, build system, root CLI, placeholders, and packaging tests
@@ -95,6 +100,7 @@
 
 - Architecture: [architecture.md](architecture.md)
 - Getting started: [getting_started.md](getting_started.md)
+- Atlas onboard manual: [manuals/onboarding_manual.md](manuals/onboarding_manual.md)
 - Privacy: [privacy.md](privacy.md)
 - System manual: [system_manual.md](manuals/system_manual.md)
 - Developer manual: [developer_manual.md](manuals/developer_manual.md)

@@ -1,15 +1,17 @@
 # Atlas Architecture
 
-Phase 0 established the bootstrap contracts that every later Atlas phase must
-preserve. Phase 1 adds the first real external-engine implementation through
-the PostgreSQL connector.
+Atlas Datamap grew out of the sigilo and systems-thinking work behind CCT, but
+it is shipped as its own standalone Python product. The phase names used in the
+repository describe the historical implementation order; the architecture below
+describes the current system as a whole.
 
 1. Packaging and installation through `pyproject.toml`, `setup.py`, and a
    canonical `Makefile`.
 2. A single connection configuration model in [`atlas/config.py`](../atlas/config.py).
 3. Canonical metadata types in [`atlas/types.py`](../atlas/types.py).
 4. A connector abstraction in [`atlas/connectors/base.py`](../atlas/connectors/base.py).
-5. A PostgreSQL catalog adapter in [`atlas/connectors/postgresql.py`](../atlas/connectors/postgresql.py).
+5. Real connector implementations for PostgreSQL, MySQL/MariaDB, SQL Server,
+   SQLite, and generic SQLAlchemy adapters.
 
 ## Layers
 
@@ -25,9 +27,9 @@ the PostgreSQL connector.
 
 ## Extension policy
 
-- Future phases may add new modules, fields, and engines.
-- Existing public fields and enum values introduced in Phase 0 should remain
-  backward compatible.
+- Future work may add new modules, fields, and engines.
+- Existing public fields and enum values introduced in the early bootstrap
+  layers should remain backward compatible.
 - Privacy behavior must remain explicit and never depend on mutable global
   state.
 - Metadata serialization formats must remain dict/JSON based and stable enough

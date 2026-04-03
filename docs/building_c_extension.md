@@ -59,7 +59,7 @@ The shared library also includes Atlas-owned sources:
 
 - The native renderer currently targets Unix-like toolchains in the validated
   local workflow. The package includes `.dll` packaging hooks, but Windows
-  build validation is not covered by this phase's local regression suite.
+  build validation is not covered by the current local regression suite.
 - The fallback renderer keeps the same SVG data attributes and metadata
   structure, but its layout is grid-based rather than the native circular
   schema layout.

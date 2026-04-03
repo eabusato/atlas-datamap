@@ -1,5 +1,8 @@
 """Helpers to build or clean the vendored libatlas_sigilo shared library."""
 
+# Copyright (c) 2026 Erick Andrade Busato
+# SPDX-License-Identifier: MIT
+
 from __future__ import annotations
 
 import os

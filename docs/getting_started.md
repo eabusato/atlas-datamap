@@ -1,5 +1,22 @@
 # Getting Started
 
+## First command
+
+If you want the fastest path to a real Atlas run, start here:
+
+```bash
+atlas onboard
+```
+
+`atlas onboard` is the guided workflow that asks for connection details,
+privacy mode, sigilo settings, optional local-AI settings, and local secret
+handling. It then creates a local workspace and runs the full Atlas pipeline
+for you.
+
+Question-by-question reference:
+
+- [`manuals/onboarding_manual.md`](manuals/onboarding_manual.md)
+
 ## Project lineage
 
 Atlas Datamap is the database-mapping product that emerged from the broader
@@ -15,7 +32,8 @@ it is a standalone Python package and CLI.
 
 - Python 3.11 or newer
 - `make`
-- Docker Desktop for Phase 1 PostgreSQL integration tests
+- Docker Desktop for integration tests that exercise real services
+- a local AI runtime such as Ollama only if you want to use `atlas enrich` or `atlas ask`
 
 ## Development bootstrap
 
@@ -45,6 +63,13 @@ tests/run_tests.sh
 - The full reproducible product walkthrough lives in
   [`full_product_showcase.md`](full_product_showcase.md).
 
+The phase terminology used elsewhere in the repository is historical delivery
+context. For day-to-day use, treat the current CLI and SDK surface as the
+reference.
+
+If you are reading this page for the first time, prefer `atlas onboard` first
+and return to the lower-level commands after the guided run.
+
 ## Guided onboarding
 
 For a first real run against your own database, prefer the interactive wizard:
@@ -52,6 +77,10 @@ For a first real run against your own database, prefer the interactive wizard:
 ```bash
 atlas onboard
 ```
+
+Complete wizard reference:
+
+- [`manuals/onboarding_manual.md`](manuals/onboarding_manual.md)
 
 The wizard asks for:
 
@@ -75,3 +104,15 @@ The onboarding flow keeps secrets in local files only. It does not upload
 credentials, metadata, or snapshots to third parties on its own. Database
 traffic goes only to the configured database, and onboarding restricts AI
 providers to local endpoints so semantic prompts remain on the user's machine.
+
+Practical note:
+
+- `masked` is a useful redaction mode, but it is still name-based
+- if you need to avoid sample-derived prompt context, prefer `stats_only` or
+  `no_samples`
+- generated Atlas artifacts remain local, but they can contain rich schema
+  metadata and should be reviewed before being shared
+
+See also:
+
+- [`privacy.md`](privacy.md)
