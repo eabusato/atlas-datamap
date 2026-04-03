@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.7
+
+- Fixed heuristic table classification so transactional tables with temporal columns stored as text are no longer misclassified as dimensions.
+- Restored `atlas search --type` correctness for SQLite fixtures by preventing fact-like tables from leaking into dimension-only results.
+- Added regression coverage for fact tables whose time grain columns are stored in `TEXT`.
+
 ## 1.0.6
 
 - Improved `atlas ask` semantic ranking so table descriptions, semantic metadata, and column semantics contribute more strongly to retrieval.
