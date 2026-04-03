@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=68", "wheel", "cffi>=1.16"]
+requires = ["setuptools>=77", "wheel>=0.42", "cffi>=1.16"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -46,7 +46,7 @@ dev = [
   "pdoc>=14.5",
   "ruff>=0.4",
   "sqlalchemy>=2.0",
-  "setuptools>=68",
+  "setuptools>=77",
   "twine>=5.1",
   "wheel>=0.42",
   "cibuildwheel>=2.20",

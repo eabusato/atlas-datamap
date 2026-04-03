@@ -46,7 +46,7 @@ jobs:
       - name: Install build dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install cibuildwheel build pdoc twine
+          python -m pip install "setuptools>=77" "wheel>=0.42" cibuildwheel build pdoc twine
 
       - name: Build wheels
         run: python -m cibuildwheel --output-dir dist/wheels
@@ -74,7 +74,7 @@ jobs:
       - name: Install build dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install build pdoc twine
+          python -m pip install "setuptools>=77" "wheel>=0.42" build pdoc twine
 
       - name: Build sdist
         run: python -m build --sdist
@@ -95,6 +95,15 @@ jobs:
       name: pypi
 
     steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install publish dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install twine
+
       - name: Download wheel artifacts
         uses: actions/download-artifact@v4
         with:
@@ -132,6 +141,7 @@ jobs:
       - name: Install docs dependencies
         run: |
           python -m pip install --upgrade pip
+          python -m pip install "setuptools>=77" "wheel>=0.42"
           python -m pip install --no-build-isolation -e ".[dev]"
 
       - name: Generate API docs
