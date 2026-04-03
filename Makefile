@@ -1,17 +1,17 @@
-PYTHON ?= $(shell command -v python3.12 || command -v python3.11 || command -v python3)
-PIP := $(PYTHON) -m pip
-PYTEST := $(PYTHON) -m pytest
-RUFF := $(PYTHON) -m ruff
-MYPY := $(PYTHON) -m mypy
-BUILD := $(PYTHON) -m build
-PDOC := $(PYTHON) -m pdoc
-TWINE := $(PYTHON) -m twine
+PYTHON ?= $(shell command -v python || command -v python3.12 || command -v python3.11 || command -v python3)
+PIP := "$(PYTHON)" -m pip
+PYTEST := "$(PYTHON)" -m pytest
+RUFF := "$(PYTHON)" -m ruff
+MYPY := "$(PYTHON)" -m mypy
+BUILD := "$(PYTHON)" -m build
+PDOC := "$(PYTHON)" -m pdoc
+TWINE := "$(PYTHON)" -m twine
 
 SRC_DIR := atlas
 TESTS_DIR := tests
 DIST_DIR := dist
 DOCS_DIR := docs/api
-C_BUILD_HELPER := $(PYTHON) atlas/_c/build_lib.py
+C_BUILD_HELPER := "$(PYTHON)" atlas/_c/build_lib.py
 
 .PHONY: build check-dist build-c build-c-make docs clean-c test test-cli test-sigilo test-c-smoke test-integration test-all lint fmt typecheck clean install-dev help
 
@@ -32,8 +32,8 @@ check-dist:
 
 docs:
 	@echo "[atlas] Generating API documentation with pdoc..."
-	@$(PYTHON) -c "import importlib.util, sys; sys.exit(0 if importlib.util.find_spec('pdoc') else 1)" || (echo "[atlas] pdoc is not installed. Run 'make install-dev' or install the 'dev' extra." && exit 1)
-	$(PDOC) atlas --output-directory $(DOCS_DIR) --docformat google
+	@"$(PYTHON)" -c "import importlib.util, sys; sys.exit(0 if importlib.util.find_spec('pdoc') else 1)" || (echo "[atlas] pdoc is not installed. Run 'make install-dev' or install the 'dev' extra." && exit 1)
+	$(PDOC) atlas --output-directory "$(DOCS_DIR)" --docformat google
 	@echo "[atlas] Documentation generated in $(DOCS_DIR)/."
 
 build-c:

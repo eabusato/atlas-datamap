@@ -31,6 +31,14 @@ _SENSITIVE_COLUMN_PATTERNS: tuple[str, ...] = (
 )
 
 
+def _normalize_sqlite_url_path(path: str) -> str:
+    """Normalize SQLite URL paths so Windows drive letters survive urlparse()."""
+
+    if len(path) >= 4 and path[0] == "/" and path[2] == ":" and path[3] == "/" and path[1].isalpha():
+        return path[1:]
+    return path
+
+
 def _parse_env_file(path: Path) -> dict[str, str]:
     if not path.exists():
         return {}
@@ -209,7 +217,7 @@ class AtlasConnectionConfig:
 
         engine = DatabaseEngine.from_scheme(parsed.scheme)
         if engine is DatabaseEngine.sqlite:
-            database = parsed.path or parsed.netloc
+            database = _normalize_sqlite_url_path(parsed.path or parsed.netloc)
             if not database:
                 raise ConfigValidationError(
                     f"SQLite URL {url!r} is invalid. Use sqlite:///path/to/file.db "
@@ -229,7 +237,7 @@ class AtlasConnectionConfig:
             connect_args.update(override_connect_args)
             connect_args["sqlalchemy_url"] = sqlalchemy_url
             if sqlalchemy_parsed.scheme == "sqlite":
-                database = sqlalchemy_parsed.path or sqlalchemy_parsed.netloc
+                database = _normalize_sqlite_url_path(sqlalchemy_parsed.path or sqlalchemy_parsed.netloc)
             else:
                 database = sqlalchemy_parsed.path.lstrip("/") or sqlalchemy_parsed.netloc
             return cls(

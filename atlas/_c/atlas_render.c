@@ -1601,23 +1601,59 @@ char *atlas_render_svg_to_buffer(atlas_render_ctx_t *ctx, size_t *out_len) {
 
     char *buf = NULL;
     size_t len = 0;
-#if defined(__APPLE__) || defined(__linux__)
-    FILE *stream = open_memstream(&buf, &len);
-#else
-    FILE *stream = NULL;
-#endif
+    FILE *stream = tmpfile();
     if (!stream) {
-        ar_set_error(ctx, "open_memstream unavailable");
+        ar_set_error(ctx, "tmpfile unavailable");
         return NULL;
     }
 
     bool ok = atlas_render_svg(ctx, stream);
-    fclose(stream);
-
     if (!ok) {
-        free(buf);
+        fclose(stream);
         return NULL;
     }
+
+    if (fflush(stream) != 0) {
+        fclose(stream);
+        ar_set_error(ctx, "failed to flush svg stream");
+        return NULL;
+    }
+    if (fseek(stream, 0, SEEK_END) != 0) {
+        fclose(stream);
+        ar_set_error(ctx, "failed to seek svg stream");
+        return NULL;
+    }
+    long end_pos = ftell(stream);
+    if (end_pos < 0) {
+        fclose(stream);
+        ar_set_error(ctx, "failed to measure svg stream");
+        return NULL;
+    }
+    len = (size_t)end_pos;
+    if (fseek(stream, 0, SEEK_SET) != 0) {
+        fclose(stream);
+        ar_set_error(ctx, "failed to rewind svg stream");
+        return NULL;
+    }
+
+    buf = (char *)malloc(len + 1);
+    if (!buf) {
+        fclose(stream);
+        ar_set_error(ctx, "failed to allocate svg buffer");
+        return NULL;
+    }
+    if (len > 0) {
+        size_t bytes_read = fread(buf, 1, len, stream);
+        if (bytes_read != len) {
+            free(buf);
+            fclose(stream);
+            ar_set_error(ctx, "failed to read svg stream");
+            return NULL;
+        }
+    }
+    buf[len] = '\0';
+    fclose(stream);
+
     if (out_len) {
         *out_len = len;
     }

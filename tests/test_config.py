@@ -48,6 +48,11 @@ class TestFromUrl:
         assert config.database == ":memory:"
         assert config.host == ""
 
+    def test_sqlite_windows_drive_url_normalizes_leading_slash(self) -> None:
+        config = AtlasConnectionConfig.from_url("sqlite:///D:/atlas/demo.db")
+        assert config.engine is DatabaseEngine.sqlite
+        assert config.database == "D:/atlas/demo.db"
+
     def test_url_query_parameters_become_connect_args(self) -> None:
         config = AtlasConnectionConfig.from_url(
             "postgresql://localhost/db?sslmode=require&application_name=atlas"

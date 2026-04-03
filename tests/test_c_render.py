@@ -72,6 +72,8 @@ class TestSmokeBuild:
         assert result.returncode == 0
 
     def test_smoke_script(self, repo_root: Path) -> None:
+        if sys.platform == "win32":
+            pytest.skip("The standalone bash smoke script is not supported on Windows runners.")
         script = repo_root / "tests" / "test_c_library.sh"
         result = subprocess.run(
             ["bash", str(script)],

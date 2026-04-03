@@ -4,7 +4,7 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT_DIR"
 
-PYTHON_BIN="${PYTHON_BIN:-$(command -v python3.12 || command -v python3.11 || command -v python3)}"
+PYTHON_BIN="${PYTHON_BIN:-$(command -v python || command -v python3.12 || command -v python3.11 || command -v python3)}"
 PHASE_FILTER="${ATLAS_TEST_PHASES:-ALL}"
 
 run_pytest() {
@@ -347,6 +347,8 @@ run_full_phase_11_regression() {
 
 echo "[atlas-tests] Using Python interpreter: $PYTHON_BIN"
 echo "[atlas-tests] Ensuring editable development installation is available."
+echo "[atlas-tests] Bootstrapping build backend tooling."
+"$PYTHON_BIN" -m pip install --user --upgrade "setuptools>=77" "wheel>=0.42"
 if ! "$PYTHON_BIN" -c "import atlas, atlas.sigilo, build, mypy, pytest, ruff, sqlalchemy" >/dev/null 2>&1; then
   "$PYTHON_BIN" -m pip install --no-build-isolation -e ".[dev]"
 else

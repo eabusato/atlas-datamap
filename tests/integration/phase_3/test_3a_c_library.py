@@ -59,6 +59,8 @@ def test_abi_version_symbol_is_exposed(sigilo_cdll) -> None:
 
 
 def test_smoke_script_passes(repo_root: Path) -> None:
+    if sys.platform == "win32":
+        pytest.skip("The standalone bash smoke script is not supported on Windows runners.")
     script = repo_root / "tests" / "test_c_library.sh"
     result = subprocess.run(
         ["bash", str(script)],
