@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.0.1
+
+- Fixed editable-install and build-backend bootstrap issues across Linux, macOS, and Windows CI.
+- Fixed Windows SQLite URL normalization for drive-letter paths in the public SDK and connector flow.
+- Fixed Windows-native sigilo memory release by exporting and using the library-owned free-buffer API.
+- Reduced the default Linux CI regression flow to run the full suite once instead of replaying the same coverage repeatedly.
+- Fixed release packaging so native wheel builds no longer leak `atlas/_c/build` into distributions and macOS wheel builds honor the target architecture.
+- Made GitHub Pages deployment non-blocking for package publication workflows when Pages is not enabled.
+
 ## 1.0.0
 
 - Phase 0: established package layout, CLI bootstrap, config parsing, metadata types, and connector abstractions.

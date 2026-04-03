@@ -24,6 +24,7 @@ prune .pytest_cache
 prune .ruff_cache
 prune .venv312
 prune atlas_onboarding
+prune atlas/_c/build
 prune build
 prune dist
 prune examples/full_showcase/generated
@@ -37,6 +38,7 @@ global-exclude .DS_Store
 global-exclude *.py[cod]
 global-exclude *.pyo
 global-exclude *.pyd
+global-exclude *.o
 global-exclude *.so
 global-exclude *.dylib
 global-exclude *.dll

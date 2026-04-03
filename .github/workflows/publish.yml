@@ -157,6 +157,7 @@ jobs:
     name: Deploy API docs
     needs: build-docs
     runs-on: ubuntu-latest
+    continue-on-error: true
     permissions:
       pages: write
       id-token: write

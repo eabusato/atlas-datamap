@@ -12,6 +12,7 @@ import subprocess
 import sys
 from dataclasses import dataclass
 from pathlib import Path
+from shlex import split as shell_split
 
 
 @dataclass(slots=True)
@@ -40,6 +41,11 @@ def c_dir(root: Path | None = None) -> Path:
 
 
 def build_dir(root: Path | None = None) -> Path:
+    base = root or repo_root()
+    return base / "build" / "atlas_sigilo"
+
+
+def legacy_build_dir(root: Path | None = None) -> Path:
     return c_dir(root) / "build"
 
 
@@ -61,10 +67,86 @@ def _macos_deployment_target() -> str | None:
     explicit = os.environ.get("MACOSX_DEPLOYMENT_TARGET")
     if explicit:
         return explicit
-    machine = platform.machine().lower()
-    if machine in {"arm64", "aarch64"}:
+    if "arm64" in _macos_target_architectures():
         return "11.0"
     return "10.13"
+
+
+def _normalize_macos_architecture(name: str) -> tuple[str, ...]:
+    normalized = name.strip().lower()
+    if normalized in {"x86_64", "amd64", "x64"}:
+        return ("x86_64",)
+    if normalized in {"arm64", "aarch64"}:
+        return ("arm64",)
+    if normalized == "universal2":
+        return ("x86_64", "arm64")
+    return ()
+
+
+def _dedupe(items: list[str]) -> tuple[str, ...]:
+    seen: set[str] = set()
+    ordered: list[str] = []
+    for item in items:
+        if item not in seen:
+            seen.add(item)
+            ordered.append(item)
+    return tuple(ordered)
+
+
+def _normalize_macos_architectures(names: list[str]) -> tuple[str, ...]:
+    normalized: list[str] = []
+    for name in names:
+        normalized.extend(_normalize_macos_architecture(name))
+    return _dedupe(normalized)
+
+
+def _archflags_architectures(value: str | None) -> tuple[str, ...]:
+    if not value:
+        return ()
+    tokens = shell_split(value)
+    architectures: list[str] = []
+    for index, token in enumerate(tokens[:-1]):
+        if token == "-arch":
+            architectures.append(tokens[index + 1])
+    return _normalize_macos_architectures(architectures)
+
+
+def _platform_tag_architectures(value: str | None) -> tuple[str, ...]:
+    if not value:
+        return ()
+    lowered = value.lower()
+    if "universal2" in lowered:
+        return ("x86_64", "arm64")
+    for candidate in ("x86_64", "arm64", "aarch64", "amd64", "x64"):
+        if candidate in lowered:
+            return _normalize_macos_architectures([candidate])
+    return ()
+
+
+def _macos_target_architectures() -> tuple[str, ...]:
+    explicit = os.environ.get("CMAKE_OSX_ARCHITECTURES")
+    if explicit:
+        return _normalize_macos_architectures(explicit.replace(";", " ").split())
+    archflags = _archflags_architectures(os.environ.get("ARCHFLAGS"))
+    if archflags:
+        return archflags
+    for key in ("_PYTHON_HOST_PLATFORM", "PLAT"):
+        platform_archs = _platform_tag_architectures(os.environ.get(key))
+        if platform_archs:
+            return platform_archs
+    return _normalize_macos_architectures([platform.machine() or ""])
+
+
+def _macos_archflags() -> str:
+    return " ".join(f"-arch {arch}" for arch in _macos_target_architectures())
+
+
+def _append_flags(existing: str | None, addition: str) -> str:
+    if not existing:
+        return addition
+    if addition in existing:
+        return existing
+    return f"{existing} {addition}"
 
 
 def build_sigilo_library(
@@ -97,6 +179,9 @@ def clean_sigilo_library(*, repo_root: Path | None = None) -> None:
     c_build_dir = build_dir(root)
     if c_build_dir.exists():
         shutil.rmtree(c_build_dir)
+    stale_source_build_dir = legacy_build_dir(root)
+    if stale_source_build_dir.exists():
+        shutil.rmtree(stale_source_build_dir)
     for candidate in (c_dir(root) / library_filename(),):
         if candidate.exists():
             candidate.unlink()
@@ -120,7 +205,7 @@ def _build_with_cmake(root: Path) -> BuildResult:
     if platform.system() == "Windows":
         configure.extend(["-G", "Visual Studio 17 2022", "-A", "x64"])
     if platform.system() == "Darwin":
-        configure.append(f"-DCMAKE_OSX_ARCHITECTURES={platform.machine()}")
+        configure.append(f"-DCMAKE_OSX_ARCHITECTURES={';'.join(_macos_target_architectures())}")
         deployment_target = _macos_deployment_target()
         if deployment_target is not None:
             configure.append(f"-DCMAKE_OSX_DEPLOYMENT_TARGET={deployment_target}")
@@ -128,6 +213,13 @@ def _build_with_cmake(root: Path) -> BuildResult:
     deployment_target = _macos_deployment_target()
     if deployment_target is not None:
         build_env["MACOSX_DEPLOYMENT_TARGET"] = deployment_target
+    if platform.system() == "Darwin":
+        build_env["CMAKE_OSX_ARCHITECTURES"] = ";".join(_macos_target_architectures())
+        archflags = _macos_archflags()
+        if archflags:
+            build_env["ARCHFLAGS"] = archflags
+            build_env["CFLAGS"] = _append_flags(build_env.get("CFLAGS"), archflags)
+            build_env["LDFLAGS"] = _append_flags(build_env.get("LDFLAGS"), archflags)
     configure_result = subprocess.run(
         configure,
         capture_output=True,
@@ -171,6 +263,11 @@ def _build_with_make(root: Path) -> BuildResult:
     deployment_target = _macos_deployment_target()
     if deployment_target is not None:
         build_env["MACOSX_DEPLOYMENT_TARGET"] = deployment_target
+    if platform.system() == "Darwin":
+        archflags = _macos_archflags()
+        if archflags:
+            build_env["ARCHFLAGS"] = archflags
+            build_env["ATLAS_SIGILO_ARCHFLAGS"] = archflags
     result = subprocess.run(
         ["make", "-C", str(c_dir(root)), "clean", "all"],
         capture_output=True,
@@ -202,7 +299,7 @@ def _locate_library(root: Path) -> Path | None:
     for candidate in candidates:
         if candidate.exists():
             return candidate
-    for search_root in (build_dir(root),):
+    for search_root in (build_dir(root), legacy_build_dir(root)):
         if search_root.exists():
             for candidate in search_root.rglob(library_filename()):
                 if candidate.exists():

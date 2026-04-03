@@ -1,10 +1,13 @@
 CC      ?= gcc
 CFLAGS  ?= -std=c11 -Wall -Wextra -O2 -fPIC
+ATLAS_SIGILO_ARCHFLAGS ?=
 
 UNAME := $(shell uname -s 2>/dev/null || echo Unknown)
 ifeq ($(UNAME),Darwin)
     LIB_EXT = dylib
     LDFLAGS ?= -dynamiclib -lm
+    CFLAGS += $(ATLAS_SIGILO_ARCHFLAGS)
+    LDFLAGS += $(ATLAS_SIGILO_ARCHFLAGS)
 else ifeq ($(OS),Windows_NT)
     LIB_EXT = dll
     CFLAGS += -DATLAS_SIGILO_EXPORTS

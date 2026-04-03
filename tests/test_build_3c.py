@@ -50,6 +50,26 @@ def test_build_helper_computes_expected_library_name() -> None:
     assert build_lib.library_filename().endswith(expected_suffix)
 
 
+def test_build_helper_uses_out_of_tree_build_directory(tmp_path: Path) -> None:
+    assert build_lib.build_dir(tmp_path) == tmp_path / "build" / "atlas_sigilo"
+
+
+def test_build_helper_parses_macos_archflags(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.delenv("CMAKE_OSX_ARCHITECTURES", raising=False)
+    monkeypatch.setenv("ARCHFLAGS", "-arch x86_64 -arch arm64")
+    monkeypatch.delenv("_PYTHON_HOST_PLATFORM", raising=False)
+    monkeypatch.delenv("PLAT", raising=False)
+    assert build_lib._macos_target_architectures() == ("x86_64", "arm64")
+
+
+def test_build_helper_parses_macos_platform_tag(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.delenv("CMAKE_OSX_ARCHITECTURES", raising=False)
+    monkeypatch.delenv("ARCHFLAGS", raising=False)
+    monkeypatch.setenv("_PYTHON_HOST_PLATFORM", "macosx-11.0-universal2")
+    monkeypatch.delenv("PLAT", raising=False)
+    assert build_lib._macos_target_architectures() == ("x86_64", "arm64")
+
+
 def test_makefile_exposes_sigilo_targets() -> None:
     content = (ROOT / "Makefile").read_text(encoding="utf-8")
     assert "build-c:" in content
