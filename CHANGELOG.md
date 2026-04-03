@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.6
+
+- Improved `atlas ask` semantic ranking so table descriptions, semantic metadata, and column semantics contribute more strongly to retrieval.
+- Added LLM-assisted reranking for top `atlas ask` candidates using semantic table context instead of relying only on generated search terms.
+- Hardened `atlas ask` embeddings handling for Ollama by autodetecting project AI config, validating vector cache compatibility, and degrading cleanly when embeddings are unavailable.
+
 ## 1.0.5
 
 - Made full column enrichment the default onboarding and enrich mode for richer semantic output.
