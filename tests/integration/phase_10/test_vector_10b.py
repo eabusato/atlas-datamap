@@ -158,6 +158,25 @@ def test_embedding_generator_accepts_legacy_ollama_embedding_shape(
     assert generator.generate_embedding("legacy response") == [1.0, 2.0, 3.0]
 
 
+def test_vector_search_load_rejects_incompatible_model(phase_tmp_dir: Path) -> None:
+    generator = FakeEmbeddingGenerator({"minimal": [1.0, 0.0]}, provider="ollama")
+    path = phase_tmp_dir / "atlas.embeddings"
+    path.write_text(
+        json.dumps(
+            {
+                "version": 1,
+                "provider": "ollama",
+                "model": "other-embed",
+                "entries": [],
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ValueError, match="model is incompatible"):
+        VectorSearch.load(path, generator)
+
+
 def test_vector_index_ignores_tables_without_semantic_material(phase_tmp_dir: Path) -> None:
     generator = FakeEmbeddingGenerator({"minimal": [1.0, 0.0]}, provider="ollama")
     index = VectorSearch(generator)

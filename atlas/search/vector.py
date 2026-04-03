@@ -124,6 +124,12 @@ class VectorSearch:
             raise ValueError("Vector index payload must be a JSON object.")
         if int(payload.get("version", -1)) != _VECTOR_FORMAT_VERSION:
             raise ValueError("Vector index version is incompatible.")
+        provider = payload.get("provider")
+        if provider is not None and str(provider) != generator.provider_name:
+            raise ValueError("Vector index provider is incompatible with the current AI config.")
+        model = payload.get("model")
+        if model is not None and str(model) != generator.model_name:
+            raise ValueError("Vector index model is incompatible with the current AI config.")
         entries_payload = payload.get("entries")
         if not isinstance(entries_payload, list):
             raise ValueError("Vector index payload is missing the entries list.")

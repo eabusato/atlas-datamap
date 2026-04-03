@@ -3,11 +3,20 @@
 from __future__ import annotations
 
 import json
+import tomllib
 from pathlib import Path
 
 import click
 
-from atlas.ai import AIConfig, AIConfigError, EmbeddingGenerator, LocalLLMClient, build_client
+from atlas.ai import (
+    AIConfig,
+    AIConfigError,
+    AIConnectionError,
+    AIGenerationError,
+    EmbeddingGenerator,
+    LocalLLMClient,
+    build_client,
+)
 from atlas.analysis import TableClassifier, TableScorer
 from atlas.cli._common import require_existing_path, resolve_config
 from atlas.connectors import get_connector
@@ -49,6 +58,47 @@ def _load_ai_client(config_path: Path | None) -> LocalLLMClient:
             "Local AI provider is unavailable. Start the configured local server and retry."
         )
     return client
+
+
+def _has_ai_section(path: Path) -> bool:
+    try:
+        with path.open("rb") as handle:
+            payload = tomllib.load(handle)
+    except Exception:
+        return False
+    ai_section = payload.get("ai")
+    return isinstance(ai_section, dict) and bool(ai_section)
+
+
+def _find_workspace_ai_config(start: Path) -> Path | None:
+    for candidate_dir in (start, *start.parents):
+        candidate = candidate_dir / "atlas.ai.toml"
+        if candidate.is_file():
+            return candidate
+    return None
+
+
+def _resolve_ai_config_source(
+    explicit_ai_config: Path | None,
+    sigil_path: Path | None,
+    config_path: Path | None,
+) -> Path | None:
+    if explicit_ai_config is not None:
+        return explicit_ai_config
+    if config_path is not None and _has_ai_section(config_path):
+        return config_path
+    if config_path is not None:
+        sibling = config_path.parent / "atlas.ai.toml"
+        if sibling.is_file():
+            return sibling
+    if sigil_path is not None:
+        inferred = _find_workspace_ai_config(sigil_path.parent)
+        if inferred is not None:
+            return inferred
+    cwd_ai = Path.cwd() / "atlas.ai.toml"
+    if cwd_ai.is_file():
+        return cwd_ai
+    return None
 
 
 def _resolve_structural_source(
@@ -171,7 +221,15 @@ def _run_question(
     contextual_question = _contextualize_question(question, history)
     answer = qa.ask(contextual_question)
     answer.question = question
-    vector_candidates = vector_index.search(contextual_question) if vector_index is not None else []
+    vector_candidates: list[VectorCandidate] = []
+    if vector_index is not None:
+        try:
+            vector_candidates = vector_index.search(contextual_question)
+        except (AIConnectionError, AIGenerationError, ValueError) as exc:
+            click.echo(
+                f"[atlas ask] Embeddings unavailable for this question, continuing without vector search: {exc}",
+                err=True,
+            )
     history.append((question, [candidate.qualified_name for candidate in answer.candidates[:3]]))
     if len(history) > _INTERACTIVE_HISTORY_LIMIT:
         del history[:-_INTERACTIVE_HISTORY_LIMIT]
@@ -249,7 +307,11 @@ def ask_cmd(
         )
     result = _prepare_result(result)
 
-    ai_config_for_client = resolved_ai_config if resolved_ai_config is not None else resolved_config
+    ai_config_for_client = _resolve_ai_config_source(
+        resolved_ai_config,
+        resolved_sigil,
+        resolved_config,
+    )
     client = _load_ai_client(ai_config_for_client)
     if output_format == "text":
         model_info = client.get_model_info()

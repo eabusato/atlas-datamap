@@ -290,6 +290,90 @@ base_url = "http://localhost:11434"
     assert "main.fact_orders" in result.output
 
 
+def test_ask_autodetects_workspace_ai_config_from_connection_source(
+    runner: CliRunner,
+    phase_tmp_dir: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    seen: dict[str, str] = {}
+    config_path = phase_tmp_dir / "atlas.connection.toml"
+    config_path.write_text(
+        """
+[connection]
+engine = "sqlite"
+database = ":memory:"
+""".strip(),
+        encoding="utf-8",
+    )
+    (phase_tmp_dir / "atlas.ai.toml").write_text(
+        """
+[ai]
+provider = "ollama"
+model = "qwen2.5:14b-instruct-q4_K_M"
+base_url = "http://localhost:11434"
+""".strip(),
+        encoding="utf-8",
+    )
+
+    def _build_client(config: AIConfig) -> FakeClient:
+        seen["model"] = config.model
+        return FakeClient()
+
+    monkeypatch.setattr("atlas.cli.ask.build_client", _build_client)
+    monkeypatch.setattr("atlas.cli.ask.AtlasQA", FakeQA)
+    monkeypatch.setattr(
+        "atlas.cli.ask._load_result_from_connection",
+        lambda db, config_path: build_phase10_result(phase_tmp_dir / "from_config_autodetect.db"),
+    )
+    monkeypatch.setattr("atlas.cli.ask._load_vector_index", lambda result, sigil_path, client, no_embeddings: None)
+
+    result = runner.invoke(
+        ask_cmd,
+        ["--config", str(config_path), "where are customer orders stored?"],
+    )
+
+    assert result.exit_code == 0, result.output
+    assert seen["model"] == "qwen2.5:14b-instruct-q4_K_M"
+
+
+def test_ask_autodetects_workspace_ai_config_from_sigil_source(
+    runner: CliRunner,
+    phase_tmp_dir: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    seen: dict[str, str] = {}
+    sigil_dir = phase_tmp_dir / "generated" / "semantic"
+    sigil_dir.mkdir(parents=True)
+    sigil_path = sigil_dir / "atlas_semantic.sigil"
+    _write_sigil(sigil_path)
+    (phase_tmp_dir / "atlas.ai.toml").write_text(
+        """
+[ai]
+provider = "ollama"
+model = "qwen2.5:14b-instruct-q4_K_M"
+base_url = "http://localhost:11434"
+""".strip(),
+        encoding="utf-8",
+    )
+
+    def _build_client(config: AIConfig) -> FakeClient:
+        seen["model"] = config.model
+        return FakeClient()
+
+    monkeypatch.setattr("atlas.cli.ask.build_client", _build_client)
+    monkeypatch.setattr("atlas.cli.ask.AtlasQA", FakeQA)
+    monkeypatch.setattr("atlas.cli.ask.EmbeddingGenerator", FakeEmbeddingGenerator)
+    monkeypatch.setattr("atlas.cli.ask.VectorSearch", FakeVectorSearch)
+
+    result = runner.invoke(
+        ask_cmd,
+        ["--sigil", str(sigil_path), "where are customer orders stored?"],
+    )
+
+    assert result.exit_code == 0, result.output
+    assert seen["model"] == "qwen2.5:14b-instruct-q4_K_M"
+
+
 def test_ask_rejects_ambiguous_config_alongside_sigil(
     runner: CliRunner,
     phase_tmp_dir: Path,
