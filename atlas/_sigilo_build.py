@@ -126,6 +126,7 @@ void atlas_render_compute_layout_force(
     f64 cooling_rate
 );
 char *atlas_render_svg_to_buffer(atlas_render_ctx_t *ctx, size_t *out_len);
+void atlas_render_free_buffer(char *ptr);
 const char *atlas_render_version(void);
 const char *atlas_sigilo_ping(void);
 const char *atlas_sigilo_abi_version(void);
@@ -147,8 +148,6 @@ bool cct_sigil_parse_file(
 );
 bool cct_sigil_document_has_errors(const cct_sigil_document_t *doc);
 void cct_sigil_document_dispose(cct_sigil_document_t *doc);
-
-void free(void *ptr);
 """
 )
 

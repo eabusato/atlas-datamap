@@ -499,6 +499,10 @@ case "$PHASE_FILTER" in
     run_phase_14c
     ;;
   ALL)
+    run_full_phase_14_regression
+    echo "[atlas-tests] Current full Phase 14 suite is green."
+    ;;
+  HISTORICAL)
     run_phase_0a
     run_phase_0b
     run_phase_0c

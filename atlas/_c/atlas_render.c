@@ -1660,6 +1660,10 @@ char *atlas_render_svg_to_buffer(atlas_render_ctx_t *ctx, size_t *out_len) {
     return buf;
 }
 
+void atlas_render_free_buffer(char *ptr) {
+    free(ptr);
+}
+
 const char *atlas_render_version(void) {
     return ATLAS_RENDER_VERSION_STR;
 }

@@ -283,7 +283,7 @@ class RenderContext:
         try:
             return bytes(ffi.buffer(buf, out_len[0]))
         finally:
-            self._lib.free(buf)
+            self._lib.atlas_render_free_buffer(buf)
 
     @property
     def had_error(self) -> bool:

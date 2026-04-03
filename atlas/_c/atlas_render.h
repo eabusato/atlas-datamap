@@ -139,6 +139,7 @@ ATLAS_SIGILO_API void atlas_render_compute_layout_force(
 );
 ATLAS_SIGILO_API bool atlas_render_svg(atlas_render_ctx_t *ctx, FILE *out);
 ATLAS_SIGILO_API char *atlas_render_svg_to_buffer(atlas_render_ctx_t *ctx, size_t *out_len);
+ATLAS_SIGILO_API void atlas_render_free_buffer(char *ptr);
 ATLAS_SIGILO_API const char *atlas_render_version(void);
 
 #endif /* ATLAS_RENDER_H */
