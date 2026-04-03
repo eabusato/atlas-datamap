@@ -250,7 +250,7 @@ def _emit_column_progress(
 @click.option(
     "--column-mode",
     type=click.Choice(["infer", "full", "skip"], case_sensitive=False),
-    default="infer",
+    default="full",
     show_default=True,
     help="Choose whether columns are inferred, fully enriched with the LLM, or skipped.",
 )

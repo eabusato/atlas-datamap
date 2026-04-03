@@ -244,6 +244,59 @@ def test_column_cache_hit_skips_llm(cache_dir: Path) -> None:
 
 @pytest.mark.integration
 @pytest.mark.phase_9a
+def test_enrich_column_repairs_generic_long_form_text_answers(cache_dir: Path) -> None:
+    table = _table(
+        "contos_conto",
+        _column("titulo"),
+        _column("corpo"),
+        _column("autor_id", "integer"),
+    )
+    table.semantic_short = "Stories"
+    table.semantic_detailed = "Stories written by platform authors."
+    table.semantic_role = "content_catalog"
+    corpo = next(column for column in table.columns if column.name == "corpo")
+    client = RoutingClient(
+        {
+            "Column: corpo": (
+                '{"short_description":"Text content of the body of a document or message.",'
+                '"detailed_description":"The `corpo` column stores the actual text content of messages, emails, or documents within the `sales.contos_conto` table.",'
+                '"probable_role":"Content Storage","confidence":1.0}'
+            )
+        }
+    )
+    sample_rows = [
+        {
+            "corpo": (
+                "Era uma vez uma cidade submersa onde cada morador guardava uma historia "
+                "inteira dentro de uma garrafa azul esquecida no cais."
+            )
+        },
+        {
+            "corpo": (
+                "No fim da tarde, o protagonista voltou para casa carregando cartas, "
+                "lembrancas e o peso silencioso de um segredo antigo."
+            )
+        },
+    ]
+
+    SemanticEnricher(client, cache=SemanticCache(cache_dir)).enrich_column(
+        table,
+        corpo,
+        sample_rows,
+        PrivacyMode.normal,
+        force_recompute=True,
+    )
+
+    assert corpo.semantic_short == "Story body text"
+    assert corpo.semantic_role == "narrative_content"
+    assert (
+        corpo.semantic_detailed
+        == "Stores the full narrative text/body of each story in sales.contos_conto."
+    )
+
+
+@pytest.mark.integration
+@pytest.mark.phase_9a
 def test_enrich_schema_parallel_workers_updates_tables_and_columns(cache_dir: Path) -> None:
     schema = SchemaInfo(
         name="sales",

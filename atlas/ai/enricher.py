@@ -167,6 +167,133 @@ class SemanticEnricher:
         label = value.replace("_", " ").replace("-", " ").strip()
         return " ".join(part.capitalize() for part in label.split()) or value
 
+    @staticmethod
+    def _tokenize_identifier(value: str) -> set[str]:
+        return {token for token in re.split(r"[^a-z0-9]+", value.lower()) if token}
+
+    def _summarize_sibling_columns(self, table: TableInfo, current_column: str) -> str:
+        siblings: list[str] = []
+        for column in table.columns:
+            if column.name == current_column:
+                continue
+            canonical = column.canonical_type.value if column.canonical_type else column.native_type
+            flags: list[str] = []
+            if column.is_primary_key:
+                flags.append("PK")
+            if column.is_foreign_key:
+                flags.append("FK")
+            if not column.is_nullable:
+                flags.append("NOT NULL")
+            suffix = f" [{', '.join(flags)}]" if flags else ""
+            siblings.append(f"{column.name} ({canonical}){suffix}")
+            if len(siblings) >= 10:
+                break
+        return ", ".join(siblings) if siblings else "none"
+
+    def _post_process_column_payload(
+        self,
+        table: TableInfo,
+        column: ColumnInfo,
+        payload: dict[str, Any],
+        sample_rows: list[dict[str, Any]],
+    ) -> dict[str, Any]:
+        short = self._optional_text(payload.get("short_description")) or self._humanize_identifier(
+            column.name
+        )
+        detailed = self._optional_text(payload.get("detailed_description")) or ""
+        role = self._optional_text(payload.get("probable_role")) or "attribute"
+        confidence = self._confidence(payload.get("confidence"))
+
+        raw_values = [
+            str(value).strip()
+            for row in sample_rows
+            if (value := row.get(column.name)) is not None and str(value).strip()
+        ]
+        if not raw_values:
+            payload["short_description"] = short
+            payload["detailed_description"] = detailed
+            payload["probable_role"] = role
+            payload["confidence"] = confidence
+            return payload
+
+        lengths = [len(value) for value in raw_values]
+        word_counts = [len(value.split()) for value in raw_values]
+        looks_long_form = (
+            max(lengths, default=0) >= 120
+            or (sum(word_counts) / len(word_counts) if word_counts else 0.0) >= 18
+            or (
+                max(lengths, default=0) >= 80
+                and max(word_counts, default=0) >= 14
+            )
+            or any("\n" in value for value in raw_values)
+        )
+
+        name_tokens = self._tokenize_identifier(column.name)
+        table_tokens = self._tokenize_identifier(table.name)
+        generic_detailed = (
+            "used inside a table classified as" in detailed.lower()
+            or "messages, emails, or documents" in detailed.lower()
+        )
+
+        entity_label = None
+        entity_map = {
+            "story": {"conto", "contos", "historia", "historias", "story", "stories"},
+            "article": {"artigo", "artigos", "article", "articles"},
+            "post": {"post", "posts", "postagem", "postagens", "blog"},
+            "comment": {"comentario", "comentarios", "comment", "comments"},
+            "message": {"mensagem", "mensagens", "message", "messages", "chat"},
+            "profile": {"perfil", "profile", "profiles", "user", "usuario", "usuarios"},
+            "document": {"documento", "documentos", "document", "documents", "arquivo", "arquivos"},
+        }
+        for label, candidates in entity_map.items():
+            if table_tokens & candidates:
+                entity_label = label
+                break
+
+        content_tokens = {"body", "corpo", "content", "conteudo", "texto", "text"}
+        if looks_long_form and (name_tokens & content_tokens):
+            if entity_label == "story":
+                short = "Story body text"
+                detailed = f"Stores the full narrative text/body of each story in {table.schema}.{table.name}."
+                role = "narrative_content"
+                confidence = max(confidence, 0.84)
+            elif entity_label == "article":
+                short = "Article body text"
+                detailed = f"Stores the full article body text in {table.schema}.{table.name}."
+                role = "article_content"
+                confidence = max(confidence, 0.82)
+            elif entity_label == "post":
+                short = "Post body text"
+                detailed = f"Stores the main post body text in {table.schema}.{table.name}."
+                role = "post_content"
+                confidence = max(confidence, 0.8)
+            elif entity_label == "comment":
+                short = "Comment text"
+                detailed = f"Stores the full text written in each comment row of {table.schema}.{table.name}."
+                role = "comment_text"
+                confidence = max(confidence, 0.8)
+            elif entity_label == "profile" and "bio" in name_tokens:
+                short = "Profile biography"
+                detailed = f"Stores the self-description or biography text for each profile in {table.schema}.{table.name}."
+                role = "profile_bio"
+                confidence = max(confidence, 0.8)
+            else:
+                short = f"{self._humanize_identifier(column.name)} text"
+                detailed = f"Stores the main long-form text content for each {table.schema}.{table.name} record."
+                role = "long_form_text"
+                confidence = max(confidence, 0.76)
+        elif generic_detailed and {"bio", "biografia"} & name_tokens:
+            short = "Profile biography"
+            detailed = f"Stores the profile bio or self-description text in {table.schema}.{table.name}."
+            role = "profile_bio"
+            confidence = max(confidence, 0.78)
+
+        payload["short_description"] = short
+        payload["detailed_description"] = detailed
+        payload["probable_role"] = role
+        payload["confidence"] = max(0.0, min(0.95, confidence))
+        return payload
+
     def _infer_column_payload(
         self,
         table: TableInfo,
@@ -378,7 +505,17 @@ class SemanticEnricher:
         context = self.sampler.prepare_column_context(column, sample_rows, privacy_mode)
         context["schema"] = table.schema
         context["table_name"] = table.name
+        context["table_short_description"] = table.semantic_short or self._humanize_identifier(
+            table.name
+        )
+        context["table_detailed_description"] = (
+            table.semantic_detailed
+            or f"Table {table.schema}.{table.name} with columns {self._summarize_sibling_columns(table, column.name)}."
+        )
+        context["table_role"] = table.semantic_role or table.heuristic_type or "unknown"
+        context["sibling_columns"] = self._summarize_sibling_columns(table, column.name)
         payload = self._execute_prompt(COLUMN_PROMPT_TEMPLATE, context)
+        payload = self._post_process_column_payload(table, column, payload, sample_rows)
         if self.cache is not None:
             self.cache.put_column_payload(table, column, payload)
         return self._apply_column_payload(column, payload)

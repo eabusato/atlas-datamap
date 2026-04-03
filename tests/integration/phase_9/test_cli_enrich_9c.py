@@ -262,8 +262,10 @@ def test_enrich_from_sigil_writes_enriched_artifacts(
 
     enriched = IntrospectionResult.from_json(semantic_sigil.read_text(encoding="utf-8"))
     assert enriched.get_table("public", "accounts").semantic_short == "Accounts"
+    assert enriched.get_table("public", "accounts").columns[1].semantic_short == "Email"
     assert enriched.get_table("public", "accounts").columns[1].semantic_role == "email"
-    assert all("Column:" not in prompt for prompt in client.prompts)
+    assert any("Column:" in prompt for prompt in client.prompts)
+    assert "column 1/2" in result.output
     assert "table 1/2" in result.output
 
 
@@ -332,7 +334,7 @@ def test_enrich_dry_run_skips_llm_and_writes_nothing(
     )
     assert result.exit_code == 0, result.output
     assert "Dry run" in result.output
-    assert "Column mode=infer" in result.output
+    assert "Column mode=full" in result.output
     assert not out_dir.exists()
 
 

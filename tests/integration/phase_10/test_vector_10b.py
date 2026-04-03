@@ -5,6 +5,8 @@ from __future__ import annotations
 import json
 from collections.abc import Sequence
 from pathlib import Path
+from typing import Any
+from unittest.mock import MagicMock, patch
 
 import pytest
 
@@ -13,6 +15,16 @@ from atlas.search.vector import VectorSearch
 from tests.integration.phase_10.helpers import build_phase10_result
 
 pytestmark = [pytest.mark.integration, pytest.mark.phase_10b]
+
+
+def _make_mock_response(body: dict[str, Any] | bytes) -> MagicMock:
+    response = MagicMock()
+    response.read.return_value = (
+        json.dumps(body).encode("utf-8") if isinstance(body, dict) else body
+    )
+    response.__enter__.return_value = response
+    response.__exit__.return_value = False
+    return response
 
 
 class FakeClient(LocalLLMClient):
@@ -118,6 +130,32 @@ def test_embedding_generator_reports_unsupported_provider_cleanly() -> None:
     assert generator.is_supported() is False
     with pytest.raises(AIGenerationError, match="does not support embeddings"):
         generator.generate_embedding("customer orders")
+
+
+@patch("urllib.request.urlopen")
+def test_embedding_generator_uses_current_ollama_embed_api(mock_urlopen: MagicMock) -> None:
+    mock_urlopen.return_value = _make_mock_response({"embeddings": [[0.25, 0.5, 0.75]]})
+    generator = EmbeddingGenerator(FakeClient(provider="ollama"))
+
+    vector = generator.generate_embedding("story body text")
+
+    assert vector == [0.25, 0.5, 0.75]
+    request = mock_urlopen.call_args.args[0]
+    assert request.full_url.endswith("/api/embed")
+    assert json.loads(request.data.decode("utf-8")) == {
+        "model": "mini-embed",
+        "input": "story body text",
+    }
+
+
+@patch("urllib.request.urlopen")
+def test_embedding_generator_accepts_legacy_ollama_embedding_shape(
+    mock_urlopen: MagicMock,
+) -> None:
+    mock_urlopen.return_value = _make_mock_response({"embedding": [1, 2, 3]})
+    generator = EmbeddingGenerator(FakeClient(provider="ollama"))
+
+    assert generator.generate_embedding("legacy response") == [1.0, 2.0, 3.0]
 
 
 def test_vector_index_ignores_tables_without_semantic_material(phase_tmp_dir: Path) -> None:

@@ -58,7 +58,7 @@ def _column_mode_prompt() -> str:
         click.prompt(
             "Column analysis mode",
             type=click.Choice(["infer", "full", "skip"], case_sensitive=False),
-            default="infer",
+            default="full",
             show_choices=True,
         )
     ).lower()

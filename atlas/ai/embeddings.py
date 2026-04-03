@@ -40,10 +40,10 @@ class EmbeddingGenerator:
 
         if self.provider_name == "ollama":
             payload = self._request_json(
-                "/api/embeddings",
-                {"model": self.model_name, "prompt": normalized_text},
+                "/api/embed",
+                {"model": self.model_name, "input": normalized_text},
             )
-            vector = payload.get("embedding")
+            vector = self._extract_ollama_embedding(payload)
         else:
             payload = self._request_json(
                 "/v1/embeddings",
@@ -64,6 +64,19 @@ class EmbeddingGenerator:
             return [float(value) for value in vector]
         except (TypeError, ValueError) as exc:
             raise AIGenerationError("Embedding response contained non-numeric values.") from exc
+
+    def _extract_ollama_embedding(self, payload: dict[str, Any]) -> list[Any] | None:
+        embeddings = payload.get("embeddings")
+        if isinstance(embeddings, list) and embeddings:
+            first = embeddings[0]
+            if isinstance(first, list) and first:
+                return first
+
+        # Preserve compatibility with older Ollama-compatible responses.
+        vector = payload.get("embedding")
+        if isinstance(vector, list) and vector:
+            return vector
+        return None
 
     def _request_json(self, endpoint: str, payload: dict[str, Any]) -> dict[str, Any]:
         url = f"{self.client.config.base_url.rstrip('/')}{endpoint}"

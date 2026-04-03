@@ -112,7 +112,7 @@ class AISetup:
     max_tokens: int = 300
     timeout_seconds: float = 60.0
     parallel_workers: int = 2
-    column_mode: str = "infer"
+    column_mode: str = "full"
     force_recompute: bool = False
     selection_schemas: list[str] = field(default_factory=list)
     selection_tables: list[str] = field(default_factory=list)

@@ -166,6 +166,34 @@ class TestPrepareColumnContext:
         assert context["distinct"] == "80"
         assert context["null_rate"] == "5.0%"
         assert context["nullable"] == "True"
+        assert context["canonical_type"] == "text"
+        assert context["comment"] == "none"
+        assert context["is_indexed"] == "False"
+        assert context["is_unique"] == "False"
+
+    def test_sample_summary_reports_text_shape(
+        self,
+        preparer: SamplePreparer,
+    ) -> None:
+        column = ColumnInfo(name="corpo", native_type="text", canonical_type=AtlasType.CLOB)
+        rows = [
+            {
+                "corpo": (
+                    "Era uma vez uma cidade submersa onde cada morador guardava uma historia "
+                    "inteira dentro de uma garrafa azul esquecida no cais."
+                )
+            },
+            {
+                "corpo": (
+                    "No fim da tarde, o protagonista voltou para casa carregando cartas, "
+                    "lembrancas e o peso silencioso de um segredo antigo."
+                )
+            },
+        ]
+        context = preparer.prepare_column_context(column, rows, PrivacyMode.normal)
+        assert "2 distinct non-null example(s)" in context["sample_summary"]
+        assert "lengths:" in context["sample_summary"]
+        assert "examples:" in context["sample_summary"]
 
     def test_duplicate_values_are_deduplicated(
         self,

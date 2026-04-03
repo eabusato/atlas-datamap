@@ -137,15 +137,26 @@ class TestPromptTemplates:
         prompt = COLUMN_PROMPT_TEMPLATE.format(
             schema="sales",
             table_name="orders",
+            table_short_description="Orders",
+            table_detailed_description="Transactional order headers.",
+            table_role="transaction_header",
+            sibling_columns="id (integer) [PK, NOT NULL], status (text)",
             column_name="customer_email",
+            canonical_type="text",
             native_type="varchar",
+            comment="none",
             nullable="True",
+            is_indexed="False",
+            is_unique="False",
             distinct="10",
             null_rate="0.0%",
+            avg_length="18.0",
             pattern="EMAIL",
+            sample_summary="2 distinct non-null example(s); patterns: EMAIL; lengths: 18-18 chars (avg 18); examples: '[PATTERN: EMAIL]'",
             samples="['[PATTERN: EMAIL]']",
         )
         assert "Parent Table: sales.orders" in prompt
+        assert "Nearby Columns: id (integer) [PK, NOT NULL], status (text)" in prompt
         assert '"probable_role": "Functional role of the column"' in prompt
 
 

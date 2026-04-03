@@ -24,6 +24,7 @@ REGEX_CURRENCY_BR = re.compile(r"^R?\$\s*[\d.,]+$")
 
 _PII_TAGS: frozenset[str] = frozenset({"EMAIL", "CPF_BR", "CNPJ_BR"})
 _SAMPLE_BUDGET_CHARS = 800
+_SUMMARY_EXCERPT_LIMIT = 120
 
 
 class SamplePreparer:
@@ -69,29 +70,7 @@ class SamplePreparer:
         if privacy_mode in (PrivacyMode.stats_only, PrivacyMode.no_samples):
             return "[]", "none"
 
-        distinct_values: list[str] = []
-        seen: set[str] = set()
-        detected_patterns: set[str] = set()
-
-        for row in sample_rows:
-            raw_value = row.get(col_name)
-            if raw_value is None:
-                continue
-            string_value = str(raw_value)
-            if string_value in seen:
-                continue
-            seen.add(string_value)
-
-            pattern = self.detect_pattern(string_value)
-            if pattern is not None:
-                detected_patterns.add(pattern)
-
-            display_value = (
-                f"[PATTERN: {pattern}]" if pattern in _PII_TAGS else string_value
-            )
-            distinct_values.append(display_value)
-            if len(distinct_values) >= self.max_distinct_values:
-                break
+        distinct_values, detected_patterns = self._collect_distinct_values(col_name, sample_rows)
 
         if not distinct_values:
             return "[]", "none"
@@ -114,6 +93,74 @@ class SamplePreparer:
         pattern_hint = " | ".join(sorted(detected_patterns)) if detected_patterns else "none"
         return samples, pattern_hint
 
+    def _collect_distinct_values(
+        self,
+        col_name: str,
+        sample_rows: list[dict[str, Any]],
+    ) -> tuple[list[str], set[str]]:
+        distinct_values: list[str] = []
+        seen: set[str] = set()
+        detected_patterns: set[str] = set()
+
+        for row in sample_rows:
+            raw_value = row.get(col_name)
+            if raw_value is None:
+                continue
+            string_value = str(raw_value).strip()
+            if not string_value or string_value in seen:
+                continue
+            seen.add(string_value)
+
+            pattern = self.detect_pattern(string_value)
+            if pattern is not None:
+                detected_patterns.add(pattern)
+
+            display_value = (
+                f"[PATTERN: {pattern}]" if pattern in _PII_TAGS else string_value
+            )
+            distinct_values.append(display_value)
+            if len(distinct_values) >= self.max_distinct_values:
+                break
+
+        return distinct_values, detected_patterns
+
+    @staticmethod
+    def _clip_excerpt(value: str) -> str:
+        collapsed = " ".join(value.split())
+        if len(collapsed) <= _SUMMARY_EXCERPT_LIMIT:
+            return collapsed
+        return collapsed[: _SUMMARY_EXCERPT_LIMIT - 3].rstrip() + "..."
+
+    def _summarize_samples(
+        self,
+        col_name: str,
+        sample_rows: list[dict[str, Any]],
+        privacy_mode: PrivacyMode,
+    ) -> str:
+        if privacy_mode in (PrivacyMode.stats_only, PrivacyMode.no_samples):
+            return "No live samples available."
+
+        distinct_values, detected_patterns = self._collect_distinct_values(col_name, sample_rows)
+        if not distinct_values:
+            return "No non-null sample values."
+
+        lengths = [len(value) for value in distinct_values]
+        word_counts = [len(value.split()) for value in distinct_values if value.strip()]
+        excerpts = ", ".join(repr(self._clip_excerpt(value)) for value in distinct_values[:3])
+
+        parts = [f"{len(distinct_values)} distinct non-null example(s)"]
+        if detected_patterns:
+            parts.append(f"patterns: {' | '.join(sorted(detected_patterns))}")
+        parts.append(
+            f"lengths: {min(lengths)}-{max(lengths)} chars (avg {sum(lengths) / len(lengths):.0f})"
+        )
+        if word_counts and max(word_counts) >= 8:
+            parts.append(
+                f"word counts: {min(word_counts)}-{max(word_counts)} (avg {sum(word_counts) / len(word_counts):.0f})"
+            )
+        parts.append(f"examples: {excerpts}")
+        return "; ".join(parts)
+
     def prepare_column_context(
         self,
         column: ColumnInfo,
@@ -125,11 +172,17 @@ class SamplePreparer:
         stats = column.stats
         return {
             "column_name": column.name,
+            "canonical_type": column.canonical_type.value if column.canonical_type else "unknown",
             "native_type": column.native_type,
+            "comment": column.comment or "none",
             "nullable": str(column.is_nullable),
+            "is_unique": str(column.is_unique),
+            "is_indexed": str(column.is_indexed),
             "distinct": str(stats.distinct_count if stats else 0),
             "null_rate": f"{(stats.null_rate if stats else 0.0):.1%}",
+            "avg_length": f"{(stats.avg_length if stats else 0.0):.1f}",
             "pattern": pattern_hint,
+            "sample_summary": self._summarize_samples(column.name, sample_rows, privacy_mode),
             "samples": samples,
         }
 
