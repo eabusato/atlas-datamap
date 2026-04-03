@@ -68,6 +68,7 @@ examples/fictional_bank.row_scale_rebalanced.system.svg
 docs/api/
 docs/release_notes/
 docs/specs/
+docs/.Rhistory
 md_out/
 .claude/
 

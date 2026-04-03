@@ -263,16 +263,6 @@ financial-commerce database:
 
 ![Fictional bank sigilo](https://raw.githubusercontent.com/eabusato/atlas-datamap/main/examples/fictional_bank.system.svg)
 
-## Privacy note
-
-Atlas is local-first and does not upload credentials, snapshots, or schema
-metadata to third parties on its own. Still, `masked` is a name-based redaction
-mode, not a full DLP guarantee, and generated artifacts can persist rich schema
-metadata locally. For the safest default workflow, start with `atlas onboard`,
-prefer a local AI runtime, and use `stats_only` or `no_samples` when you do not
-want sample-derived prompt context. See the full guidance in
-[docs/privacy.md](https://github.com/eabusato/atlas-datamap/blob/main/docs/privacy.md).
-
 ```bash
 python examples/full_showcase/build_full_showcase.py
 python examples/full_showcase/build_full_showcase.py --enable-ollama
@@ -293,6 +283,16 @@ the datamap language more directly:
 
 - SVG: `examples/fictional_bank.system.svg`
 - Generator: `examples/render_fictional_bank_sigilo.py`
+
+## Privacy note
+
+Atlas is local-first and does not upload credentials, snapshots, or schema
+metadata to third parties on its own. Still, `masked` is a name-based redaction
+mode, not a full DLP guarantee, and generated artifacts can persist rich schema
+metadata locally. For the safest default workflow, start with `atlas onboard`,
+prefer a local AI runtime, and use `stats_only` or `no_samples` when you do not
+want sample-derived prompt context. See the full guidance in
+[docs/privacy.md](https://github.com/eabusato/atlas-datamap/blob/main/docs/privacy.md).
 
 ## Development
 
