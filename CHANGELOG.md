@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.0.1
+## 1.0.2
 
 - Fixed editable-install and build-backend bootstrap issues across Linux, macOS, and Windows CI.
 - Fixed Windows SQLite URL normalization for drive-letter paths in the public SDK and connector flow.

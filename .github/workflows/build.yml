@@ -32,9 +32,10 @@ jobs:
         if: runner.os == 'macOS'
         run: brew install cmake
 
-      - name: Install system deps (Windows)
+      - name: Verify system deps (Windows)
         if: runner.os == 'Windows'
-        run: choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System'
+        shell: pwsh
+        run: cmake --version
 
       - name: Install Python dependencies
         run: |
