@@ -348,7 +348,11 @@ run_full_phase_11_regression() {
 echo "[atlas-tests] Using Python interpreter: $PYTHON_BIN"
 echo "[atlas-tests] Ensuring editable development installation is available."
 echo "[atlas-tests] Bootstrapping build backend tooling."
-"$PYTHON_BIN" -m pip install --user --upgrade "setuptools>=77" "wheel>=0.42"
+PIP_BOOTSTRAP_ARGS=(install --upgrade "setuptools>=77" "wheel>=0.42")
+if [ -z "${VIRTUAL_ENV:-}" ]; then
+  PIP_BOOTSTRAP_ARGS=(install --user --upgrade "setuptools>=77" "wheel>=0.42")
+fi
+"$PYTHON_BIN" -m pip "${PIP_BOOTSTRAP_ARGS[@]}"
 if ! "$PYTHON_BIN" -c "import atlas, atlas.sigilo, build, mypy, pytest, ruff, sqlalchemy" >/dev/null 2>&1; then
   "$PYTHON_BIN" -m pip install --no-build-isolation -e ".[dev]"
 else
